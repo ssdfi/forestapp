@@ -1,4 +1,4 @@
-class ImporterPlantaciones
+class PlantacionesImporter
   def initialize(file)
     @file = file
     shape = RGeo::Shapefile::Reader.open(@file)
