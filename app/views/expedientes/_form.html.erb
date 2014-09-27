@@ -1,0 +1,45 @@
+<%= form_for(@expediente) do |f| %>
+  <% if @expediente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@expediente.errors.count, "error") %> prohibited this expediente from being saved:</h2>
+
+      <ul>
+      <% @expediente.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :numero_interno %><br>
+    <%= f.text_field :numero_interno %>
+  </div>
+  <div class="field">
+    <%= f.label :numero_expediente %><br>
+    <%= f.text_field :numero_expediente %>
+  </div>
+  <div class="field">
+    <%= f.label :titular %><br>
+    <%= f.text_field :titular %>
+  </div>
+  <div class="field">
+    <%= f.label :tecnico %><br>
+    <%= f.text_field :tecnico %>
+  </div>
+  <div class="field">
+    <%= f.label :plurianual %><br>
+    <%= f.check_box :plurianual %>
+  </div>
+  <div class="field">
+    <%= f.label :agregado %><br>
+    <%= f.check_box :agregado %>
+  </div>
+  <div class="field">
+    <%= f.label :activo %><br>
+    <%= f.check_box :activo %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

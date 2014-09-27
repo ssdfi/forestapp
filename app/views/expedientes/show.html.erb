@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Expediente</h3>
+      </div>
+      <div class="panel-body">
+        <p>
+          <strong>Numero interno:</strong>
+          <%= @expediente.numero_interno %>
+        </p>
+
+        <p>
+          <strong>Numero expediente:</strong>
+          <%= @expediente.numero_expediente %>
+        </p>
+
+        <p>
+          <strong>Titular:</strong>
+          <%= @expediente.titular %>
+        </p>
+
+        <p>
+          <strong>Tecnico:</strong>
+          <%= @expediente.tecnico %>
+        </p>
+
+        <p>
+          <strong>Plurianual:</strong>
+          <%= t @expediente.plurianual.to_s %>
+        </p>
+
+        <p>
+          <strong>Agregado:</strong>
+          <%= t @expediente.agregado.to_s %>
+        </p>
+
+        <p>
+          <strong>Activo:</strong>
+          <%= t @expediente.activo.to_s %>
+        </p>
+      </div>     
+    </div>
+  </div>
+  <div class="col-md-9">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Número interno</th>
+          <th>Número expediente</th>
+          <th>Titular</th>
+          <th>Técnico</th>
+          <th class="icon">Plurianual</th>
+          <th class="icon">Agregado</th>
+          <th class="icon">Activo</th>
+          <th class="icon"></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+</div>
