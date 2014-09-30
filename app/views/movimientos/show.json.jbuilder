@@ -1,0 +1,1 @@
+json.extract! @movimiento, :id, :expediente_id, :numero_ficha, :inspector_id, :reinspector, :responsable_id, :anio_inspeccion, :destino_id, :fecha_entrada, :fecha_salida, :etapa, :observacion, :observacion_interna, :auditar, :validado, :created_at, :updated_at

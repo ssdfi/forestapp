@@ -5,5 +5,10 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'expedientes#index'
 
-  resources :expedientes
+  resources :expedientes do
+    resources :movimientos do
+      resources :actividades
+    end
+  end
+
 end

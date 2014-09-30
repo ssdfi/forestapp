@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Expediente:</strong>
+  <%= @movimiento.expediente %>
+</p>
+
+<p>
+  <strong>Numero ficha:</strong>
+  <%= @movimiento.numero_ficha %>
+</p>
+
+<p>
+  <strong>Inspector:</strong>
+  <%= @movimiento.inspector %>
+</p>
+
+<p>
+  <strong>Reinspector:</strong>
+  <%= @movimiento.reinspector %>
+</p>
+
+<p>
+  <strong>Responsable:</strong>
+  <%= @movimiento.responsable %>
+</p>
+
+<p>
+  <strong>Anio inspeccion:</strong>
+  <%= @movimiento.anio_inspeccion %>
+</p>
+
+<p>
+  <strong>Destino:</strong>
+  <%= @movimiento.destino %>
+</p>
+
+<p>
+  <strong>Fecha entrada:</strong>
+  <%= @movimiento.fecha_entrada %>
+</p>
+
+<p>
+  <strong>Fecha salida:</strong>
+  <%= @movimiento.fecha_salida %>
+</p>
+
+<p>
+  <strong>Etapa:</strong>
+  <%= @movimiento.etapa %>
+</p>
+
+<p>
+  <strong>Observacion:</strong>
+  <%= @movimiento.observacion %>
+</p>
+
+<p>
+  <strong>Observacion interna:</strong>
+  <%= @movimiento.observacion_interna %>
+</p>
+
+<p>
+  <strong>Auditar:</strong>
+  <%= @movimiento.auditar %>
+</p>
+
+<p>
+  <strong>Validado:</strong>
+  <%= @movimiento.validado %>
+</p>
+
+<%= link_to 'Edit', edit_movimiento_path(@movimiento) %> |
+<%= link_to 'Back', movimientos_path %>

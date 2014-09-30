@@ -10,6 +10,7 @@ class ExpedientesController < ApplicationController
   # GET /expedientes/1
   # GET /expedientes/1.json
   def show
+    @movimientos = @expediente.movimientos.order(fecha_entrada: :desc)
   end
 
   # GET /expedientes/new

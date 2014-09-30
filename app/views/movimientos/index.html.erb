@@ -1,0 +1,51 @@
+<h1>Listing movimientos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Expediente</th>
+      <th>Numero ficha</th>
+      <th>Inspector</th>
+      <th>Reinspector</th>
+      <th>Responsable</th>
+      <th>Anio inspeccion</th>
+      <th>Destino</th>
+      <th>Fecha entrada</th>
+      <th>Fecha salida</th>
+      <th>Etapa</th>
+      <th>Observacion</th>
+      <th>Observacion interna</th>
+      <th>Auditar</th>
+      <th>Validado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @movimientos.each do |movimiento| %>
+      <tr>
+        <td><%= movimiento.expediente %></td>
+        <td><%= movimiento.numero_ficha %></td>
+        <td><%= movimiento.inspector %></td>
+        <td><%= movimiento.reinspector %></td>
+        <td><%= movimiento.responsable %></td>
+        <td><%= movimiento.anio_inspeccion %></td>
+        <td><%= movimiento.destino %></td>
+        <td><%= movimiento.fecha_entrada %></td>
+        <td><%= movimiento.fecha_salida %></td>
+        <td><%= movimiento.etapa %></td>
+        <td><%= movimiento.observacion %></td>
+        <td><%= movimiento.observacion_interna %></td>
+        <td><%= movimiento.auditar %></td>
+        <td><%= movimiento.validado %></td>
+        <td><%= link_to 'Show', movimiento %></td>
+        <td><%= link_to 'Edit', edit_movimiento_path(movimiento) %></td>
+        <td><%= link_to 'Destroy', movimiento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Movimiento', new_movimiento_path %>

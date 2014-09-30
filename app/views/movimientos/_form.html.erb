@@ -1,0 +1,73 @@
+<%= form_for(@movimiento) do |f| %>
+  <% if @movimiento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@movimiento.errors.count, "error") %> prohibited this movimiento from being saved:</h2>
+
+      <ul>
+      <% @movimiento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :expediente_id %><br>
+    <%= f.text_field :expediente_id %>
+  </div>
+  <div class="field">
+    <%= f.label :numero_ficha %><br>
+    <%= f.number_field :numero_ficha %>
+  </div>
+  <div class="field">
+    <%= f.label :inspector_id %><br>
+    <%= f.text_field :inspector_id %>
+  </div>
+  <div class="field">
+    <%= f.label :reinspector %><br>
+    <%= f.number_field :reinspector %>
+  </div>
+  <div class="field">
+    <%= f.label :responsable_id %><br>
+    <%= f.text_field :responsable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :anio_inspeccion %><br>
+    <%= f.text_field :anio_inspeccion %>
+  </div>
+  <div class="field">
+    <%= f.label :destino_id %><br>
+    <%= f.text_field :destino_id %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_entrada %><br>
+    <%= f.date_select :fecha_entrada %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_salida %><br>
+    <%= f.date_select :fecha_salida %>
+  </div>
+  <div class="field">
+    <%= f.label :etapa %><br>
+    <%= f.text_field :etapa %>
+  </div>
+  <div class="field">
+    <%= f.label :observacion %><br>
+    <%= f.text_area :observacion %>
+  </div>
+  <div class="field">
+    <%= f.label :observacion_interna %><br>
+    <%= f.text_area :observacion_interna %>
+  </div>
+  <div class="field">
+    <%= f.label :auditar %><br>
+    <%= f.check_box :auditar %>
+  </div>
+  <div class="field">
+    <%= f.label :validado %><br>
+    <%= f.check_box :validado %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Movimiento:</strong>
+  <%= @actividad.movimiento %>
+</p>
+
+<p>
+  <strong>Tipo actividad:</strong>
+  <%= @actividad.tipo_actividad %>
+</p>
+
+<p>
+  <strong>Superficie presentada:</strong>
+  <%= @actividad.superficie_presentada %>
+</p>
+
+<p>
+  <strong>Superficie certificada:</strong>
+  <%= @actividad.superficie_certificada %>
+</p>
+
+<p>
+  <strong>Superficie inspeccionada:</strong>
+  <%= @actividad.superficie_inspeccionada %>
+</p>
+
+<p>
+  <strong>Superficie registrada:</strong>
+  <%= @actividad.superficie_registrada %>
+</p>
+
+<%= link_to 'Edit', edit_actividad_path(@actividad) %> |
+<%= link_to 'Back', actividades_path %>

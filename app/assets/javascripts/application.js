@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require knockout
+//= require knockout.mapping
 //= require_tree .

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Expediente</h3>
@@ -9,55 +9,87 @@
           <strong>Numero interno:</strong>
           <%= @expediente.numero_interno %>
         </p>
-
         <p>
           <strong>Numero expediente:</strong>
           <%= @expediente.numero_expediente %>
         </p>
-
         <p>
           <strong>Titular:</strong>
           <%= @expediente.titular %>
         </p>
-
         <p>
           <strong>Tecnico:</strong>
           <%= @expediente.tecnico %>
         </p>
-
         <p>
           <strong>Plurianual:</strong>
           <%= t @expediente.plurianual.to_s %>
         </p>
-
         <p>
           <strong>Agregado:</strong>
           <%= t @expediente.agregado.to_s %>
         </p>
-
         <p>
           <strong>Activo:</strong>
           <%= t @expediente.activo.to_s %>
         </p>
       </div>     
     </div>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Movimientos</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-hover grid" id="movimientos">
+          <thead>
+            <tr>
+              <th>Ficha</th>
+              <th>Año</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @movimientos.each do |movimiento| %>
+              <tr id="<%= movimiento.id %>" url="<%= expediente_movimiento_url(@expediente, movimiento) %>">
+                <td><%= movimiento.numero_ficha %></td>
+                <td><%= movimiento.anio_inspeccion %></td>
+                <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada %></td>
+                <td><%= l movimiento.fecha_salida if movimiento.fecha_salida %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-  <div class="col-md-9">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Número interno</th>
-          <th>Número expediente</th>
-          <th>Titular</th>
-          <th>Técnico</th>
-          <th class="icon">Plurianual</th>
-          <th class="icon">Agregado</th>
-          <th class="icon">Activo</th>
-          <th class="icon"></th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+  <div class="col-md-8">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Actividades</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table table-striped" id="actividades">
+          <thead>
+            <tr>
+              <th>Tipo actividad</th>
+              <th>Superficie presentada</th>
+              <th>Superficie certificada</th>
+              <th>Superficie inspeccionada</th>
+              <th>Superficie registrada</th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: actividades">
+            <tr>
+                <td data-bind="text: tipo_actividad.descripcion"></td>
+                <td data-bind="text: superficie_presentada"></td>
+                <td data-bind="text: superficie_certificada"></td>
+                <td data-bind="text: superficie_inspeccionada"></td>
+                <td data-bind="text: superficie_registrada"></td>
+            </tr>    
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
