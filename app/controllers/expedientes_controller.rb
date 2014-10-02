@@ -4,7 +4,8 @@ class ExpedientesController < ApplicationController
   # GET /expedientes
   # GET /expedientes.json
   def index
-    @expedientes = Expediente.limit(30)
+    @expedientes = Expediente.page params[:page]
+    @expedientes = @expedientes.where(numero_interno: params[:numero_interno]) if params[:numero_interno]
   end
 
   # GET /expedientes/1

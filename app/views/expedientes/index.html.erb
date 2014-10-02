@@ -5,13 +5,10 @@
         <h3 class="panel-title">Buscador</h3>
       </div>
       <div class="panel-body">
-        <form role="form">
-          <div class="form-group">
-            <label for="numeroInterno">Número interno</label>
-            <input type="text" class="form-control" id="numeroInterno" placeholder="XX-XX-XXX/XX-XX">
-          </div>
-          <button type="submit" class="btn btn-default pull-right">Buscar</button>
-        </form>
+        <%= bootstrap_form_tag url: expedientes_path, method: "get" do |f| %>
+          <%= f.text_field :numero_interno, label: "Número interno", placeholder: "XX-XX-XXX/XX-XX" %>
+          <%= f.submit "Buscar", class: "btn btn-default pull-right" %>
+        <% end %>
       </div>
     </div>
     <div class="panel panel-info">
@@ -35,26 +32,23 @@
     </div>
   </div>
   <div class="col-md-9">
-    <table class="table table-striped">
+    <table class="table table-hover table-grid">
       <thead>
         <tr>
-          <th>Número interno</th>
-          <th>Número expediente</th>
+          <th nowrap>Número interno</th>
+          <th nowrap>Número expediente</th>
           <th>Titular</th>
-          <th>Técnico</th>
           <th class="icon">Plurianual</th>
           <th class="icon">Agregado</th>
           <th class="icon">Activo</th>
-          <th class="icon"></th>
         </tr>
       </thead>
       <tbody>
         <% @expedientes.each do |expediente| %>
-          <tr>
-            <td><%= expediente.numero_interno %></td>
-            <td><%= expediente.numero_expediente %></td>
+          <tr data-link="<%= expediente_path(expediente) %>">
+            <td nowrap><%= expediente.numero_interno %></td>
+            <td nowrap><%= expediente.numero_expediente %></td>
             <td><%= expediente.titular %></td>
-            <td><%= expediente.tecnico %></td>
             <td class="icon">
               <% if expediente.plurianual %>
                 <span class="glyphicon glyphicon-ok"></span>
@@ -70,17 +64,10 @@
                 <span class="glyphicon glyphicon-ok"></span>
               <% end %>
             </td>
-            <td class="icon icon-lg">
-              <%= link_to expediente_path(expediente) do %>
-                <span class="glyphicon glyphicon-share"></span>
-              <% end %>
-              <!-- <%= link_to edit_expediente_path(expediente) do %>
-                <span class="glyphicon glyphicon-edit"></span>
-              <% end %> -->
-            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    <%= paginate @expedientes %>
   </div>
 </div>

@@ -1,0 +1,5 @@
+<li>
+  <%= link_to url, {:remote => remote} do %>
+    <span class='glyphicon glyphicon-step-backward'/>
+  <% end unless current_page.first? %>
+</li>

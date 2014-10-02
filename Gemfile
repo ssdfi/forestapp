@@ -44,7 +44,9 @@ end
 
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
-gem 'knockoutjs-rails'
+gem 'angularjs-rails'
+gem 'momentjs-rails'
+gem 'bootstrap_form'
 
 gem 'pg'
 gem 'tiny_tds'
@@ -52,6 +54,7 @@ gem 'rgeo'
 gem 'rgeo-shapefile'
 gem 'activerecord-postgis-adapter'
 gem 'activerecord-sqlserver-adapter'
+gem 'kaminari'
 
 gem 'seed_dump', group: :development
 

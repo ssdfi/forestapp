@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require knockout
-//= require knockout.mapping
+//= require angular
+//= require moment
+//= require moment/es.js
 //= require_tree .
+
+moment.locale("es");

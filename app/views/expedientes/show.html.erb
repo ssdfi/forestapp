@@ -1,46 +1,35 @@
-<div class="row">
+<div class="row" ng-controller="ExpedienteCtrl as controller">
   <div class="col-md-4">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Expediente</h3>
       </div>
       <div class="panel-body">
-        <p>
-          <strong>Numero interno:</strong>
-          <%= @expediente.numero_interno %>
-        </p>
-        <p>
-          <strong>Numero expediente:</strong>
-          <%= @expediente.numero_expediente %>
-        </p>
-        <p>
-          <strong>Titular:</strong>
-          <%= @expediente.titular %>
-        </p>
-        <p>
-          <strong>Tecnico:</strong>
-          <%= @expediente.tecnico %>
-        </p>
-        <p>
-          <strong>Plurianual:</strong>
-          <%= t @expediente.plurianual.to_s %>
-        </p>
-        <p>
-          <strong>Agregado:</strong>
-          <%= t @expediente.agregado.to_s %>
-        </p>
-        <p>
-          <strong>Activo:</strong>
-          <%= t @expediente.activo.to_s %>
-        </p>
-      </div>     
-    </div>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Movimientos</h3>
-      </div>
-      <div class="panel-body">
-        <table class="table table-hover grid" id="movimientos">
+        <dl class="dl-horizontal">
+          <dt>Número interno:</dt>
+          <dd>{{controller.expediente.numero_interno}}</dd>
+          <dt>Número expediente:</dt>
+          <dd>{{controller.expediente.numero_expediente}}</dd>
+          <dt>Titular:</dt>
+          <dd>{{controller.expediente.titular}}</dd>
+          <dt>Técnico:</dt>
+          <dd>{{controller.expediente.tecnico}}</dd>
+          <dt>Activo:</dt>
+          <dd>
+            <span bool-class="controller.expediente.activo"></span>
+          </dd>
+          <dt>Plurianual:</dt>
+          <dd>
+            <span bool-class="controller.expediente.plurianual"></span>
+          </dd>
+          <dt>Agregado:</dt>
+          <dd>
+            <span bool-class="controller.expediente.agregado"></span>
+          </dd>
+        </dl>
+        <hr/>
+        <h4>Movimientos</h4>
+        <table class="table table-hover table-grid">
           <thead>
             <tr>
               <th>Ficha</th>
@@ -50,26 +39,57 @@
             </tr>
           </thead>
           <tbody>
-            <% @movimientos.each do |movimiento| %>
-              <tr id="<%= movimiento.id %>" url="<%= expediente_movimiento_url(@expediente, movimiento) %>">
-                <td><%= movimiento.numero_ficha %></td>
-                <td><%= movimiento.anio_inspeccion %></td>
-                <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada %></td>
-                <td><%= l movimiento.fecha_salida if movimiento.fecha_salida %></td>
+            <tbody>
+              <tr ng-repeat="movimiento in controller.movimientos" ng-click="controller.selectMovimiento($index)" ng-class="{info: movimiento.selected}">
+                <td>{{movimiento.numero_ficha}}</td>
+                <td>{{movimiento.anio_inspeccion}}</td>
+                <td>{{movimiento.fecha_entrada | calendar}}</td>
+                <td>{{movimiento.fecha_salida | calendar}}</td>
               </tr>
-            <% end %>
           </tbody>
         </table>
-      </div>
+      </div>     
     </div>
   </div>
   <div class="col-md-8">
     <div class="panel panel-info">
       <div class="panel-heading">
-        <h3 class="panel-title">Actividades</h3>
+        <h3 class="panel-title">Movimiento</h3>
       </div>
       <div class="panel-body">
-        <table class="table table-striped" id="actividades">
+        <dl class="dl-horizontal">
+          <dt>Número de ficha:</dt>
+          <dd>{{controller.movimiento.numero_ficha}}</dd>
+          <dt>Año de Inspección:</dt>
+          <dd>{{controller.movimiento.anio_inspeccion}}</dd>
+          <dt>Fecha de entrada:</dt>
+          <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
+          <dt>Fecha de salida:</dt>
+          <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
+          <dt>Inspector:</dt>
+          <dd>{{controller.movimiento.inspector.descripcion}}</dd>
+          <dt>Reinspector:</dt>
+          <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
+          <dt>Responsable:</dt>
+          <dd>{{controller.movimiento.responsable.descripcion}}</dd>
+          <dt>Destino:</dt>
+          <dd>{{controller.movimiento.destino.descripcion}}</dd>
+          <dt>Observación:</dt>
+          <dd>{{controller.movimiento.observacion}}</dd>
+          <dt>Observación interna:</dt>
+          <dd>{{controller.movimiento.observacion_interna}}</dd>
+          <dt>Auditar:</dt>
+          <dd>
+            <span bool-class="controller.movimiento.auditar"></span>
+          </dd>
+          <dt>Validado:</dt>
+          <dd>
+            <span bool-class="controller.movimiento.validado"></span>
+          </dd>
+        </dl>
+        <hr/>
+        <h4>Actividades</h4>
+        <table class="table" id="actividades">
           <thead>
             <tr>
               <th>Tipo actividad</th>
@@ -79,13 +99,13 @@
               <th>Superficie registrada</th>
             </tr>
           </thead>
-          <tbody data-bind="foreach: actividades">
-            <tr>
-                <td data-bind="text: tipo_actividad.descripcion"></td>
-                <td data-bind="text: superficie_presentada"></td>
-                <td data-bind="text: superficie_certificada"></td>
-                <td data-bind="text: superficie_inspeccionada"></td>
-                <td data-bind="text: superficie_registrada"></td>
+          <tbody>
+            <tr ng-repeat="actividad in controller.actividades">
+              <td>{{actividad.tipo_actividad.descripcion}}</td>
+              <td>{{actividad.superficie_presentada}}</td>
+              <td>{{actividad.superficie_certificada}}</td>
+              <td>{{actividad.superficie_inspeccionada}}</td>
+              <td>{{actividad.superficie_registrada}}</td>
             </tr>    
           </tbody>
         </table>
@@ -93,3 +113,7 @@
     </div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.exp = <%= raw render("common/expediente_full.json.jbuilder") %>
+<% end %>

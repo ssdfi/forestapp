@@ -15,6 +15,14 @@ td.icon-lg span {
   font-size: 200%;
 }
 
-.grid tr {
+.table-grid tr {
   cursor: pointer;
+}
+
+.panel-body .label {
+  font-size: 90%;
+}
+
+.panel-body .label.disabled {
+  opacity: 0.5;
 }
