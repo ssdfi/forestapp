@@ -5,30 +5,7 @@
         <h3 class="panel-title">Buscador</h3>
       </div>
       <div class="panel-body">
-        <%= bootstrap_form_for @expediente, url: expedientes_path, method: "get", layout: :horizontal, label_col: "col-sm-5", control_col: "col-sm-7" do |f| %>
-          <%= f.text_field :numero_interno, label: "Número interno" %>
-          <%= f.form_group :incompleto, label: { text: "Incompletos" } do %>
-            <%= f.radio_button :incompleto, "", label: "Todos", inline: true %>
-            <%= f.radio_button :incompleto, true, label: "Sí", inline: true %>
-            <%= f.radio_button :incompleto, false, label: "No", inline: true %>
-          <% end %>
-          <%= f.form_group :plurianual, label: { text: "Plurianual" } do %>
-            <%= f.radio_button :plurianual, "", label: "Todos", inline: true %>
-            <%= f.radio_button :plurianual, true, label: "Sí", inline: true %>
-            <%= f.radio_button :plurianual, false, label: "No", inline: true %>
-          <% end %>
-          <%= f.form_group :agregado, label: { text: "Agregado" } do %>
-            <%= f.radio_button :agregado, "", label: "Todos", inline: true %>
-            <%= f.radio_button :agregado, true, label: "Sí", inline: true %>
-            <%= f.radio_button :agregado, false, label: "No", inline: true %>
-          <% end %>
-          <%= f.form_group :activo, label: { text: "Activo" } do %>
-            <%= f.radio_button :activo, "", label: "Todos", inline: true %>
-            <%= f.radio_button :activo, true, label: "Sí", inline: true %>
-            <%= f.radio_button :activo, false, label: "No", inline: true %>
-          <% end %>
-          <%= f.submit "Buscar", class: "btn btn-default pull-right" %>
-        <% end %>
+        <%= render partial: 'search_form', locals: {expediente: @expediente} %>
       </div>
     </div>
   </div>
@@ -69,6 +46,11 @@
         <% end %>
       </tbody>
     </table>
-    <%= paginate @expedientes %>
+    <div class="well well-sm clearfix">
+      <div class="pagination-info pull-left">
+        <%= page_entries_info @expedientes %>
+      </div>
+      <%= paginate @expedientes %>
+    </div>
   </div>
 </div>

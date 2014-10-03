@@ -1,0 +1,5 @@
+<%= form.form_group field, label: { text: label } do %>
+  <%= form.radio_button field, "", label: "Todos", inline: true %>
+  <%= form.radio_button field, true, label: "Sí", inline: true %>
+  <%= form.radio_button field, false, label: "No", inline: true %>
+<% end %>

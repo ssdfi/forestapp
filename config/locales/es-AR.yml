@@ -130,6 +130,13 @@ es-AR:
       header:
         one: ! '%{model} no pudo guardarse debido a 1 error'
         other: ! '%{model} no pudo guardarse debido a %{count} errores'
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Siguiente &rsaquo;"
+      truncate: "&hellip;"
   helpers:
     select:
       prompt: Por favor selecciona
@@ -137,6 +144,14 @@ es-AR:
       create: Crear %{model}
       submit: Guardar %{model}
       update: Actualizar %{model}
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Ningún registro encontrado"
+          one: "Mostrando <b>1</b> registro"
+          other: "Mostrando <b>%{count}</b> registros"
+      more_pages:
+        display_entries: "Mostrando <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b>"
   number:
     currency:
       format:
@@ -198,3 +213,4 @@ es-AR:
     pm: pm
   "true": 'sí'
   "false": 'no'
+  
