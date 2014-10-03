@@ -4,8 +4,17 @@ class ExpedientesController < ApplicationController
   # GET /expedientes
   # GET /expedientes.json
   def index
+    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new
+
     @expedientes = Expediente.page params[:page]
-    @expedientes = @expedientes.where(numero_interno: params[:numero_interno]) if params[:numero_interno]
+
+    @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.nil?
+    @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
+    @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
+    @expedientes = @expedientes.where(agregado: @expediente.agregado) unless @expediente.agregado.nil?
+    @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
+    
+    @expedientes = @expedientes.order(updated_at: :desc)
   end
 
   # GET /expedientes/1
@@ -71,6 +80,6 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :titular, :tecnico, :plurianual, :agregado, :activo)
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :titular, :tecnico, :plurianual, :agregado, :activo, :incompleto)
     end
 end
