@@ -38,7 +38,8 @@ td.icon-lg span {
 }
 
 .info-box {
-  background-color: $gray-lighter;
+  background-color: $state-info-bg;
+  border-radius: $border-radius-base;
   padding: 10px;
 
   dd, dt {
