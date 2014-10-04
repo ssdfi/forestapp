@@ -1,3 +1,5 @@
+@import "bootstrap/variables";
+
 th.icon {
   text-align: center;
 }
@@ -33,4 +35,13 @@ td.icon-lg span {
 
 .well .pagination-info {
   margin-top: 8px;
+}
+
+.info-box {
+  background-color: $gray-lighter;
+  padding: 10px;
+
+  dd, dt {
+    line-height: 2;
+  }
 }

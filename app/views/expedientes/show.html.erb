@@ -1,5 +1,5 @@
 <div class="row" ng-controller="ExpedienteCtrl as controller">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="panel panel-info">
       <div class="panel-heading">
         <h3 class="panel-title">Expediente</h3>
@@ -14,6 +14,10 @@
           <dd>{{controller.expediente.titular}}</dd>
           <dt>Técnico:</dt>
           <dd>{{controller.expediente.tecnico}}</dd>
+          <dt>Zona:</dt>
+          <dd>{{controller.expediente.zona.descripcion}}</dd>
+          <dt>Departamento:</dt>
+          <dd>{{controller.expediente.departamento.descripcion}}</dd>
           <dt>Activo:</dt>
           <dd>
             <span bool-class="controller.expediente.activo"></span>
@@ -51,66 +55,60 @@
       </div>     
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        <h3 class="panel-title">Movimiento</h3>
-      </div>
-      <div class="panel-body">
-        <dl class="dl-horizontal">
-          <dt>Número de ficha:</dt>
-          <dd>{{controller.movimiento.numero_ficha}}</dd>
-          <dt>Año de Inspección:</dt>
-          <dd>{{controller.movimiento.anio_inspeccion}}</dd>
-          <dt>Fecha de entrada:</dt>
-          <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
-          <dt>Fecha de salida:</dt>
-          <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
-          <dt>Inspector:</dt>
-          <dd>{{controller.movimiento.inspector.descripcion}}</dd>
-          <dt>Reinspector:</dt>
-          <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
-          <dt>Responsable:</dt>
-          <dd>{{controller.movimiento.responsable.descripcion}}</dd>
-          <dt>Destino:</dt>
-          <dd>{{controller.movimiento.destino.descripcion}}</dd>
-          <dt>Observación:</dt>
-          <dd>{{controller.movimiento.observacion}}</dd>
-          <dt>Observación interna:</dt>
-          <dd>{{controller.movimiento.observacion_interna}}</dd>
-          <dt>Auditar:</dt>
-          <dd>
-            <span bool-class="controller.movimiento.auditar"></span>
-          </dd>
-          <dt>Validado:</dt>
-          <dd>
-            <span bool-class="controller.movimiento.validado"></span>
-          </dd>
-        </dl>
-        <hr/>
-        <h4>Actividades</h4>
-        <table class="table" id="actividades">
-          <thead>
-            <tr>
-              <th>Tipo actividad</th>
-              <th>Superficie presentada</th>
-              <th>Superficie certificada</th>
-              <th>Superficie inspeccionada</th>
-              <th>Superficie registrada</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="actividad in controller.actividades">
-              <td>{{actividad.tipo_actividad.descripcion}}</td>
-              <td>{{actividad.superficie_presentada}}</td>
-              <td>{{actividad.superficie_certificada}}</td>
-              <td>{{actividad.superficie_inspeccionada}}</td>
-              <td>{{actividad.superficie_registrada}}</td>
-            </tr>    
-          </tbody>
-        </table>
-      </div>
+  <div class="col-md-9">
+    <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
+    <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>
+    <div class="info-box clearfix">
+      <dl class="dl-horizontal pull-left">
+        <dt>Número de ficha:</dt>
+        <dd>{{controller.movimiento.numero_ficha}}</dd>
+        <dt>Año de Inspección:</dt>
+        <dd>{{controller.movimiento.anio_inspeccion}}</dd>
+        <dt>Fecha de entrada:</dt>
+        <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
+        <dt>Fecha de salida:</dt>
+        <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
+        <dt>Auditar:</dt>
+        <dd>
+          <span bool-class="controller.movimiento.auditar"></span>
+        </dd>
+      </dl>
+      <dl class="dl-horizontal pull-left">
+        <dt>Inspector:</dt>
+        <dd>{{controller.movimiento.inspector.descripcion}}</dd>
+        <dt>Reinspector:</dt>
+        <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
+        <dt>Responsable:</dt>
+        <dd>{{controller.movimiento.responsable.descripcion}}</dd>
+        <dt>Destino:</dt>
+        <dd>{{controller.movimiento.destino.descripcion}}</dd>
+        <dt>Observación:</dt>
+        <dd>{{controller.movimiento.observacion}}</dd>
+        <dt>Observación interna:</dt>
+        <dd>{{controller.movimiento.observacion_interna}}</dd>
+      </dl>
     </div>
+    <br/>
+    <table class="table" id="actividades">
+      <thead>
+        <tr>
+          <th>Tipo actividad</th>
+          <th>Superficie presentada</th>
+          <th>Superficie certificada</th>
+          <th>Superficie inspeccionada</th>
+          <th>Superficie registrada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="actividad in controller.actividades">
+          <td>{{actividad.tipo_actividad.descripcion}}</td>
+          <td>{{actividad.superficie_presentada}}</td>
+          <td>{{actividad.superficie_certificada}}</td>
+          <td>{{actividad.superficie_inspeccionada}}</td>
+          <td>{{actividad.superficie_registrada}}</td>
+        </tr>    
+      </tbody>
+    </table>
   </div>
 </div>
 
