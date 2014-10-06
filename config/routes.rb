@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :expedientes do
     resources :movimientos do
-      resources :actividades
+      resources :actividades do
+        get 'map'
+      end
     end
   end
 

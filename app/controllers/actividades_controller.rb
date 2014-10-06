@@ -14,6 +14,10 @@ class ActividadesController < ApplicationController
   def show
   end
 
+  # GET /actividades/1/map
+  def map
+  end
+
   # GET /actividades/new
   def new
     @actividad = Actividad.new

@@ -47,6 +47,7 @@ gem 'autoprefixer-rails'
 gem 'angularjs-rails'
 gem 'momentjs-rails'
 gem 'bootstrap_form'
+gem 'leaflet-rails'
 
 gem 'pg'
 gem 'tiny_tds'
@@ -55,9 +56,8 @@ gem 'rgeo-shapefile'
 gem 'activerecord-postgis-adapter'
 gem 'activerecord-sqlserver-adapter'
 gem 'kaminari'
+gem 'paper_trail'
 
 gem 'seed_dump', group: :development
 
-gem 'chronic_duration'
 gem 'rails-i18n', '~> 4.0.0'
-gem 'paper_trail'

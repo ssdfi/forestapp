@@ -2,11 +2,11 @@ class ExpedienteCtrl
   constructor: ->
     @expediente = exp
     @movimientos = @expediente.movimientos
-    this.selectMovimiento(0)
+    this.selectMovimiento(@movimientos[0])
 
-  selectMovimiento: (index) ->
+  selectMovimiento: (movimiento) ->
     @movimiento.selected = false if @movimiento?
-    @movimiento = @movimientos[index]
+    @movimiento = movimiento
     @movimiento.selected = true
     @actividades = @movimiento.actividades    
 

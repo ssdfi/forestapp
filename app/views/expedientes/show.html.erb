@@ -44,7 +44,7 @@
           </thead>
           <tbody>
             <tbody>
-              <tr ng-repeat="movimiento in controller.movimientos" ng-click="controller.selectMovimiento($index)" ng-class="{info: movimiento.selected}">
+              <tr ng-repeat="movimiento in controller.movimientos" ng-click="controller.selectMovimiento(movimiento)" ng-class="{info: movimiento.selected}">
                 <td>{{movimiento.numero_ficha}}</td>
                 <td>{{movimiento.anio_inspeccion}}</td>
                 <td>{{movimiento.fecha_entrada | calendar}}</td>
@@ -56,37 +56,51 @@
     </div>
   </div>
   <div class="col-md-9">
-    <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
-    <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>
-    <div class="info-box clearfix">
-      <dl class="dl-horizontal pull-left">
-        <dt>Número de ficha:</dt>
-        <dd>{{controller.movimiento.numero_ficha}}</dd>
-        <dt>Año de Inspección:</dt>
-        <dd>{{controller.movimiento.anio_inspeccion}}</dd>
-        <dt>Fecha de entrada:</dt>
-        <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
-        <dt>Fecha de salida:</dt>
-        <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
-        <dt>Auditar:</dt>
-        <dd>
-          <span bool-class="controller.movimiento.auditar"></span>
-        </dd>
-      </dl>
-      <dl class="dl-horizontal pull-left">
-        <dt>Inspector:</dt>
-        <dd>{{controller.movimiento.inspector.descripcion}}</dd>
-        <dt>Reinspector:</dt>
-        <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
-        <dt>Responsable:</dt>
-        <dd>{{controller.movimiento.responsable.descripcion}}</dd>
-        <dt>Destino:</dt>
-        <dd>{{controller.movimiento.destino.descripcion}}</dd>
-        <dt>Observación:</dt>
-        <dd>{{controller.movimiento.observacion}}</dd>
-        <dt>Observación interna:</dt>
-        <dd>{{controller.movimiento.observacion_interna}}</dd>
-      </dl>
+    <div class="info-box">
+      <div class="row">
+        <div class="col-md-3">
+          <dl class="dl-horizontal">
+            <dt>Número de ficha:</dt>
+            <dd>{{controller.movimiento.numero_ficha}}</dd>
+            <dt>Año de Inspección:</dt>
+            <dd>{{controller.movimiento.anio_inspeccion}}</dd>
+            <dt>Fecha de entrada:</dt>
+            <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
+            <dt>Fecha de salida:</dt>
+            <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
+            <dt>Auditar:</dt>
+            <dd>
+              <span bool-class="controller.movimiento.auditar"></span>
+            </dd>
+          </dl>
+        </div>
+        <div class="col-md-3">
+          <dl class="dl-horizontal">
+            <dt>Inspector:</dt>
+            <dd>{{controller.movimiento.inspector.descripcion}}</dd>
+            <dt>Reinspector:</dt>
+            <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
+            <dt>Responsable:</dt>
+            <dd>{{controller.movimiento.responsable.descripcion}}</dd>
+            <dt>Destino:</dt>
+            <dd>{{controller.movimiento.destino.descripcion}}</dd>
+          </dl>
+        </div>
+        <div class="col-md-6">
+          <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
+          <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>          
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="dl-horizontal">
+            <dt>Observación:</dt>
+            <dd>{{controller.movimiento.observacion}}</dd>
+            <dt>Observación interna:</dt>
+            <dd>{{controller.movimiento.observacion_interna}}</dd>
+          </dl>
+        </div>  
+      </div>
     </div>
     <br/>
     <table class="table" id="actividades">

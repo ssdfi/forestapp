@@ -17,6 +17,7 @@
 //= require angular
 //= require moment
 //= require moment/es.js
+//= require leaflet
 //= require_tree .
 
 moment.locale("es");
