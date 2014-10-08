@@ -1,7 +1,7 @@
 class ActividadesController < ApplicationController
   before_action :set_expediente
   before_action :set_movimiento
-  before_action :set_actividad, only: [:show, :edit, :update, :destroy]
+  before_action :set_actividad, only: [:show, :map, :edit, :update, :destroy]
 
   # GET /actividades
   # GET /actividades.json
@@ -16,6 +16,25 @@ class ActividadesController < ApplicationController
 
   # GET /actividades/1/map
   def map
+    srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
+    factory_to = RGeo::Geos.factory(:srs_database => srs_database, :srid => "4326")
+    factory = RGeo::GeoJSON::EntityFactory.instance
+    features = []
+    
+    plantaciones = @actividad.plantaciones
+
+    flash.now[:alert] = "La actividad no tiene plantaciones asociadas." unless plantaciones.length > 0
+
+    plantaciones.each do |plantacion|
+      factory_from = RGeo::Geos.factory(:srs_database => srs_database, :srid => plantacion.zona.srid)
+      plantacion_original = RGeo::Feature.cast(plantacion.geom, :factory => factory_from, :project => false)
+      feature = RGeo::Feature.cast(plantacion_original, :factory => factory_to, :project => true)
+      features << factory.feature(feature, plantacion.id, {
+          "especie" => plantacion.especies.first.nombre_comun
+        })
+    end
+    
+    @geojson = RGeo::GeoJSON.encode(factory.feature_collection(features)).to_json
   end
 
   # GET /actividades/new
@@ -70,7 +89,7 @@ class ActividadesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_actividad
-      @actividad = Actividad.find(params[:id])
+      @actividad = Actividad.find(params[:id] || params[:actividad_id])
     end
 
     def set_movimiento

@@ -8,9 +8,9 @@ class ExpedientesController < ApplicationController
 
     @expedientes = Expediente.page params[:page]
 
-    @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.nil?
-    @expedientes = @expedientes.where("numero_expediente ILIKE ?", "%#{@expediente.numero_expediente}%") unless @expediente.numero_expediente .nil?
-    @expedientes = @expedientes.where("titular ILIKE ?", "%#{@expediente.titular}%") unless @expediente.titular .nil?
+    @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.blank?
+    @expedientes = @expedientes.where("numero_expediente ILIKE ?", "%#{@expediente.numero_expediente}%") unless @expediente.numero_expediente.blank?
+    @expedientes = @expedientes.where("titular ILIKE ?", "%#{@expediente.titular}%") unless @expediente.titular.blank?
     @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
     @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
     @expedientes = @expedientes.where(agregado: @expediente.agregado) unless @expediente.agregado.nil?

@@ -50,11 +50,13 @@ gem 'bootstrap_form'
 gem 'leaflet-rails'
 
 gem 'pg'
-gem 'tiny_tds'
-gem 'rgeo'
-gem 'rgeo-shapefile'
 gem 'activerecord-postgis-adapter'
 gem 'activerecord-sqlserver-adapter'
+
+gem 'rgeo'
+gem 'rgeo-shapefile'
+gem 'rgeo-geojson'
+
 gem 'kaminari'
 gem 'paper_trail'
 

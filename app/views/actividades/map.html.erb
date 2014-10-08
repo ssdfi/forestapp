@@ -1,5 +1,12 @@
+<%= javascript_include_tag 'Google' %>
+<%= javascript_include_tag params[:controller] %>
+
 <div class="row">
   <div class="col-md-12">
     <div id="map" style="height: 700px;"></div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.plantaciones = <%= raw @geojson %>
+<% end %>

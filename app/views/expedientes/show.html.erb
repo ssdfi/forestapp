@@ -1,4 +1,8 @@
-<div class="row" ng-controller="ExpedienteCtrl as controller">
+<%= javascript_include_tag params[:controller] %>
+<%= javascript_include_tag 'app' %>
+<%= javascript_include_tag 'controllers' %>
+
+<div class="row" ng-app="forestapp" ng-controller="ExpedienteCtrl as controller">
   <div class="col-md-3">
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -103,7 +107,7 @@
       </div>
     </div>
     <br/>
-    <table class="table" id="actividades">
+    <table class="table table-hover table-grid" id="actividades">
       <thead>
         <tr>
           <th>Tipo actividad</th>
@@ -114,7 +118,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="actividad in controller.actividades">
+        <tr ng-repeat="actividad in controller.actividades" ng-click="controller.openMap(actividad)">
           <td>{{actividad.tipo_actividad.descripcion}}</td>
           <td>{{actividad.superficie_presentada}}</td>
           <td>{{actividad.superficie_certificada}}</td>
