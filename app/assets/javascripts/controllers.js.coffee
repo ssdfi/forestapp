@@ -10,8 +10,5 @@ class ExpedienteCtrl
     @movimiento.selected = true
     @actividades = @movimiento.actividades
 
-  openMap: (actividad) ->
-    window.location = actividad.map_url
-
 forestapp
   .controller 'ExpedienteCtrl', ExpedienteCtrl

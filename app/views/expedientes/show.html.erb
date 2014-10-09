@@ -61,6 +61,8 @@
   </div>
   <div class="col-md-9">
     <div class="info-box">
+      <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
+      <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>
       <div class="row">
         <div class="col-md-3">
           <dl class="dl-horizontal">
@@ -91,8 +93,7 @@
           </dl>
         </div>
         <div class="col-md-6">
-          <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
-          <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>          
+          
         </div>
       </div>
       <div class="row">
@@ -107,7 +108,7 @@
       </div>
     </div>
     <br/>
-    <table class="table table-hover table-grid" id="actividades">
+    <table class="table table-hover table-grid" id="actividades" data-no-turbolink="true">
       <thead>
         <tr>
           <th>Tipo actividad</th>
@@ -115,15 +116,21 @@
           <th>Superficie certificada</th>
           <th>Superficie inspeccionada</th>
           <th>Superficie registrada</th>
+          <th class="icon"></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="actividad in controller.actividades" ng-click="controller.openMap(actividad)">
+        <tr ng-repeat="actividad in controller.actividades"">
           <td>{{actividad.tipo_actividad.descripcion}}</td>
           <td>{{actividad.superficie_presentada}}</td>
           <td>{{actividad.superficie_certificada}}</td>
           <td>{{actividad.superficie_inspeccionada}}</td>
           <td>{{actividad.superficie_registrada}}</td>
+          <td class="icon icon-lg">
+            <a href="{{actividad.map_url}}" ng-if="actividad.plantaciones > 0">
+              <span class="glyphicon glyphicon-globe"></span>
+            </a>
+          <td>
         </tr>    
       </tbody>
     </table>

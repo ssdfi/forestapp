@@ -1,4 +1,11 @@
+buildPopup = (properties) ->
+  list = "<div>"
+  for property,value of properties
+    list += "<div><strong>" + property + ": </strong>" + value + "</div>"
+  list += "</div>"
+  
 $(document).ready ->
+
   map = L.map 'map'
   
   ignSatelital = L.tileLayer.wms "http://wms.ign.gob.ar/geoserver/wms", {
@@ -22,10 +29,12 @@ $(document).ready ->
   googleSatelital = new L.Google('SATELLITE')
 
   geoJson = L.geoJson plantaciones, {
+    style: (feature) ->
+      {color: "orange"}
     onEachFeature: (feature, layer) ->
-      layer.bindPopup feature.properties.especie
+      layer.bindPopup buildPopup(feature.properties)
   }
-
+  
   map.addLayer googleSatelital
   map.addLayer geoJson
 

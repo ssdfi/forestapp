@@ -40,7 +40,7 @@ td.icon-lg span {
 .info-box {
   background-color: $state-info-bg;
   border-radius: $border-radius-base;
-  padding: 10px;
+  padding: $padding-small-horizontal;
 
   dd, dt {
     line-height: 2;

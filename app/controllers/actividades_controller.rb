@@ -21,16 +21,19 @@ class ActividadesController < ApplicationController
     factory = RGeo::GeoJSON::EntityFactory.instance
     features = []
     
-    plantaciones = @actividad.plantaciones
+    actividades = @actividad.actividades_plantaciones
 
-    flash.now[:alert] = "La actividad no tiene plantaciones asociadas." unless plantaciones.length > 0
+    flash.now[:alert] = "La actividad no tiene plantaciones asociadas." unless actividades.length > 0
 
-    plantaciones.each do |plantacion|
-      factory_from = RGeo::Geos.factory(:srs_database => srs_database, :srid => plantacion.zona.srid)
-      plantacion_original = RGeo::Feature.cast(plantacion.geom, :factory => factory_from, :project => false)
-      feature = RGeo::Feature.cast(plantacion_original, :factory => factory_to, :project => true)
-      features << factory.feature(feature, plantacion.id, {
-          "especie" => plantacion.especies.first.nombre_comun
+    actividades.each do |actividad|
+      factory_from = RGeo::Geos.factory(:srs_database => srs_database, :srid => actividad.plantacion.zona.srid)
+      plantacion = RGeo::Feature.cast(actividad.plantacion.geom, :factory => factory_from, :project => false)
+      feature = RGeo::Feature.cast(plantacion, :factory => factory_to, :project => true)
+      features << factory.feature(feature, actividad.plantacion.id, {
+          "ID" => actividad.plantacion.id,
+          "Especie" => actividad.plantacion.especies.first.nombre_comun,
+          "Superficie" => actividad.superficie,
+          "Estado" => actividad.estado_aprobacion.descripcion
         })
     end
     

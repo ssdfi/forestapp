@@ -17,6 +17,8 @@ class ExpedientesController < ApplicationController
     @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
     
     @expedientes = @expedientes.order(updated_at: :desc)
+
+    redirect_to @expedientes.first if @expedientes.count == 1
   end
 
   # GET /expedientes/1
