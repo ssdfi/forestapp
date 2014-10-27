@@ -38,7 +38,7 @@ class ExpedientesImporter
         titular: msexpediente.Titular,
         tecnico: msexpediente.Tecnico,
         plurianual: msexpediente.Plurianual,
-        agregado: msexpediente.Agrupado,
+        agrupado: msexpediente.Agrupado,
         activo: !msexpediente.Borrado
       )
       msexpediente.movimientos.each do |movimiento|
@@ -61,7 +61,8 @@ class ExpedientesImporter
         observacion: msmovimiento.observacion,
         observacion_interna: msmovimiento.ObsInt,
         auditar: msmovimiento.Para_Auditar,
-        validado: false
+        validado: false,
+        estabilidad_fiscal: !msmovimiento.observacion_interna.match(/^EF/).nil?
       )
 
       import_actividad(TipoActividad.find_by_codigo('PL'), movimiento, msmovimiento, 'Plan')
