@@ -17,9 +17,8 @@
         <tr>
           <th nowrap>Número interno</th>
           <th nowrap>Número expediente</th>
-          <th>Titular</th>
           <th class="icon">Plurianual</th>
-          <th class="icon">Agregado</th>
+          <th class="icon">Agrupado</th>
           <th class="icon">Activo</th>
           <th class="icon"></th>
         </tr>
@@ -29,14 +28,13 @@
           <tr>
             <td nowrap><%= expediente.numero_interno %></td>
             <td nowrap><%= expediente.numero_expediente %></td>
-            <td><%= expediente.titular %></td>
             <td class="icon">
               <% if expediente.plurianual %>
                 <span class="glyphicon glyphicon-ok"></span>
               <% end %>
             </td>
             <td class="icon">
-              <% if expediente.agregado %>
+              <% if expediente.agrupado %>
                 <span class="glyphicon glyphicon-ok"></span>
               <% end %>
             </td>

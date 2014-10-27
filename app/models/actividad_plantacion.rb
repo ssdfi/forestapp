@@ -3,5 +3,5 @@ class ActividadPlantacion < ActiveRecord::Base
 
   belongs_to :actividad
   belongs_to :plantacion
-  belongs_to :estado_aprobacion
+  belongs_to :estado_aprobacion, class_name: 'EstadoAprobacion', foreign_key: 'estado_aprobacion_id'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920230834) do
+ActiveRecord::Schema.define(version: 20141027190122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,12 +24,22 @@ ActiveRecord::Schema.define(version: 20140920230834) do
     t.decimal  "superficie_certificada"
     t.decimal  "superficie_inspeccionada"
     t.decimal  "superficie_registrada"
+    t.integer  "plantacion_id"
+    t.integer  "estado_aprobacion_id"
+    t.text     "comentarios"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "actividades", ["estado_aprobacion_id"], :name => "index_actividades_on_estado_aprobacion_id"
   add_index "actividades", ["movimiento_id"], :name => "index_actividades_on_movimiento_id"
+  add_index "actividades", ["plantacion_id"], :name => "index_actividades_on_plantacion_id"
   add_index "actividades", ["tipo_actividad_id"], :name => "index_actividades_on_tipo_actividad_id"
+
+  create_table "actividades_expedientes", id: false, force: true do |t|
+    t.integer "actividad_id",  null: false
+    t.integer "expediente_id", null: false
+  end
 
   create_table "actividades_plantaciones", force: true do |t|
     t.integer  "actividad_id"
@@ -120,10 +130,9 @@ ActiveRecord::Schema.define(version: 20140920230834) do
   create_table "expedientes", force: true do |t|
     t.string   "numero_interno"
     t.string   "numero_expediente"
-    t.string   "titular"
+    t.boolean  "agrupado"
     t.string   "tecnico"
     t.boolean  "plurianual"
-    t.boolean  "agregado"
     t.boolean  "activo"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -131,6 +140,11 @@ ActiveRecord::Schema.define(version: 20140920230834) do
 
   add_index "expedientes", ["numero_expediente"], :name => "index_expedientes_on_numero_expediente"
   add_index "expedientes", ["numero_interno"], :name => "index_expedientes_on_numero_interno"
+
+  create_table "expedientes_titulares", id: false, force: true do |t|
+    t.integer "expediente_id", null: false
+    t.integer "titular_id",    null: false
+  end
 
   create_table "fuentes_imagen", force: true do |t|
     t.string   "codigo"
@@ -179,6 +193,7 @@ ActiveRecord::Schema.define(version: 20140920230834) do
     t.date     "fecha_entrada"
     t.date     "fecha_salida"
     t.string   "etapa"
+    t.boolean  "estabilidad_fiscal"
     t.text     "observacion"
     t.text     "observacion_interna"
     t.boolean  "auditar"
@@ -203,6 +218,7 @@ ActiveRecord::Schema.define(version: 20140920230834) do
   add_index "objetivos_plantacion", ["codigo"], :name => "index_objetivos_plantacion_on_codigo"
 
   create_table "plantaciones", force: true do |t|
+    t.integer  "titular_id"
     t.string   "anio_plantacion"
     t.integer  "tipo_plantacion_id"
     t.string   "nomenclatura_catastral"
@@ -212,9 +228,9 @@ ActiveRecord::Schema.define(version: 20140920230834) do
     t.decimal  "distancia_filas"
     t.string   "densidad"
     t.integer  "fuente_informacion_id"
-    t.date     "fecha_informacion"
+    t.string   "fecha_informacion"
     t.integer  "fuente_imagen_id"
-    t.date     "fecha_imagen"
+    t.string   "fecha_imagen"
     t.integer  "zona_id"
     t.integer  "departamento_id"
     t.integer  "estrato_desarrollo_id"
@@ -239,6 +255,7 @@ ActiveRecord::Schema.define(version: 20140920230834) do
   add_index "plantaciones", ["fuente_informacion_id"], :name => "index_plantaciones_on_fuente_informacion_id"
   add_index "plantaciones", ["objetivo_plantacion_id"], :name => "index_plantaciones_on_objetivo_plantacion_id"
   add_index "plantaciones", ["tipo_plantacion_id"], :name => "index_plantaciones_on_tipo_plantacion_id"
+  add_index "plantaciones", ["titular_id"], :name => "index_plantaciones_on_titular_id"
   add_index "plantaciones", ["uso_anterior_id"], :name => "index_plantaciones_on_uso_anterior_id"
   add_index "plantaciones", ["uso_forestal_id"], :name => "index_plantaciones_on_uso_forestal_id"
   add_index "plantaciones", ["zona_id"], :name => "index_plantaciones_on_zona_id"
@@ -269,6 +286,14 @@ ActiveRecord::Schema.define(version: 20140920230834) do
   end
 
   add_index "tipos_plantacion", ["codigo"], :name => "index_tipos_plantacion_on_codigo"
+
+  create_table "titulares", force: true do |t|
+    t.string   "nombre"
+    t.string   "dni"
+    t.string   "cuit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "unificados", force: true do |t|
     t.string   "zona"

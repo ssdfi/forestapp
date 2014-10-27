@@ -1,6 +1,7 @@
 class CreatePlantaciones < ActiveRecord::Migration
   def change
     create_table :plantaciones do |t|
+      t.references :titular, index: true
       t.string :anio_plantacion
       t.references :tipo_plantacion, index: true
       t.string :nomenclatura_catastral

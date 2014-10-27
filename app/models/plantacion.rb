@@ -10,11 +10,9 @@ class Plantacion < ActiveRecord::Base
   belongs_to :uso_anterior
   belongs_to :objetivo_plantacion
   belongs_to :error
-  
+  belongs_to :titular
   belongs_to :unificado
-  
   has_and_belongs_to_many :especies
-
-  has_many :actividades_plantaciones, class_name: 'ActividadPlantacion', foreign_key: 'plantacion_id'
-  has_many :actividades, through: :actividades_plantaciones, source: :actividad
+  has_many :actividades_plantaciones, class_name: 'ActividadPlantacion'
+  has_many :actividades, :through => :actividades_plantaciones
 end

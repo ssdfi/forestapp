@@ -1,0 +1,19 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/labels";
+
+.leaflet-label {
+	@extend .label;
+	@extend .label-info;
+	
+	font-size: $font-size-h6;
+	position: absolute;
+	pointer-events: none;
+	white-space: nowrap;
+	z-index: 6;
+}
+
+.leaflet-label.leaflet-clickable {
+	cursor: pointer;
+	pointer-events: auto;
+}

@@ -10,10 +10,9 @@ class ExpedientesController < ApplicationController
 
     @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.blank?
     @expedientes = @expedientes.where("numero_expediente ILIKE ?", "%#{@expediente.numero_expediente}%") unless @expediente.numero_expediente.blank?
-    @expedientes = @expedientes.where("titular ILIKE ?", "%#{@expediente.titular}%") unless @expediente.titular.blank?
     @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
     @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
-    @expedientes = @expedientes.where(agregado: @expediente.agregado) unless @expediente.agregado.nil?
+    @expedientes = @expedientes.where(agregado: @expediente.agrupado) unless @expediente.agrupado.nil?
     @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
     
     @expedientes = @expedientes.order(updated_at: :desc)
@@ -84,6 +83,6 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :titular, :tecnico, :plurianual, :agregado, :activo, :incompleto)
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto)
     end
 end

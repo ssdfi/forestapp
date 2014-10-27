@@ -11,6 +11,7 @@ class CreateMovimientos < ActiveRecord::Migration
       t.date :fecha_entrada
       t.date :fecha_salida
       t.string :etapa
+      t.boolean :estabilidad_fiscal
       t.text :observacion
       t.text :observacion_interna
       t.boolean :auditar

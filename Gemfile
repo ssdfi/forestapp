@@ -38,6 +38,8 @@ gem 'capistrano-rails', group: :development
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'railroady'
+  gem 'seed_dump'
 end
 
 gem 'bootstrap-sass', '~> 3.2.0'
@@ -49,6 +51,8 @@ gem 'leaflet-rails'
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'
+
+gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
 
 gem 'rgeo'
@@ -57,7 +61,5 @@ gem 'rgeo-geojson'
 
 gem 'kaminari'
 gem 'paper_trail'
-
-gem 'seed_dump', group: :development
 
 gem 'rails-i18n', '~> 4.0.0'
