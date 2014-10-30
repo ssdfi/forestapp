@@ -29,12 +29,13 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
+  gem 'capistrano-passenger'
 end
 
 # Use debugger
@@ -46,11 +47,10 @@ group :development, :test do
   gem 'seed_dump'
 end
 
-gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap-sass', '~> 3.3.0'
 gem 'autoprefixer-rails'
 gem 'angularjs-rails'
 gem 'momentjs-rails'
-gem 'bootstrap_form'
 gem 'leaflet-rails'
 
 gem 'pg'
