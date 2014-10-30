@@ -17,6 +17,5 @@
 //= require angular
 //= require moment
 //= require moment/es.js
-//= require leaflet
 
 moment.locale("es");

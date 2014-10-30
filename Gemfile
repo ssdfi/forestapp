@@ -36,6 +36,8 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-passenger'
+  gem 'railroady'
+  gem 'seed_dump'
 end
 
 # Use debugger
@@ -43,15 +45,13 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
-  gem 'railroady'
-  gem 'seed_dump'
 end
 
 gem 'bootstrap-sass', '~> 3.3.0'
+gem 'bootstrap_form'
 gem 'autoprefixer-rails'
 gem 'angularjs-rails'
 gem 'momentjs-rails'
-gem 'leaflet-rails'
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'
