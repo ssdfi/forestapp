@@ -17,7 +17,7 @@ class ExpedientesImporter
         rescue => e
           puts "\nSe ha encontrado un error en el expediente: #{expediente.inspect}"
           puts e.message
-          puts "Se ha salteado el registro."
+          puts "El registro no será importado."
           raise ActiveRecord::Rollback
           next
         end
@@ -35,16 +35,37 @@ class ExpedientesImporter
       expediente = Expediente.create!(
         numero_interno: msexpediente.numero_interno,
         numero_expediente: msexpediente.NumExpediente,
-        titular: msexpediente.Titular,
         tecnico: msexpediente.Tecnico,
+        titular: msexpediente.Titular,
         plurianual: msexpediente.Plurianual,
         agrupado: msexpediente.Agrupado,
         activo: !msexpediente.Borrado
       )
+      create_titulares(expediente)
       msexpediente.movimientos.each do |movimiento|
         import_movimiento(expediente, movimiento)
       end
       @data[:expedientes] += 1
+    end
+
+    def create_titulares(expediente)
+      tmp_titulares = TmpTitular.where(numero_interno: expediente.numero_interno)
+      tmp_titulares = tmp_titulares.where(fuente: ['Entidad', 'Individual'])
+
+      tmp_titulares.each do |tmp_titular|
+        titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0' 
+        titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0' 
+        titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
+        if titular.nil?
+          titular = Titular.create!(
+            nombre: tmp_titular.titular,
+            dni: tmp_titular.dni != '0' ? tmp_titular.dni : nil,
+            cuit: tmp_titular.cuit != '0' ? tmp_titular.cuit : nil
+          )
+        end
+        expediente.titulares << titular
+      end
+      expediente.save!
     end
 
     def import_movimiento(expediente, msmovimiento)
@@ -62,7 +83,7 @@ class ExpedientesImporter
         observacion_interna: msmovimiento.ObsInt,
         auditar: msmovimiento.Para_Auditar,
         validado: false,
-        estabilidad_fiscal: !msmovimiento.observacion_interna.match(/^EF/).nil?
+        estabilidad_fiscal: !msmovimiento.ObsInt.match(/^EF/).nil?
       )
 
       import_actividad(TipoActividad.find_by_codigo('PL'), movimiento, msmovimiento, 'Plan')

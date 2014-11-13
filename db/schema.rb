@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027190122) do
+ActiveRecord::Schema.define(version: 20141105203917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20141027190122) do
   create_table "expedientes", force: true do |t|
     t.string   "numero_interno"
     t.string   "numero_expediente"
+    t.string   "titular"
     t.boolean  "agrupado"
     t.string   "tecnico"
     t.boolean  "plurianual"
@@ -294,6 +295,22 @@ ActiveRecord::Schema.define(version: 20141027190122) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tmp_titulares", force: true do |t|
+    t.string "numero_interno"
+    t.string "numero_productor"
+    t.string "titular"
+    t.string "dni"
+    t.string "cuit"
+    t.string "fuente"
+    t.string "titular_mayusculas"
+  end
+
+  add_index "tmp_titulares", ["cuit"], :name => "index_tmp_titulares_on_cuit"
+  add_index "tmp_titulares", ["dni"], :name => "index_tmp_titulares_on_dni"
+  add_index "tmp_titulares", ["numero_interno"], :name => "index_tmp_titulares_on_numero_interno"
+  add_index "tmp_titulares", ["titular"], :name => "index_tmp_titulares_on_titular"
+  add_index "tmp_titulares", ["titular_mayusculas"], :name => "index_tmp_titulares_on_titular_mayusculas"
 
   create_table "unificados", force: true do |t|
     t.string   "zona"

@@ -55,7 +55,7 @@ class UnificadosImporter
       rescue => e
         puts "\nSe ha encontrado un error en el archivo: #{@file}"
         puts e.message
-        puts "Se ha salteado el archivo.\n"
+        puts "El archivo no será importado.\n"
         raise ActiveRecord::Rollback
       ensure
         @shape.close

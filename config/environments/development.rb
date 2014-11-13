@@ -36,6 +36,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Configuraciones para migración de datos
-  config.path_plantaciones = "/Users/mmiranda/Projects/forestal/mpf/BDE_Postgres/Coberturas_MPF"
-  config.path_unificados = "/Users/mmiranda/Projects/forestal/mpf/BDE_Postgres/Unificados"
+  config.path_plantaciones = "/Users/mmiranda/Projects/dpf/mpf/BDE_Postgres/Coberturas_MPF"
+  config.path_unificados = "/Users/mmiranda/Projects/dpf/mpf/BDE_Postgres/Unificados"
 end

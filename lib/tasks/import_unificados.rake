@@ -2,7 +2,7 @@ require 'unificados_importer'
 
 namespace :db do
   namespace :import do
-    desc "Importar Unificados desde files Shape"
+    desc "Importar Unificados desde archivos Shape"
     task unificados: :environment do
       dirs = Rails.application.config.path_unificados + '/**'
 

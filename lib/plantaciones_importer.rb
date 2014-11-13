@@ -70,7 +70,7 @@ class PlantacionesImporter
       rescue => e
         puts "\nSe ha encontrado un error en el archivo: #{@file}"
         puts e.message
-        puts "Se ha salteado el archivo."
+        puts "El archivo no será importado."
         raise ActiveRecord::Rollback
       ensure
         @shape.close
