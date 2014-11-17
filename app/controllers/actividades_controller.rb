@@ -32,7 +32,7 @@ class ActividadesController < ApplicationController
       features << factory.feature(feature, actividad.plantacion.id, {
           "ID" => actividad.plantacion.id,
           "Especie" => actividad.plantacion.especies.first.nombre_comun,
-          "Superficie" => actividad.superficie,
+          "Superficie" => actividad.superficie_registrada,
           "Estado" => actividad.estado_aprobacion.descripcion
         })
     end

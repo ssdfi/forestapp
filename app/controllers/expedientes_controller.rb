@@ -12,7 +12,7 @@ class ExpedientesController < ApplicationController
     @expedientes = @expedientes.where("numero_expediente ILIKE ?", "%#{@expediente.numero_expediente}%") unless @expediente.numero_expediente.blank?
     @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
     @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
-    @expedientes = @expedientes.where(agregado: @expediente.agrupado) unless @expediente.agrupado.nil?
+    @expedientes = @expedientes.where(agrupado: @expediente.agrupado) unless @expediente.agrupado.nil?
     @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
     
     @expedientes = @expedientes.order(updated_at: :desc)

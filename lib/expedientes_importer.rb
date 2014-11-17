@@ -8,9 +8,7 @@ class ExpedientesImporter
   end
 
   def import
-    # MsExpediente.limit(10).each do |expediente|
     MsExpediente.all.each do |expediente|
-      # next unless expediente.numero_interno == '04-024-037/05'
       ActiveRecord::Base.transaction do
         begin
           import_expediente(expediente)
@@ -46,6 +44,7 @@ class ExpedientesImporter
         import_movimiento(expediente, movimiento)
       end
       @data[:expedientes] += 1
+      puts "#{@data[:expedientes]} expedientes importados hasta el momento." if @data[:expedientes] % 1000 == 0
     end
 
     def create_titulares(expediente)

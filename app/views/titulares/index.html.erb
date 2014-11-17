@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Buscador</h3>
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'search_form', locals: {titular: @titular} %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <table class="table table-hover table-grid">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>CUIT</th>
+          <th class="icon"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @titulares.each do |titular| %>
+          <tr>
+            <td><%= titular.id %></td>
+            <td><%= titular.nombre %></td>
+            <td><%= titular.dni %></td>
+            <td><%= titular.cuit %></td>
+            <td class="icon icon-lg">
+              <%= link_to edit_titular_path(titular) do %>
+                <span class="glyphicon glyphicon-edit"></span>
+              <% end %>
+              <%= link_to titular, method: :delete, data: { confirm: 'Está seguro que desde borrar el registro?' } do %>
+                <span class="glyphicon glyphicon-remove-circle"></span>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="well well-sm clearfix">
+      <div class="pagination-info pull-left">
+        <%= page_entries_info @titulares %>
+      </div>
+      <%= paginate @titulares %>
+    </div>
+  </div>
+</div>

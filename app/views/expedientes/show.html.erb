@@ -1,3 +1,8 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'app' %>
+  <%= javascript_include_tag 'controllers' %>
+<% end %>
+
 <div class="row" ng-app="forestapp" ng-controller="ExpedienteCtrl as controller">
   <div class="col-md-3">
     <div class="panel panel-info">
@@ -26,9 +31,9 @@
           <dd>
             <span bool-class="controller.expediente.plurianual"></span>
           </dd>
-          <dt>Agregado:</dt>
+          <dt>Agrupado:</dt>
           <dd>
-            <span bool-class="controller.expediente.agregado"></span>
+            <span bool-class="controller.expediente.agrupado"></span>
           </dd>
         </dl>
         <hr/>

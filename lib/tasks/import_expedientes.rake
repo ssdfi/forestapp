@@ -6,7 +6,9 @@ namespace :db do
     task expedientes: :environment do
       importer = ExpedientesImporter.new
       importer.import
+      puts "\n######################################################################################"
       puts "TOTAL DE REGISTROS IMPORTADOS: #{importer.data}"
+      puts "######################################################################################"
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141105203917) do
+ActiveRecord::Schema.define(version: 20141113175518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,10 @@ ActiveRecord::Schema.define(version: 20141105203917) do
   create_table "actividades_plantaciones", force: true do |t|
     t.integer  "actividad_id"
     t.integer  "plantacion_id"
-    t.decimal  "superficie"
+    t.decimal  "superficie_presentada"
+    t.decimal  "superficie_certificada"
+    t.decimal  "superficie_inspeccionada"
+    t.decimal  "superficie_registrada"
     t.integer  "estado_aprobacion_id"
     t.text     "comentarios"
     t.datetime "created_at"
@@ -295,6 +298,27 @@ ActiveRecord::Schema.define(version: 20141105203917) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tmp_observaciones", force: true do |t|
+    t.string "numero_interno"
+    t.string "numero_productor"
+    t.string "productor"
+    t.string "presentado"
+    t.string "certificado"
+    t.string "inspeccionado"
+    t.string "registrado"
+    t.string "especie"
+    t.string "actividad"
+    t.string "tipo"
+    t.text   "observaciones"
+    t.string "nomenclatura_catastral"
+    t.string "lote"
+    t.string "otro"
+  end
+
+  add_index "tmp_observaciones", ["numero_interno"], :name => "index_tmp_observaciones_on_numero_interno"
+  add_index "tmp_observaciones", ["numero_productor"], :name => "index_tmp_observaciones_on_numero_productor"
+  add_index "tmp_observaciones", ["productor"], :name => "index_tmp_observaciones_on_productor"
 
   create_table "tmp_titulares", force: true do |t|
     t.string "numero_interno"
