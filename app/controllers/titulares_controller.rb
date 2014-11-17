@@ -11,11 +11,14 @@ class TitularesController < ApplicationController
     @titulares = @titulares.where("nombre ILIKE ?", "%#{@titular.nombre}%") unless @titular.nombre.blank?
     @titulares = @titulares.where("dni ILIKE ?", "%#{@titular.dni}%") unless @titular.dni.blank?
     @titulares = @titulares.where("cuit ILIKE ?", "%#{@titular.cuit}%") unless @titular.cuit.blank?
+
+    @titulares = @titulares.order(updated_at: :desc)
   end
 
   # GET /titulares/1
   # GET /titulares/1.json
   def show
+    @expedientes = @titular.expedientes.page params[:page]
   end
 
   # GET /titulares/new
@@ -34,7 +37,7 @@ class TitularesController < ApplicationController
 
     respond_to do |format|
       if @titular.save
-        format.html { redirect_to @titular, notice: 'Titular was successfully created.' }
+        format.html { redirect_to @titular, notice: 'El Titular fue creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @titular }
       else
         format.html { render :new }
@@ -48,7 +51,7 @@ class TitularesController < ApplicationController
   def update
     respond_to do |format|
       if @titular.update(titular_params)
-        format.html { redirect_to @titular, notice: 'Titular was successfully updated.' }
+        format.html { redirect_to titulares_url, notice: 'El Titular fue actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @titular }
       else
         format.html { render :edit }
@@ -62,7 +65,7 @@ class TitularesController < ApplicationController
   def destroy
     @titular.destroy
     respond_to do |format|
-      format.html { redirect_to titulares_url, notice: 'Titular was successfully destroyed.' }
+      format.html { redirect_to titulares_url, notice: 'El Titular fue eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end

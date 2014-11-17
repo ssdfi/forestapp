@@ -1,4 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_titular_path(@titular) %> |
-<%= link_to 'Back', titulares_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Titular</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Nombre:</dt>
+          <dd><%= @titular.nombre %></dd>
+          <dt>DNI:</dt>
+          <dd><%= @titular.dni %></dd>
+          <dt>CUIT:</dt>
+          <dd><%= @titular.cuit %></dd>
+        </dl>
+      </div>     
+    </div>
+  </div>
+  <div class="col-md-9">
+    <%= render partial: 'common/expedientes', locals: {expedientes: @expedientes} %>
+  </div>
+</div>

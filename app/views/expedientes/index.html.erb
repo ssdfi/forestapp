@@ -10,53 +10,6 @@
     </div>
   </div>
   <div class="col-md-9">
-    <table class="table table-hover table-grid" data-no-turbolink="true">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th nowrap>Número interno</th>
-          <th nowrap>Número expediente</th>
-          <th class="icon">Plurianual</th>
-          <th class="icon">Agrupado</th>
-          <th class="icon">Activo</th>
-          <th class="icon"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @expedientes.each do |expediente| %>
-          <tr>
-            <td><%= expediente.id %></td>
-            <td nowrap><%= expediente.numero_interno %></td>
-            <td nowrap><%= expediente.numero_expediente %></td>
-            <td class="icon">
-              <% if expediente.plurianual %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-            </td>
-            <td class="icon">
-              <% if expediente.agrupado %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-            </td>
-            <td class="icon">
-              <% if expediente.activo %>
-                <span class="glyphicon glyphicon-ok"></span>
-              <% end %>
-            </td>
-            <td class="icon icon-lg">
-              <%= link_to expediente_path(expediente) do %>
-                <span class="glyphicon glyphicon-share"></span>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    <div class="well well-sm clearfix">
-      <div class="pagination-info pull-left">
-        <%= page_entries_info @expedientes %>
-      </div>
-      <%= paginate @expedientes %>
-    </div>
+    <%= render partial: 'common/expedientes', locals: {expedientes: @expedientes} %>
   </div>
 </div>

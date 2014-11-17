@@ -28,6 +28,9 @@
             <td><%= titular.dni %></td>
             <td><%= titular.cuit %></td>
             <td class="icon icon-lg">
+              <%= link_to titular_path(titular) do %>
+                <span class="glyphicon glyphicon-share"></span>
+              <% end %>
               <%= link_to edit_titular_path(titular) do %>
                 <span class="glyphicon glyphicon-edit"></span>
               <% end %>

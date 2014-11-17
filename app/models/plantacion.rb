@@ -14,5 +14,7 @@ class Plantacion < ActiveRecord::Base
   belongs_to :unificado
   has_and_belongs_to_many :especies
   has_many :actividades_plantaciones, class_name: 'ActividadPlantacion'
-  has_many :actividades, :through => :actividades_plantaciones
+  has_many :actividades, through: :actividades_plantaciones
+  has_many :movimientos, through: :actividades
+  has_many :expedientes, through: :movimientos
 end

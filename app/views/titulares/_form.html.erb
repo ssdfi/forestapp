@@ -1,8 +1,7 @@
-<%= form_for(@titular) do |f| %>
+<%= bootstrap_form_for @titular, url: titular_path(@titular), method: "put", layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
   <% if @titular.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@titular.errors.count, "error") %> prohibited this titular from being saved:</h2>
-
+      <h2><%= pluralize(@titular.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
       <ul>
       <% @titular.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,8 +9,10 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.text_field :nombre, label: "Nombre" %>
+  <%= f.text_field :dni, label: "DNI" %>
+  <%= f.text_field :cuit, label: "CUIT" %>
+  <hr/>
+  <%= f.submit "Cancelar", class: "btn btn-default" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
 <% end %>

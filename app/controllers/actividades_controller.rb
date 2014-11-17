@@ -31,8 +31,10 @@ class ActividadesController < ApplicationController
       feature = RGeo::Feature.cast(plantacion, :factory => factory_to, :project => true)
       features << factory.feature(feature, actividad.plantacion.id, {
           "ID" => actividad.plantacion.id,
+          "Titular" => actividad.plantacion.titular.nombre,
           "Especie" => actividad.plantacion.especies.first.nombre_comun,
-          "Superficie" => actividad.superficie_registrada,
+          "Superficie Registrada" => actividad.superficie_registrada,
+          "Superficie Polígono" => (feature.area * 1000000).round(1),
           "Estado" => actividad.estado_aprobacion.descripcion
         })
     end
