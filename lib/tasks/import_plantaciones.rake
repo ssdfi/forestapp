@@ -7,7 +7,6 @@ namespace :db do
       total = 0
       dir = Rails.application.config.path_plantaciones + '/*.shp'
       Dir[dir].each do |file|
-        # next unless File.basename(file) == 'mpf_cata.shp'
         importer = PlantacionesImporter.new file
         if importer.import
           total += importer.data[:registros] 

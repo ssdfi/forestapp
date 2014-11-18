@@ -8,7 +8,7 @@ class UnificadosImporter
     
     srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
     factory = RGeo::Geos.factory(:srs_database => srs_database, :srid => @zona.srid)
-    @shape = RGeo::Shapefile::Reader.open(file, factory: factory)
+    @shape = RGeo::Shapefile::Reader.open(file, {factory: factory, assume_inner_follows_outer: true})
 
     @data = {
       zona: @zona.descripcion,
