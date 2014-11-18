@@ -75,4 +75,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Configuraciones para migración de datos
+  config.path_plantaciones = "/media/sf_mpf/BDE_Postgres/Coberturas_MPF"
+  config.path_unificados = "/media/sf_mpf/BDE_Postgres/Unificados"
 end

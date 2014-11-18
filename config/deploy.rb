@@ -51,10 +51,20 @@ namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
-      within release_path do
-        execute :rake, 'cache:clear'
-      end
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
     end
   end
 
+  desc 'Initial setup (Recreate DB and import data)'
+  task :setup do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :rake, 'db:drop'
+      execute :rake, 'db:create'
+      execute :rake, 'db:migrate'
+      execute :rake, 'db:seed'
+      # execute :rake, 'db:import:all'
+    end
+  end
 end
