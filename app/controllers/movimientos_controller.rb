@@ -10,6 +10,7 @@ class MovimientosController < ApplicationController
   # GET /movimientos/1
   # GET /movimientos/1.json
   def show
+    @actividades = @movimiento.actividades
   end
 
   # GET /movimientos/new

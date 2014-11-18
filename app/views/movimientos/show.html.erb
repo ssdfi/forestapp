@@ -1,74 +1,78 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Expediente:</strong>
-  <%= @movimiento.expediente %>
-</p>
-
-<p>
-  <strong>Numero ficha:</strong>
-  <%= @movimiento.numero_ficha %>
-</p>
-
-<p>
-  <strong>Inspector:</strong>
-  <%= @movimiento.inspector %>
-</p>
-
-<p>
-  <strong>Reinspector:</strong>
-  <%= @movimiento.reinspector %>
-</p>
-
-<p>
-  <strong>Responsable:</strong>
-  <%= @movimiento.responsable %>
-</p>
-
-<p>
-  <strong>Anio inspeccion:</strong>
-  <%= @movimiento.anio_inspeccion %>
-</p>
-
-<p>
-  <strong>Destino:</strong>
-  <%= @movimiento.destino %>
-</p>
-
-<p>
-  <strong>Fecha entrada:</strong>
-  <%= @movimiento.fecha_entrada %>
-</p>
-
-<p>
-  <strong>Fecha salida:</strong>
-  <%= @movimiento.fecha_salida %>
-</p>
-
-<p>
-  <strong>Etapa:</strong>
-  <%= @movimiento.etapa %>
-</p>
-
-<p>
-  <strong>Observacion:</strong>
-  <%= @movimiento.observacion %>
-</p>
-
-<p>
-  <strong>Observacion interna:</strong>
-  <%= @movimiento.observacion_interna %>
-</p>
-
-<p>
-  <strong>Auditar:</strong>
-  <%= @movimiento.auditar %>
-</p>
-
-<p>
-  <strong>Validado:</strong>
-  <%= @movimiento.validado %>
-</p>
-
-<%= link_to 'Edit', edit_movimiento_path(@movimiento) %> |
-<%= link_to 'Back', movimientos_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Movimiento</h3>
+      </div>
+      <div class="panel-body">
+        <% if @movimiento.validado %>
+          <div class="pull-right label label-success label"><h5>Validado</h5></div>
+        <% else %>
+          <div class="pull-right label label-danger label"><h5>Sin validar</h5></div>
+        <% end %>
+        <dl class="dl-horizontal">
+          <dt>Número de ficha:</dt>
+          <dd><%= @movimiento.numero_ficha %></dd>
+          <dt>Año de Inspección:</dt>
+          <dd><%= @movimiento.anio_inspeccion %></dd>
+          <dt>Fecha de entrada:</dt>
+          <dd><%= @movimiento.fecha_entrada %></dd>
+          <dt>Fecha de salida:</dt>
+          <dd><%= @movimiento.fecha_salida %></dd>
+          <dt>Auditar:</dt>
+          <dd>
+            <%= render partial: 'common/boolean_value', locals: {value: @movimiento.auditar} %>
+          </dd>
+          <dt>Inspector:</dt>
+          <dd><%= @movimiento.inspector.descripcion %></dd>
+          <dt>Reinspector:</dt>
+          <dd><%= @movimiento.reinspector.descripcion %></dd>
+          <dt>Responsable:</dt>
+          <dd><%= @movimiento.responsable.nombre %></dd>
+          <dt>Destino:</dt>
+          <dd><%= @movimiento.destino.descripcion %></dd>
+          <dt>Observación:</dt>
+          <dd><%= @movimiento.observacion %></dd>
+          <dt>Observación interna:</dt>
+          <dd><%= @movimiento.observacion_interna %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h4>Actividades</h4>
+    <table class="table table-hover table-grid" id="actividades" data-no-turbolink="true">
+      <thead>
+        <tr>
+          <th>Tipo actividad</th>
+          <th>Superficie presentada</th>
+          <th>Superficie certificada</th>
+          <th>Superficie inspeccionada</th>
+          <th>Superficie registrada</th>
+          <th class="icon"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @actividades.each do |actividad| %>
+          <tr>
+            <td><%= actividad.tipo_actividad.descripcion %></td>
+            <td><%= actividad.superficie_presentada %></td>
+            <td><%= actividad.superficie_certificada %></td>
+            <td><%= actividad.superficie_inspeccionada %></td>
+            <td><%= actividad.superficie_registrada %></td>
+            <td class="icon icon-lg">
+              <%= link_to expediente_movimiento_actividad_path(@movimiento.expediente, @movimiento, actividad) do %>
+                  <span class="glyphicon glyphicon-share"></span>
+                <% end %>
+              <% if actividad.plantaciones.count > 0 %>
+                <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad) do %>
+                  <span class="glyphicon glyphicon-globe"></span>
+                <% end %>
+              <% end %>
+            <td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

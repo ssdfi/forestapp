@@ -7,9 +7,6 @@ class CreateActividades < ActiveRecord::Migration
       t.decimal :superficie_certificada
       t.decimal :superficie_inspeccionada
       t.decimal :superficie_registrada
-      t.references :plantacion, index: true
-      t.references :estado_aprobacion, index: true
-      t.text :comentarios
 
       t.timestamps
     end

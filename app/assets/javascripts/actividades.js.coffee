@@ -3,11 +3,11 @@ buildPopup = (properties) ->
   for property,value of properties
     list += "<div><strong>" + property + ": </strong>" + value + "</div>"
   list += "</div>"
-  
+
 $(document).ready ->
 
   map = L.map 'map'
-  
+
   ignSatelital = L.tileLayer.wms "http://wms.ign.gob.ar/geoserver/wms", {
     layers: 'argentina500k:argentina500k_satelital',
     format: 'image/png',
@@ -34,7 +34,7 @@ $(document).ready ->
     onEachFeature: (feature, layer) ->
       layer.bindPopup buildPopup(feature.properties)
   }
-  
+
   map.addLayer googleSatelital
   map.addLayer geoJson
 
@@ -47,7 +47,7 @@ $(document).ready ->
     "OpenStreetMap": osm,
     "Google Satelital": googleSatelital,
     "IGN Satelital": ignSatelital,
-    "IGN Base": ignBase    
+    "IGN Base": ignBase
   }, {
     "Plantaciones": geoJson
   }).addTo map

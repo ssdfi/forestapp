@@ -12,6 +12,7 @@ class ActividadesController < ApplicationController
   # GET /actividades/1
   # GET /actividades/1.json
   def show
+    @actividades = @actividad.actividades_plantaciones
   end
 
   # GET /actividades/1/map
@@ -31,7 +32,7 @@ class ActividadesController < ApplicationController
       feature = RGeo::Feature.cast(plantacion, :factory => factory_to, :project => true)
       features << factory.feature(feature, actividad.plantacion.id, {
           "ID" => actividad.plantacion.id,
-          "Titular" => actividad.plantacion.titular.nombre,
+          "Titular" => actividad.plantacion.titular ? actividad.plantacion.titular.nombre : '',
           "Especie" => actividad.plantacion.especies.first.nombre_comun,
           "Superficie Registrada" => actividad.superficie_registrada,
           "Superficie Polígono" => (feature.area * 1000000).round(1),

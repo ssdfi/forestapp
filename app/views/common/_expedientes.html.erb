@@ -1,4 +1,4 @@
-<table class="table table-hover table-grid" data-no-turbolink="true">
+<table class="table table-hover table-grid">
   <thead>
     <tr>
       <th>ID</th>
@@ -17,19 +17,13 @@
         <td nowrap><%= expediente.numero_interno %></td>
         <td nowrap><%= expediente.numero_expediente %></td>
         <td class="icon">
-          <% if expediente.plurianual %>
-            <span class="glyphicon glyphicon-ok"></span>
-          <% end %>
+           <%= render partial: 'common/boolean_value', locals: {value: expediente.plurianual} %>
         </td>
         <td class="icon">
-          <% if expediente.agrupado %>
-            <span class="glyphicon glyphicon-ok"></span>
-          <% end %>
+          <%= render partial: 'common/boolean_value', locals: {value: expediente.agrupado} %>
         </td>
         <td class="icon">
-          <% if expediente.activo %>
-            <span class="glyphicon glyphicon-ok"></span>
-          <% end %>
+          <%= render partial: 'common/boolean_value', locals: {value: expediente.activo} %>
         </td>
         <td class="icon icon-lg">
           <%= link_to expediente_path(expediente) do %>

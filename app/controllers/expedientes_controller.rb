@@ -4,8 +4,8 @@ class ExpedientesController < ApplicationController
   # GET /expedientes
   # GET /expedientes.json
   def index
-    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new
-
+    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({activo: true, incompleto: "false"})
+    
     @expedientes = Expediente.page params[:page]
 
     @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.blank?

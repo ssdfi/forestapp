@@ -1,34 +1,53 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Movimiento:</strong>
-  <%= @actividad.movimiento %>
-</p>
-
-<p>
-  <strong>Tipo actividad:</strong>
-  <%= @actividad.tipo_actividad %>
-</p>
-
-<p>
-  <strong>Superficie presentada:</strong>
-  <%= @actividad.superficie_presentada %>
-</p>
-
-<p>
-  <strong>Superficie certificada:</strong>
-  <%= @actividad.superficie_certificada %>
-</p>
-
-<p>
-  <strong>Superficie inspeccionada:</strong>
-  <%= @actividad.superficie_inspeccionada %>
-</p>
-
-<p>
-  <strong>Superficie registrada:</strong>
-  <%= @actividad.superficie_registrada %>
-</p>
-
-<%= link_to 'Edit', edit_actividad_path(@actividad) %> |
-<%= link_to 'Back', actividades_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Actividad</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Tipo de actividad:</dt>
+          <dd><%= @actividad.tipo_actividad.descripcion %></dd>
+          <dt>Superficie presentada:</dt>
+          <dd><%= @actividad.superficie_presentada %></dd>
+          <dt>Superficie certificada:</dt>
+          <dd><%= @actividad.superficie_certificada %></dd>
+          <dt>Superficie inspeccionada:</dt>
+          <dd><%= @actividad.superficie_inspeccionada %></dd>
+          <dt>Superficie registrada:</dt>
+          <dd><%= @actividad.superficie_registrada %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h4>Plantaciones</h4>
+    <table class="table table-hover table-grid" data-no-turbolink="true">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titular</th>
+          <th>Superficie presentada</th>
+          <th>Superficie certificada</th>
+          <th>Superficie inspeccionada</th>
+          <th>Superficie registrada</th>
+          <th class="icon"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @actividades.each do |actividad| %>
+          <tr>
+            <td><%= actividad.id %></td>
+            <td><%= actividad.plantacion.titular.nombre if actividad.plantacion.titular %></td>
+            <td><%= actividad.superficie_presentada %></td>
+            <td><%= actividad.superficie_certificada %></td>
+            <td><%= actividad.superficie_inspeccionada %></td>
+            <td><%= actividad.superficie_registrada %></td>
+            <td class="icon icon-lg">
+            <td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

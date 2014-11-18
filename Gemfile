@@ -50,8 +50,6 @@ end
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap_form'
 gem 'autoprefixer-rails'
-gem 'angularjs-rails'
-gem 'momentjs-rails'
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'

@@ -1,9 +1,4 @@
-<% content_for :head do %>
-  <%= javascript_include_tag 'app' %>
-  <%= javascript_include_tag 'controllers' %>
-<% end %>
-
-<div class="row" ng-app="forestapp" ng-controller="ExpedienteCtrl as controller">
+<div class="row">
   <div class="col-md-3">
     <div class="panel panel-info">
       <div class="panel-heading">
@@ -12,132 +7,67 @@
       <div class="panel-body">
         <dl class="dl-horizontal">
           <dt>Número interno:</dt>
-          <dd>{{controller.expediente.numero_interno}}</dd>
+          <dd><%= @expediente.numero_interno %></dd>
           <dt>Número expediente:</dt>
-          <dd>{{controller.expediente.numero_expediente}}</dd>
-          <dt>Titular:</dt>
-          <dd>{{controller.expediente.titular}}</dd>
+          <dd><%= @expediente.numero_expediente %></dd>
+          <dt>Titular/es:</dt>
+          <dd>
+            <ul class="list-unstyled">
+              <% @expediente.titulares.each do |titular| %>
+                <li><%= titular.nombre %></li>
+              <% end %>
+            </ul> 
+          </dd>
           <dt>Técnico:</dt>
-          <dd>{{controller.expediente.tecnico}}</dd>
+          <dd><%= @expediente.tecnico %></dd>
           <dt>Zona:</dt>
-          <dd>{{controller.expediente.zona.descripcion}}</dd>
+          <dd><%= @expediente.zona.descripcion %></dd>
           <dt>Departamento:</dt>
-          <dd>{{controller.expediente.departamento.descripcion}}</dd>
+          <dd><%= @expediente.departamento.descripcion %></dd>
           <dt>Activo:</dt>
           <dd>
-            <span bool-class="controller.expediente.activo"></span>
+            <%= render partial: 'common/boolean_value', locals: {value: @expediente.activo} %>
           </dd>
           <dt>Plurianual:</dt>
           <dd>
-            <span bool-class="controller.expediente.plurianual"></span>
+            <%= render partial: 'common/boolean_value', locals: {value: @expediente.plurianual} %>
           </dd>
           <dt>Agrupado:</dt>
           <dd>
-            <span bool-class="controller.expediente.agrupado"></span>
+            <%= render partial: 'common/boolean_value', locals: {value: @expediente.agrupado} %>
           </dd>
         </dl>
-        <hr/>
-        <h4>Movimientos</h4>
-        <table class="table table-hover table-grid">
-          <thead>
-            <tr>
-              <th>Ficha</th>
-              <th>Año</th>
-              <th>Entrada</th>
-              <th>Salida</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tbody>
-              <tr ng-repeat="movimiento in controller.movimientos" ng-click="controller.selectMovimiento(movimiento)" ng-class="{info: movimiento.selected}">
-                <td>{{movimiento.numero_ficha}}</td>
-                <td>{{movimiento.anio_inspeccion}}</td>
-                <td>{{movimiento.fecha_entrada | calendar}}</td>
-                <td>{{movimiento.fecha_salida | calendar}}</td>
-              </tr>
-          </tbody>
-        </table>
-      </div>     
+      </div>
     </div>
   </div>
   <div class="col-md-9">
-    <div class="info-box">
-      <div class="pull-right label label-success label" ng-if="controller.movimiento.validado"><h5>Validado</h5></div>
-      <div class="pull-right label label-danger label" ng-if="!controller.movimiento.validado"><h5>Sin validar</h5></div>
-      <div class="row">
-        <div class="col-md-3">
-          <dl class="dl-horizontal">
-            <dt>Número de ficha:</dt>
-            <dd>{{controller.movimiento.numero_ficha}}</dd>
-            <dt>Año de Inspección:</dt>
-            <dd>{{controller.movimiento.anio_inspeccion}}</dd>
-            <dt>Fecha de entrada:</dt>
-            <dd>{{controller.movimiento.fecha_entrada | calendar}}</dd>
-            <dt>Fecha de salida:</dt>
-            <dd>{{controller.movimiento.fecha_salida | calendar}}</dd>
-            <dt>Auditar:</dt>
-            <dd>
-              <span bool-class="controller.movimiento.auditar"></span>
-            </dd>
-          </dl>
-        </div>
-        <div class="col-md-3">
-          <dl class="dl-horizontal">
-            <dt>Inspector:</dt>
-            <dd>{{controller.movimiento.inspector.descripcion}}</dd>
-            <dt>Reinspector:</dt>
-            <dd>{{controller.movimiento.reinspector.descripcion}}</dd>
-            <dt>Responsable:</dt>
-            <dd>{{controller.movimiento.responsable.descripcion}}</dd>
-            <dt>Destino:</dt>
-            <dd>{{controller.movimiento.destino.descripcion}}</dd>
-          </dl>
-        </div>
-        <div class="col-md-6">
-          
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <dl class="dl-horizontal">
-            <dt>Observación:</dt>
-            <dd>{{controller.movimiento.observacion}}</dd>
-            <dt>Observación interna:</dt>
-            <dd>{{controller.movimiento.observacion_interna}}</dd>
-          </dl>
-        </div>  
-      </div>
-    </div>
-    <br/>
-    <table class="table table-hover table-grid" id="actividades" data-no-turbolink="true">
+    <h4>Movimientos</h4>
+    <table class="table table-hover table-grid">
       <thead>
         <tr>
-          <th>Tipo actividad</th>
-          <th>Superficie presentada</th>
-          <th>Superficie certificada</th>
-          <th>Superficie inspeccionada</th>
-          <th>Superficie registrada</th>
+          <th>Ficha</th>
+          <th>Año</th>
+          <th>Entrada</th>
+          <th>Salida</th>
           <th class="icon"></th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="actividad in controller.actividades"">
-          <td>{{actividad.tipo_actividad.descripcion}}</td>
-          <td>{{actividad.superficie_presentada}}</td>
-          <td>{{actividad.superficie_certificada}}</td>
-          <td>{{actividad.superficie_inspeccionada}}</td>
-          <td>{{actividad.superficie_registrada}}</td>
-          <td class="icon icon-lg">
-            <a href="{{actividad.map_url}}" ng-if="actividad.plantaciones > 0">
-              <span class="glyphicon glyphicon-globe"></span>
-            </a>
-          <td>
-        </tr>    
+        <tbody>
+          <% @movimientos.each do |movimiento| %>
+            <tr>
+              <td><%= movimiento.numero_ficha %></td>
+              <td><%= movimiento.anio_inspeccion %></td>
+              <td><%= movimiento.fecha_entrada %></td>
+              <td><%= movimiento.fecha_salida %></td>
+              <td class="icon icon-lg">
+                <%= link_to expediente_movimiento_path(@expediente, movimiento) do %>
+                  <span class="glyphicon glyphicon-share"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
       </tbody>
     </table>
   </div>
 </div>
-
-<%= javascript_tag do %>
-  window.exp = <%= raw render("common/expediente_full.json.jbuilder") %>
-<% end %>
