@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each do
-  |seed| load seed
+Dir[File.join(Rails.root, 'db', 'seeds', '*.rb')].sort.each do |seed| 
+  puts "Loading #{seed}..."
+  load seed
 end

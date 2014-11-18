@@ -57,14 +57,4 @@ namespace :deploy do
     end
   end
 
-  desc 'Initial DB Setup (Recreate DB and import data)'
-  task :db_setup do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :rake, 'db:drop'
-      execute :rake, 'db:create'
-      execute :rake, 'db:migrate'
-      execute :rake, 'db:seed'
-      # execute :rake, 'db:import:all'
-    end
-  end
 end
