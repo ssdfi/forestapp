@@ -1,7 +1,7 @@
 class PlantacionesImporter
   def initialize(file)
     @file = file
-    shape = RGeo::Shapefile::Reader.open(@file)
+    shape = RGeo::Shapefile::Reader.open(@file, {assume_inner_follows_outer: true})
     record = shape.next
     @zona = Zona.find_by_codigo_indec(record[:PROVINCIA])
 
