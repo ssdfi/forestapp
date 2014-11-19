@@ -24,16 +24,11 @@ ActiveRecord::Schema.define(version: 20141113175518) do
     t.decimal  "superficie_certificada"
     t.decimal  "superficie_inspeccionada"
     t.decimal  "superficie_registrada"
-    t.integer  "plantacion_id"
-    t.integer  "estado_aprobacion_id"
-    t.text     "comentarios"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "actividades", ["estado_aprobacion_id"], :name => "index_actividades_on_estado_aprobacion_id"
   add_index "actividades", ["movimiento_id"], :name => "index_actividades_on_movimiento_id"
-  add_index "actividades", ["plantacion_id"], :name => "index_actividades_on_plantacion_id"
   add_index "actividades", ["tipo_actividad_id"], :name => "index_actividades_on_tipo_actividad_id"
 
   create_table "actividades_expedientes", id: false, force: true do |t|
