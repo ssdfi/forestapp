@@ -18,7 +18,7 @@ namespace :db do
             subtotal += importer.data[:registros]
           end
         end
-        puts "Registros importados de #{File.basename(dir)}: #{subtotal}"
+        puts "Unificados importados de #{File.basename(dir)}: #{subtotal}"
         total += subtotal
         subtotal = 0
       end

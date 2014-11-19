@@ -10,7 +10,7 @@ namespace :db do
         importer = PlantacionesImporter.new file
         if importer.import
           total += importer.data[:registros] 
-          puts "Registros importados de #{File.basename(file)}: #{importer.data[:registros]}"
+          puts "Plantaciones importadas de #{File.basename(file)}: #{importer.data[:registros]}"
         end
       end
       puts "\n######################################################################################"
