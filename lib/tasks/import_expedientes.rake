@@ -4,10 +4,13 @@ namespace :db do
   namespace :import do
     desc "Importar Expedientes desde base de datos SQL Server"
     task expedientes: :environment do
+      puts "\n######################################################################################"
+      puts "IMPORTANDO EXPEDIENTES..."
+      puts "######################################################################################"
       importer = ExpedientesImporter.new
       importer.import
       puts "\n######################################################################################"
-      puts "TOTAL DE REGISTROS IMPORTADOS: #{importer.data}"
+      puts "TOTAL DE EXPEDIENTES IMPORTADOS: #{importer.data}"
       puts "######################################################################################"
     end
   end

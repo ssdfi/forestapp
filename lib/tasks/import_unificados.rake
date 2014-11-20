@@ -4,6 +4,10 @@ namespace :db do
   namespace :import do
     desc "Importar Unificados desde archivos Shape"
     task unificados: :environment do
+      puts "\n######################################################################################"
+      puts "IMPORTANDO UNIFICADOS..."
+      puts "######################################################################################"
+
       dirs = Rails.application.config.path_unificados + '/**'
 
       subtotal = 0

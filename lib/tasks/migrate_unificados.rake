@@ -2,6 +2,11 @@ namespace :db do
   namespace :import do
     desc "Migrar Unificados a Plantaciones y Actividades"
     task migrate_unificados: :environment do
+
+      puts "\n######################################################################################"
+      puts "MIGRANDO UNIFICADOS..."
+      puts "######################################################################################"
+
       count = 0
       Unificado.find_each do |unificado|
 
