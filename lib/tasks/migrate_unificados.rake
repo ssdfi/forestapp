@@ -3,7 +3,7 @@ namespace :db do
     desc "Migrar Unificados a Plantaciones y Actividades"
     task migrate_unificados: :environment do
       count = 0
-      Unificado.all.each do |unificado|
+      Unificado.find_each do |unificado|
 
         # Crear plantación
 
