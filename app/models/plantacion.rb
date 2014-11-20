@@ -1,4 +1,6 @@
 class Plantacion < ActiveRecord::Base
+  require 'geo_util'
+
   belongs_to :tipo_plantacion
   belongs_to :estado_plantacion
   belongs_to :fuente_informacion
@@ -17,4 +19,13 @@ class Plantacion < ActiveRecord::Base
   has_many :actividades, through: :actividades_plantaciones
   has_many :movimientos, through: :actividades
   has_many :expedientes, through: :movimientos
+
+  def geom
+    geoutil = GeoUtil.instance
+    geoutil.cast(read_attribute(:geom), zona.srid, false)
+  end
+
+  def hectareas
+    (geom.area / 10000).round 2
+  end
 end

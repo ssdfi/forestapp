@@ -1,4 +1,6 @@
 class ActividadesController < ApplicationController
+  require 'geo_util'
+
   before_action :set_expediente
   before_action :set_movimiento
   before_action :set_actividad, only: [:show, :map, :edit, :update, :destroy]
@@ -17,30 +19,26 @@ class ActividadesController < ApplicationController
 
   # GET /actividades/1/map
   def map
-    srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
-    factory_to = RGeo::Geos.factory(:srs_database => srs_database, :srid => "4326")
-    factory = RGeo::GeoJSON::EntityFactory.instance
+    geoutil = GeoUtil.instance
     features = []
-    
+
     actividades = @actividad.actividades_plantaciones
 
     flash.now[:alert] = "La actividad no tiene plantaciones asociadas." unless actividades.length > 0
 
     actividades.each do |actividad|
-      factory_from = RGeo::Geos.factory(:srs_database => srs_database, :srid => actividad.plantacion.zona.srid)
-      plantacion = RGeo::Feature.cast(actividad.plantacion.geom, :factory => factory_from, :project => false)
-      feature = RGeo::Feature.cast(plantacion, :factory => factory_to, :project => true)
-      features << factory.feature(feature, actividad.plantacion.id, {
+      feature = geoutil.cast(actividad.plantacion.geom, '4326', true)
+      features << geoutil.geojson_feature(feature, actividad.plantacion.id, {
           "ID" => actividad.plantacion.id,
           "Titular" => actividad.plantacion.titular ? actividad.plantacion.titular.nombre : '',
           "Especie" => actividad.plantacion.especies.first.nombre_comun,
           "Superficie Registrada" => actividad.superficie_registrada,
-          "Superficie Polígono" => (feature.area * 1000000).round(1),
+          "Superficie Polígono" => actividad.plantacion.hectareas,
           "Estado" => actividad.estado_aprobacion.descripcion
         })
     end
-    
-    @geojson = RGeo::GeoJSON.encode(factory.feature_collection(features)).to_json
+
+    @geojson = geoutil.to_geojson(features)
   end
 
   # GET /actividades/new

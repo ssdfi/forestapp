@@ -31,18 +31,20 @@
           <th>Superficie certificada</th>
           <th>Superficie inspeccionada</th>
           <th>Superficie registrada</th>
+          <th>Superficie polígono</th>
           <th class="icon"></th>
         </tr>
       </thead>
       <tbody>
         <% @actividades.each do |actividad| %>
           <tr>
-            <td><%= actividad.id %></td>
+            <td><%= actividad.plantacion.id %></td>
             <td><%= actividad.plantacion.titular.nombre if actividad.plantacion.titular %></td>
             <td><%= actividad.superficie_presentada %></td>
             <td><%= actividad.superficie_certificada %></td>
             <td><%= actividad.superficie_inspeccionada %></td>
             <td><%= actividad.superficie_registrada %></td>
+            <td><%= actividad.plantacion.hectareas %></td>
             <td class="icon icon-lg">
             <td>
           </tr>
