@@ -36,6 +36,10 @@
           <dd>
             <%= render partial: 'common/boolean_value', locals: {value: @expediente.agrupado} %>
           </dd>
+          <dt>Fecha Entrada:</dt>
+          <dd><%= l @expediente.fecha_entrada if @expediente.fecha_entrada%></dd>
+          <dt>Fecha Salida:</dt>
+          <dd><%= l @expediente.fecha_salida if @expediente.fecha_salida %></dd>
         </dl>
       </div>
     </div>
@@ -58,8 +62,8 @@
             <tr>
               <td><%= movimiento.numero_ficha %></td>
               <td><%= movimiento.anio_inspeccion %></td>
-              <td><%= movimiento.fecha_entrada %></td>
-              <td><%= movimiento.fecha_salida %></td>
+              <td><%= l movimiento.fecha_entrada %></td>
+              <td><%= l movimiento.fecha_salida %></td>
               <td class="icon icon-lg">
                 <%= link_to expediente_movimiento_path(@expediente, movimiento) do %>
                   <span class="glyphicon glyphicon-share"></span>

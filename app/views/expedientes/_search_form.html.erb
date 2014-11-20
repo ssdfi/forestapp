@@ -5,6 +5,8 @@
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :plurianual, label: "Plurianual"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :agrupado, label: "Agrupado"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :incompleto, label: "Incompleto"} %>
+  <%= f.date_field :fecha_desde, label: "Fecha desde" %>
+  <%= f.date_field :fecha_hasta, label: "Fecha hasta" %>
   <hr/>
   <%= f.submit "Buscar", class: "btn btn-primary pull-right" %>
 <% end %>
