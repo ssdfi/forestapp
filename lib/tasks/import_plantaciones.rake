@@ -16,7 +16,7 @@ namespace :db do
           puts "Plantaciones importadas de #{File.basename(file)}: #{importer.data[:registros]}"
         end
       end
-      puts "\n######################################################################################"
+      puts "######################################################################################"
       puts "TOTAL DE PLANTACIONES IMPORTADAS: #{total}"
       puts "######################################################################################"
     end

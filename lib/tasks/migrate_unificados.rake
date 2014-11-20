@@ -120,6 +120,9 @@ namespace :db do
       count += 1
       puts "#{count} unificados migrados hasta el momento." if count % 10000 == 0
       end
+      puts "######################################################################################"
+      puts "TOTAL DE UNIFICADOS MIGRADOS: #{count}"
+      puts "######################################################################################"
     end
   end
 end

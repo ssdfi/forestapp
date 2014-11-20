@@ -16,7 +16,6 @@ namespace :db do
       Dir[dirs].each do |dir|
         Dir[dir + '/*.shp'].each do |file|
           next if File.basename(file)[4..5] == 'pr'
-          #next unless File.basename(file) == '1301plap.shp'
           importer = UnificadosImporter.new(file)
           if importer.import
             subtotal += importer.data[:registros]
@@ -27,7 +26,7 @@ namespace :db do
         subtotal = 0
       end
 
-      puts "\n######################################################################################"
+      puts "######################################################################################"
       puts "TOTAL DE UNIFICADOS IMPORTADOS: #{total}"
       puts "######################################################################################"
     end
