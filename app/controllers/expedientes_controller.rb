@@ -4,7 +4,7 @@ class ExpedientesController < ApplicationController
   # GET /expedientes
   # GET /expedientes.json
   def index
-    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({activo: true, incompleto: "false"})
+    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
     @expedientes = Expediente.page params[:page]
 
@@ -16,6 +16,7 @@ class ExpedientesController < ApplicationController
     @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
     @expedientes = @expedientes.where(agrupado: @expediente.agrupado) unless @expediente.agrupado.nil?
     @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
+    @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_salida IS #{'NOT' unless @expediente.pendiente} NULL") unless @expediente.pendiente.nil?
 
     @expedientes = @expedientes.order(updated_at: :desc)
 
@@ -85,6 +86,6 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta)
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente)
     end
 end

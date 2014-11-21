@@ -5,20 +5,15 @@
         <h3 class="panel-title">Movimiento</h3>
       </div>
       <div class="panel-body">
-        <% if @movimiento.validado %>
-          <div class="pull-right label label-success label"><h5>Validado</h5></div>
-        <% else %>
-          <div class="pull-right label label-danger label"><h5>Sin validar</h5></div>
-        <% end %>
         <dl class="dl-horizontal">
           <dt>Número de ficha:</dt>
           <dd><%= @movimiento.numero_ficha %></dd>
           <dt>Año de Inspección:</dt>
           <dd><%= @movimiento.anio_inspeccion %></dd>
           <dt>Fecha de entrada:</dt>
-          <dd><%= @movimiento.fecha_entrada %></dd>
+          <dd><%= l @movimiento.fecha_entrada if @movimiento.fecha_entrada %></dd>
           <dt>Fecha de salida:</dt>
-          <dd><%= @movimiento.fecha_salida %></dd>
+          <dd><%= l @movimiento.fecha_salida if @movimiento.fecha_salida %></dd>
           <dt>Auditar:</dt>
           <dd>
             <%= render partial: 'common/boolean_value', locals: {value: @movimiento.auditar} %>
@@ -36,6 +31,9 @@
           <dt>Observación interna:</dt>
           <dd><%= @movimiento.observacion_interna %></dd>
         </dl>
+      </div>
+      <div class="panel-footer">
+        <%= render partial: 'common/boolean_label', locals: {value: @movimiento.validado, true_label: "Validado", false_label: "Sin validar"} %>
       </div>
     </div>
   </div>

@@ -2,10 +2,22 @@ class Expediente < ActiveRecord::Base
   has_many :movimientos
   has_and_belongs_to_many :titulares
 
-  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :zona, :departamento
+  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :zona, :departamento, :pendiente
 
   def incompleto=(value)
-    @incompleto = (value == "true") unless value.blank?
+    if !!value == value
+      @incompleto = value
+    elsif not value.blank?
+      @incompleto = (value == "true")
+    end
+  end
+
+  def pendiente=(value)
+    if !!value == value
+      @pendiente = value
+    elsif not value.blank?
+      @pendiente = (value == "true")
+    end
   end
 
   def fecha_desde=(value)
@@ -26,11 +38,11 @@ class Expediente < ActiveRecord::Base
     @departamento
   end
 
-  def fecha_entrada
-    movimientos.order(:fecha_entrada).first.fecha_entrada
+  def ultima_entrada
+    movimientos.order(:fecha_entrada).last.fecha_entrada
   end
 
-  def fecha_salida
+  def ultima_salida
     movimientos.order(:fecha_salida).last.fecha_salida
   end
 

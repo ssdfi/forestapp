@@ -4,8 +4,8 @@
       <th>ID</th>
       <th nowrap>Número interno</th>
       <th nowrap>Número expediente</th>
-      <th>Fecha Entrada</th>
-      <th>Fecha Salida</th>
+      <th>Última Entrada</th>
+      <th>Última Salida</th>
       <th class="icon">Plurianual</th>
       <th class="icon">Agrupado</th>
       <th class="icon">Activo</th>
@@ -18,8 +18,8 @@
         <td><%= expediente.id %></td>
         <td nowrap><%= expediente.numero_interno %></td>
         <td nowrap><%= expediente.numero_expediente %></td>
-        <td><%= l expediente.fecha_entrada if expediente.fecha_entrada %></td>
-        <td><%= l expediente.fecha_salida if expediente.fecha_salida %></td>
+        <td><%= l expediente.ultima_entrada if expediente.ultima_entrada %></td>
+        <td><%= l expediente.ultima_salida if expediente.ultima_salida %></td>
         <td class="icon">
            <%= render partial: 'common/boolean_value', locals: {value: expediente.plurianual} %>
         </td>
