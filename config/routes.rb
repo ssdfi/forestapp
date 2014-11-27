@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :plantaciones do
+    get 'map'
+  end
+
   resources :titulares
 
 end

@@ -38,7 +38,7 @@ $(document).ready ->
   map.addLayer googleSatelital
   map.addLayer geoJson
 
-  if plantaciones.features.length > 0
+  if plantaciones
     map.fitBounds geoJson.getBounds()
   else
     map.setView [-36, -62], 4

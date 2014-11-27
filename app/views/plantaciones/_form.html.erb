@@ -1,0 +1,17 @@
+<%= form_for(@plantacion) do |f| %>
+  <% if @plantacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plantacion.errors.count, "error") %> prohibited this plantacion from being saved:</h2>
+
+      <ul>
+      <% @plantacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
