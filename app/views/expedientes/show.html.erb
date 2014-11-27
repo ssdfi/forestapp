@@ -52,6 +52,7 @@
           <th>Año</th>
           <th>Entrada</th>
           <th>Salida</th>
+          <th class="icon">E.Fiscal</th>
           <th class="icon">Validado</th>
           <th class="icon">Auditar</th>
           <th class="icon"></th>
@@ -65,6 +66,9 @@
               <td><%= movimiento.anio_inspeccion %></td>
               <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada%></td>
               <td><%= l movimiento.fecha_salida if movimiento.fecha_salida %></td>
+              <td class="icon">
+                <%= render partial: 'common/boolean_value', locals: {value: movimiento.estabilidad_fiscal} %>
+              </td>
               <td class="icon">
                 <%= render partial: 'common/boolean_value', locals: {value: movimiento.validado} %>
               </td>

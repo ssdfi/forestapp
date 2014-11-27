@@ -13,6 +13,7 @@ class ExpedientesController < ApplicationController
     @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
     @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", @expediente.fecha_desde) unless @expediente.fecha_desde.nil?
     @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", @expediente.fecha_hasta) unless @expediente.fecha_hasta.nil?
+    @expedientes = @expedientes.joins(:movimientos).where("movimientos.estabilidad_fiscal = ?", @expediente.estabilidad_fiscal) unless @expediente.estabilidad_fiscal.nil?
     @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
     @expedientes = @expedientes.where(agrupado: @expediente.agrupado) unless @expediente.agrupado.nil?
     @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
@@ -86,6 +87,6 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente)
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal)
     end
 end

@@ -14,6 +14,10 @@
           <dd><%= l @movimiento.fecha_entrada if @movimiento.fecha_entrada %></dd>
           <dt>Fecha de salida:</dt>
           <dd><%= l @movimiento.fecha_salida if @movimiento.fecha_salida %></dd>
+          <dt>Estabilidad Fiscal:</dt>
+          <dd>
+            <%= render partial: 'common/boolean_value', locals: {value: @movimiento.estabilidad_fiscal} %>
+          </dd>
           <dt>Auditar:</dt>
           <dd>
             <%= render partial: 'common/boolean_value', locals: {value: @movimiento.auditar} %>

@@ -2,7 +2,7 @@ class Expediente < ActiveRecord::Base
   has_many :movimientos
   has_and_belongs_to_many :titulares
 
-  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :zona, :departamento, :pendiente
+  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :zona, :departamento, :pendiente, :estabilidad_fiscal
 
   def incompleto=(value)
     if !!value == value
@@ -17,6 +17,14 @@ class Expediente < ActiveRecord::Base
       @pendiente = value
     elsif not value.blank?
       @pendiente = (value == "true")
+    end
+  end
+
+  def estabilidad_fiscal=(value)
+    if !!value == value
+      @estabilidad_fiscal = value
+    elsif not value.blank?
+      @estabilidad_fiscal = (value == "true")
     end
   end
 
