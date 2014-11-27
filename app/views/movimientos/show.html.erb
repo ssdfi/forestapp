@@ -43,10 +43,10 @@
       <thead>
         <tr>
           <th>Tipo actividad</th>
-          <th>Superficie presentada</th>
-          <th>Superficie certificada</th>
-          <th>Superficie inspeccionada</th>
-          <th>Superficie registrada</th>
+          <th>Presentado</th>
+          <th>Certificado</th>
+          <th>Inspeccionado</th>
+          <th>Registrado</th>
           <th class="icon"></th>
         </tr>
       </thead>
@@ -63,7 +63,7 @@
                   <span class="glyphicon glyphicon-share"></span>
                 <% end %>
               <% if actividad.plantaciones.count > 0 %>
-                <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad) do %>
+                <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad), target: '_blank' do %>
                   <span class="glyphicon glyphicon-globe"></span>
                 <% end %>
               <% end %>

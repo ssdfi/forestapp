@@ -8,13 +8,13 @@
         <dl class="dl-horizontal">
           <dt>Tipo de actividad:</dt>
           <dd><%= @actividad.tipo_actividad.descripcion %></dd>
-          <dt>Superficie presentada:</dt>
+          <dt>Presentado:</dt>
           <dd><%= @actividad.superficie_presentada %></dd>
-          <dt>Superficie certificada:</dt>
+          <dt>Certificado:</dt>
           <dd><%= @actividad.superficie_certificada %></dd>
-          <dt>Superficie inspeccionada:</dt>
+          <dt>Inspeccionado:</dt>
           <dd><%= @actividad.superficie_inspeccionada %></dd>
-          <dt>Superficie registrada:</dt>
+          <dt>Registrado:</dt>
           <dd><%= @actividad.superficie_registrada %></dd>
         </dl>
       </div>
@@ -27,11 +27,14 @@
         <tr>
           <th>ID</th>
           <th>Titular</th>
-          <th>Superficie presentada</th>
-          <th>Superficie certificada</th>
-          <th>Superficie inspeccionada</th>
-          <th>Superficie registrada</th>
-          <th>Superficie polígono</th>
+          <th>Especie</th>
+          <th>Tipo</th>
+          <th>Presentado</th>
+          <th>Certificado</th>
+          <th>Inspeccionado</th>
+          <th>Registrado</th>
+          <th>Polígono</th>
+          <th>Comentarios</th>
           <th class="icon"></th>
         </tr>
       </thead>
@@ -40,11 +43,20 @@
           <tr>
             <td><%= actividad.plantacion.id %></td>
             <td><%= actividad.plantacion.titular.nombre if actividad.plantacion.titular %></td>
+            <td><%= actividad.plantacion.especies.first.nombre_comun %></td>
+            <td><%= actividad.plantacion.tipo_plantacion.descripcion %></td>
             <td><%= actividad.superficie_presentada %></td>
             <td><%= actividad.superficie_certificada %></td>
             <td><%= actividad.superficie_inspeccionada %></td>
             <td><%= actividad.superficie_registrada %></td>
             <td><%= actividad.plantacion.hectareas %></td>
+            <td>
+              <% if actividad.comentarios.length < 10 %>
+                <%= actividad.comentarios %>
+              <% else %>
+                <abbr title="<%= actividad.comentarios %>"><%= "#{actividad.comentarios[0..9]}..." %></abbr>
+              <% end %>
+            </td>
             <td class="icon icon-lg">
             <td>
           </tr>
