@@ -26,6 +26,35 @@ class Plantacion < ActiveRecord::Base
   end
 
   def hectareas
-    (geom.area / 10000).round 2
+    (geom.area / 10000).round 1
   end
+
+  def to_geojson
+    geoutil = GeoUtil.instance
+    geoutil.encode_json(to_feature)
+  end
+
+  def to_feature
+    geoutil = GeoUtil.instance
+    geoutil.feature_to_geojson(
+      geoutil.cast(geom, '4326', true),
+      id,
+      {
+        "ID" => id,
+        "Titular" => titular ? titular.nombre : '',
+        "Especie" => especies.first.nombre_comun,
+        "Superficie Polígono" => hectareas
+      }
+    )
+  end
+
+  def self.plantaciones_to_geojson(plantaciones)
+    geoutil = GeoUtil.instance
+    features = []
+    plantaciones.each do |plantacion|
+      features << plantacion.to_feature
+    end
+    geoutil.encode_json(features)
+  end
+
 end

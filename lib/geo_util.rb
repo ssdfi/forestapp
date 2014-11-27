@@ -23,12 +23,13 @@ class GeoUtil
     RGeo::Feature.cast(geometry, :factory => factory(srid), :project => project)
   end
 
-  def geojson_feature(feature, id, data)
+  def feature_to_geojson(feature, id, data)
     geojson_factory.feature(feature, id, data)
   end
 
-  def to_geojson(features)
-    RGeo::GeoJSON.encode(geojson_factory.feature_collection(features)).to_json
+  def encode_json(features)
+    features = geojson_factory.feature_collection(features) if features.is_a?(Array)
+    RGeo::GeoJSON.encode(features).to_json
   end
 
 end

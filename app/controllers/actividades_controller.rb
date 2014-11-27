@@ -1,6 +1,4 @@
 class ActividadesController < ApplicationController
-  require 'geo_util'
-
   before_action :set_expediente
   before_action :set_movimiento
   before_action :set_actividad, only: [:show, :map, :edit, :update, :destroy]
@@ -19,26 +17,7 @@ class ActividadesController < ApplicationController
 
   # GET /actividades/1/map
   def map
-    geoutil = GeoUtil.instance
-    features = []
-
-    actividades = @actividad.actividades_plantaciones
-
-    flash.now[:alert] = "La actividad no tiene plantaciones asociadas." unless actividades.length > 0
-
-    actividades.each do |actividad|
-      feature = geoutil.cast(actividad.plantacion.geom, '4326', true)
-      features << geoutil.geojson_feature(feature, actividad.plantacion.id, {
-          "ID" => actividad.plantacion.id,
-          "Titular" => actividad.plantacion.titular ? actividad.plantacion.titular.nombre : '',
-          "Especie" => actividad.plantacion.especies.first.nombre_comun,
-          "Superficie Registrada" => actividad.superficie_registrada,
-          "Superficie Polígono" => actividad.plantacion.hectareas,
-          "Estado" => actividad.estado_aprobacion.descripcion
-        })
-    end
-
-    @geojson = geoutil.to_geojson(features)
+    @geojson = Plantacion.plantaciones_to_geojson(@actividad.plantaciones)
   end
 
   # GET /actividades/new
