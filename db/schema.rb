@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113175518) do
+ActiveRecord::Schema.define(version: 20141127181647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,9 +227,9 @@ ActiveRecord::Schema.define(version: 20141113175518) do
     t.decimal  "distancia_filas"
     t.string   "densidad"
     t.integer  "fuente_informacion_id"
-    t.string   "fecha_informacion"
+    t.integer  "fecha_informacion"
     t.integer  "fuente_imagen_id"
-    t.string   "fecha_imagen"
+    t.integer  "fecha_imagen"
     t.integer  "zona_id"
     t.integer  "departamento_id"
     t.integer  "estrato_desarrollo_id"
@@ -244,6 +244,8 @@ ActiveRecord::Schema.define(version: 20141113175518) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "geom",                   limit: {:srid=>0, :type=>"geometry"}
+    t.text     "fecha_informacion_tmp"
+    t.text     "fecha_imagen_tmp"
   end
 
   add_index "plantaciones", ["departamento_id"], :name => "index_plantaciones_on_departamento_id"
