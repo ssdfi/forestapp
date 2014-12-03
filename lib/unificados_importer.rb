@@ -5,7 +5,7 @@ class UnificadosImporter
     @anio = Date.strptime(File.basename(@file)[2..3], "%y").year.to_s
     @estado_aprobacion = EstadoAprobacion.find_by_codigo(File.basename(@file)[6..7].upcase)
     @tipo_actividad = TipoActividad.find_by_codigo(File.basename(@file)[4..5].upcase)
-    
+
     srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
     factory = RGeo::Geos.factory(:srs_database => srs_database, :srid => @zona.srid)
     @shape = RGeo::Shapefile::Reader.open(file, {factory: factory, assume_inner_follows_outer: true})
