@@ -13,4 +13,14 @@ class Titular < ActiveRecord::Base
 
     Expediente.from(sql)
   end
+
+  def self.search(titular)
+    titulares = all
+    if titular
+      titulares = where("nombre ILIKE ?", "%#{titular.nombre}%") unless titular.nombre.blank?
+      titulares = titulares.where("dni ILIKE ?", "%#{titular.dni}%") unless titular.dni.blank?
+      titulares = titulares.where("cuit ILIKE ?", "%#{titular.cuit}%") unless titular.cuit.blank?
+    end
+    titulares
+  end
 end

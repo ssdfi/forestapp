@@ -22,7 +22,7 @@
   </div>
   <div class="col-md-9">
     <h4>Plantaciones</h4>
-    <table class="table table-hover table-grid" data-no-turbolink="true">
+    <table class="table table-hover table-grid">
       <thead>
         <tr>
           <th>ID</th>
@@ -35,7 +35,7 @@
           <th>Registrado</th>
           <th>Polígono</th>
           <th>Comentarios</th>
-          <th class="icon"></th>
+          <th class="icon">Mapa</th>
         </tr>
       </thead>
       <tbody>
@@ -58,10 +58,10 @@
               <% end %>
             </td>
             <td class="icon icon-lg">
-              <%= link_to plantacion_map_path(actividad.plantacion), target: '_blank' do %>
+              <%= link_to plantacion_map_path(actividad.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
                 <span class="glyphicon glyphicon-globe"></span>
               <% end %>
-            <td>
+            </td>
           </tr>
         <% end %>
       </tbody>

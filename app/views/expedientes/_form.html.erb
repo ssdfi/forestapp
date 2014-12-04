@@ -1,4 +1,4 @@
-<%= bootstrap_form_for @expediente, url: expediente_path(@expediente), method: "put", layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
+<%= bootstrap_form_for @expediente, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
   <% if @expediente.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@expediente.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
@@ -27,9 +27,53 @@
       <%= f.check_box :activo, label: "" %>
     </div>
   </div>
-  <h4>Titulares</h4>
-  <%= f.collection_select :titular_ids, @expediente.titulares, :id, :nombre, label: "Titular/es"%>
+  <%= f.collection_select :titular_ids, @expediente.titulares, :id, :nombre, {label: "Titular/es", selected: nil}, {multiple: true, size: 5}%>
+  <div class="form-group" style="margin-top: -10px;">
+    <div class="col-sm-9 col-sm-offset-3">
+      <div class="pull-right">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#titularesModal">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
+        </button>
+        <button id="remove-titular" type="button" class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
   <hr/>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", onclick: "selectAllTitulares()" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
 <% end %>
+
+<div class="modal fade" id="titularesModal" tabindex="-1" role="dialog" aria-labelledby="titularesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        <h4 class="modal-title" id="titularesModalLabel">Agregar Titular</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <%= bootstrap_form_tag url: titulares_path + '.json', method: "get", remote: true, layout: :inline do |f| %>
+              <%= f.text_field "titular[nombre]", hide_label: true, placeholder: "Nombre" %>
+              <%= f.text_field "titular[dni]", hide_label: true, placeholder: "DNI" %>
+              <%= f.text_field "titular[cuit]", hide_label: true, placeholder: "CUIT" %>
+              <%= f.submit "Buscar", class: "btn btn-default" %>
+            <% end %>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <ul id="titulares"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="add-titular" type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>

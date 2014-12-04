@@ -1,0 +1,38 @@
+<table class="table table-hover table-grid">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>DNI</th>
+      <th>CUIT</th>
+      <th class="icon"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% titulares.each do |titular| %>
+      <tr>
+        <td><%= titular.id %></td>
+        <td><%= titular.nombre %></td>
+        <td><%= titular.dni %></td>
+        <td><%= titular.cuit %></td>
+        <td class="icon icon-lg">
+          <%= link_to titular_path(titular) do %>
+            <span class="glyphicon glyphicon-share"></span>
+          <% end %>
+          <%= link_to edit_titular_path(titular) do %>
+            <span class="glyphicon glyphicon-edit"></span>
+          <% end %>
+          <%= link_to titular, method: :delete, data: { confirm: 'Está seguro que desde borrar el registro?' } do %>
+            <span class="glyphicon glyphicon-remove-circle"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="well well-sm clearfix">
+  <div class="pagination-info pull-left">
+    <%= page_entries_info titulares %>
+  </div>
+  <%= paginate titulares %>
+</div>

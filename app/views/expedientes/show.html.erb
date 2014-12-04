@@ -21,9 +21,9 @@
           <dt>Técnico:</dt>
           <dd><%= @expediente.tecnico %></dd>
           <dt>Zona:</dt>
-          <dd><%= @expediente.zona.descripcion %></dd>
+          <dd><%= @expediente.zona.descripcion if @expediente.zona%></dd>
           <dt>Departamento:</dt>
-          <dd><%= @expediente.departamento.descripcion %></dd>
+          <dd><%= @expediente.departamento.descripcion if @expediente.departamento %></dd>
           <dt>Plurianual:</dt>
           <dd>
             <%= render partial: 'common/boolean_value', locals: {value: @expediente.plurianual} %>
@@ -42,6 +42,28 @@
         <%= render partial: 'common/boolean_label', locals: {value: @expediente.activo, true_label: "Activo", false_label: "Inactivo"} %>
       </div>
     </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <p>
+          <%= link_to edit_expediente_path, class: "btn btn-info" do %>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Expediente
+          <% end %>
+        </p>
+        <p>
+          <%= link_to expediente_path, class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Expediente?' } do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Expediente
+          <% end %><br/>
+        </p>
+        <p>
+          <%= link_to new_expediente_movimiento_path(@expediente), class: "btn btn-success" do %>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Movimiento
+          <% end %>
+        </p>
+      </div>
+    </div>
   </div>
   <div class="col-md-9">
     <h4>Movimientos</h4>
@@ -55,13 +77,12 @@
           <th class="icon">E.Fiscal</th>
           <th class="icon">Validado</th>
           <th class="icon">Auditar</th>
-          <th class="icon"></th>
         </tr>
       </thead>
       <tbody>
         <tbody>
           <% @movimientos.each do |movimiento| %>
-            <tr>
+            <tr data-link="<%= expediente_movimiento_path(@expediente, movimiento) %>">
               <td><%= movimiento.numero_ficha %></td>
               <td><%= movimiento.anio_inspeccion %></td>
               <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada%></td>
@@ -74,11 +95,6 @@
               </td>
               <td class="icon">
                 <%= render partial: 'common/boolean_value', locals: {value: movimiento.auditar} %>
-              </td>
-              <td class="icon icon-lg">
-                <%= link_to expediente_movimiento_path(@expediente, movimiento) do %>
-                  <span class="glyphicon glyphicon-share"></span>
-                <% end %>
               </td>
             </tr>
           <% end %>

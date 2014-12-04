@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require bootstrap-switch
 
@@ -20,3 +19,9 @@
 $.fn.bootstrapSwitch.defaults.onText = 'Sí';
 $.fn.bootstrapSwitch.defaults.offText = 'No';
 $.fn.bootstrapSwitch.defaults.labelWidth = '100';
+
+$(function() {
+  $("tr[data-link]").click(function () {
+    window.location = this.dataset.link
+  })
+});

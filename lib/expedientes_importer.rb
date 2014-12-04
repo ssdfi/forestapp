@@ -54,8 +54,8 @@ class ExpedientesImporter
       tmp_titulares = tmp_titulares.where(fuente: ['Entidad', 'Individual'])
 
       tmp_titulares.each do |tmp_titular|
-        titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0' 
-        titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0' 
+        titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0'
+        titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0'
         titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
         if titular.nil?
           titular = Titular.create!(

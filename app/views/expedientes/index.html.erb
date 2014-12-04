@@ -8,8 +8,18 @@
         <%= render partial: 'search_form', locals: {expediente: @expediente} %>
       </div>
     </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <%= link_to new_expediente_path, class: "btn btn-success" do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Expediente
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="col-md-9">
-    <%= render partial: 'common/expedientes', locals: {expedientes: @expedientes} %>
+    <%= render partial: 'expedientes', locals: {expedientes: @expedientes} %>
   </div>
 </div>

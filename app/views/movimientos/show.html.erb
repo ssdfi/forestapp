@@ -43,7 +43,7 @@
   </div>
   <div class="col-md-9">
     <h4>Actividades</h4>
-    <table class="table table-hover table-grid" id="actividades" data-no-turbolink="true">
+    <table class="table table-hover table-grid" id="actividades">
       <thead>
         <tr>
           <th>Tipo actividad</th>
@@ -51,27 +51,24 @@
           <th>Certificado</th>
           <th>Inspeccionado</th>
           <th>Registrado</th>
-          <th class="icon"></th>
+          <th class="icon">Mapa</th>
         </tr>
       </thead>
       <tbody>
         <% @actividades.each do |actividad| %>
-          <tr>
+          <tr data-link="<%= expediente_movimiento_actividad_path(@movimiento.expediente, @movimiento, actividad) %>">
             <td><%= actividad.tipo_actividad.descripcion %></td>
             <td><%= actividad.superficie_presentada %></td>
             <td><%= actividad.superficie_certificada %></td>
             <td><%= actividad.superficie_inspeccionada %></td>
             <td><%= actividad.superficie_registrada %></td>
             <td class="icon icon-lg">
-              <%= link_to expediente_movimiento_actividad_path(@movimiento.expediente, @movimiento, actividad) do %>
-                  <span class="glyphicon glyphicon-share"></span>
-                <% end %>
               <% if actividad.plantaciones.count > 0 %>
-                <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad), target: '_blank' do %>
+                <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad), target: '_blank', onclick: 'event.stopPropagation()' do %>
                   <span class="glyphicon glyphicon-globe"></span>
                 <% end %>
               <% end %>
-            <td>
+            </td>
           </tr>
         <% end %>
       </tbody>

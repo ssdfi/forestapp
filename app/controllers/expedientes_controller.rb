@@ -6,20 +6,9 @@ class ExpedientesController < ApplicationController
   def index
     @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
-    @expedientes = Expediente.page params[:page]
-
-    @expedientes = @expedientes.where("numero_interno ILIKE ?", "%#{@expediente.numero_interno}%") unless @expediente.numero_interno.blank?
-    @expedientes = @expedientes.where("numero_expediente ILIKE ?", "%#{@expediente.numero_expediente}%") unless @expediente.numero_expediente.blank?
-    @expedientes = @expedientes.where("numero_expediente IS #{'NOT' unless @expediente.incompleto} NULL") unless @expediente.incompleto.nil?
-    @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", @expediente.fecha_desde) unless @expediente.fecha_desde.nil?
-    @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", @expediente.fecha_hasta) unless @expediente.fecha_hasta.nil?
-    @expedientes = @expedientes.joins(:movimientos).where("movimientos.estabilidad_fiscal = ?", @expediente.estabilidad_fiscal) unless @expediente.estabilidad_fiscal.nil?
-    @expedientes = @expedientes.where(plurianual: @expediente.plurianual) unless @expediente.plurianual.nil?
-    @expedientes = @expedientes.where(agrupado: @expediente.agrupado) unless @expediente.agrupado.nil?
-    @expedientes = @expedientes.where(activo: @expediente.activo) unless @expediente.activo.nil?
-    @expedientes = @expedientes.joins(:movimientos).where("movimientos.fecha_salida IS #{'NOT' unless @expediente.pendiente} NULL") unless @expediente.pendiente.nil?
-
+    @expedientes = Expediente.search(@expediente)
     @expedientes = @expedientes.order(updated_at: :desc)
+    @expedientes = @expedientes.page params[:page]
 
     redirect_to @expedientes.first if @expedientes.count == 1
   end
@@ -46,7 +35,7 @@ class ExpedientesController < ApplicationController
 
     respond_to do |format|
       if @expediente.save
-        format.html { redirect_to @expediente, notice: 'Expediente was successfully created.' }
+        format.html { redirect_to @expediente, notice: 'Expediente creado satisfactoriamente.' }
         format.json { render :show, status: :created, location: @expediente }
       else
         format.html { render :new }
@@ -60,7 +49,7 @@ class ExpedientesController < ApplicationController
   def update
     respond_to do |format|
       if @expediente.update(expediente_params)
-        format.html { redirect_to @expediente, notice: 'Expediente was successfully updated.' }
+        format.html { redirect_to @expediente, notice: 'Expediente actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @expediente }
       else
         format.html { render :edit }
@@ -74,7 +63,7 @@ class ExpedientesController < ApplicationController
   def destroy
     @expediente.destroy
     respond_to do |format|
-      format.html { redirect_to expedientes_url, notice: 'Expediente was successfully destroyed.' }
+      format.html { redirect_to expedientes_url, notice: 'Expediente eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
@@ -87,6 +76,6 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal)
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, titular_ids: [])
     end
 end

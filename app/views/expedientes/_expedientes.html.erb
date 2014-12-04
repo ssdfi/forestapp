@@ -9,12 +9,11 @@
       <th class="icon">Plurianual</th>
       <th class="icon">Agrupado</th>
       <th class="icon">Activo</th>
-      <th class="icon"></th>
     </tr>
   </thead>
   <tbody>
     <% expedientes.each do |expediente| %>
-      <tr>
+      <tr data-link="<%= expediente_path(expediente) %>">
         <td><%= expediente.id %></td>
         <td nowrap><%= expediente.numero_interno %></td>
         <td nowrap><%= expediente.numero_expediente %></td>
@@ -28,14 +27,6 @@
         </td>
         <td class="icon">
           <%= render partial: 'common/boolean_value', locals: {value: expediente.activo} %>
-        </td>
-        <td class="icon icon-lg">
-          <%= link_to expediente_path(expediente) do %>
-            <span class="glyphicon glyphicon-share"></span>
-          <% end %>
-          <%= link_to edit_expediente_path(expediente) do %>
-            <span class="glyphicon glyphicon-edit"></span>
-          <% end %>
         </td>
       </tr>
     <% end %>
