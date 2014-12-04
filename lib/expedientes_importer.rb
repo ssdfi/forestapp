@@ -9,6 +9,7 @@ class ExpedientesImporter
 
   def import
     MsExpediente.all.each do |expediente|
+      next if expediente.Borrado
       ActiveRecord::Base.transaction do
         begin
           import_expediente(expediente)
@@ -41,6 +42,7 @@ class ExpedientesImporter
       )
       create_titulares(expediente)
       msexpediente.movimientos.each do |movimiento|
+        next if movimiento.Eliminado
         import_movimiento(expediente, movimiento)
       end
       @data[:expedientes] += 1
