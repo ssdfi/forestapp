@@ -38,6 +38,7 @@ GEM
       execjs
     bootstrap-sass (3.3.0.0)
       sass (~> 3.2)
+    bootstrap-switch-rails (3.2.2)
     bootstrap_form (2.2.0)
     builder (3.2.2)
     capistrano (3.2.1)
@@ -194,6 +195,7 @@ DEPENDENCIES
   activerecord-sqlserver-adapter
   autoprefixer-rails
   bootstrap-sass (~> 3.3.0)
+  bootstrap-switch-rails
   bootstrap_form
   capistrano-passenger
   capistrano-rails

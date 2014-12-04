@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require bootstrap-switch
+
+// $.fn.bootstrapSwitch.defaults.size = 'mini';
+$.fn.bootstrapSwitch.defaults.onText = 'Sí';
+$.fn.bootstrapSwitch.defaults.offText = 'No';
+$.fn.bootstrapSwitch.defaults.labelWidth = '100';

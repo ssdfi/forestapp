@@ -1,6 +1,10 @@
-<h1>Editing expediente</h1>
+<% content_for :head do %>
+  <%= javascript_include_tag 'expedientes' %>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @expediente %> |
-<%= link_to 'Back', expedientes_path %>
+<div class="row">
+  <div class="col-md-4">
+    <h2>Editar expediente</h2>
+    <%= render 'form' %>
+  </div>
+</div>

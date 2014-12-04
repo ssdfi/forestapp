@@ -51,6 +51,7 @@ end
 gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap_form'
 gem 'autoprefixer-rails'
+gem "bootstrap-switch-rails"
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'

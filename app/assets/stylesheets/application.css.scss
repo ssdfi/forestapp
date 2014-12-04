@@ -16,6 +16,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap3-switch";
 
 th.icon {
   text-align: center;
@@ -27,7 +28,7 @@ td.icon {
 
 td.icon span {
   font-size: 120%;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 
 td.icon-lg span {
@@ -66,4 +67,8 @@ td.icon-lg span {
 
 .panel-footer .label {
   font-size: $font-size-h5;
+}
+
+.checkbox label {
+  padding-left: 0;
 }
