@@ -1,4 +1,36 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_plantacion_path(@plantacion) %> |
-<%= link_to 'Back', plantaciones_path %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Plantación</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>ID Plantación:</dt>
+          <dd><%= @plantacion.id %></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <p>
+          <%= link_to edit_plantacion_path(@plantacion), class: "btn btn-info" do %>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Plantación
+          <% end %>
+        </p>
+        <p>
+          <%= link_to plantacion_path(@plantacion), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar la Plantación?' } do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
+          <% end %><br/>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h4>Expedientes</h4>
+    <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
+  </div>
+</div>

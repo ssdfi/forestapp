@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <% expedientes.each do |expediente| %>
+    <% @expedientes.each do |expediente| %>
       <tr data-link="<%= expediente_path(expediente) %>">
         <td><%= expediente.id %></td>
         <td nowrap><%= expediente.numero_interno %></td>

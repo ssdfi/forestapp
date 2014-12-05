@@ -1,10 +1,11 @@
 class MovimientosController < ApplicationController
+  before_action :set_expediente
   before_action :set_movimiento, only: [:show, :edit, :update, :destroy]
 
   # GET /movimientos
   # GET /movimientos.json
   def index
-    @movimientos = Movimiento.all
+    redirect_to @expediente
   end
 
   # GET /movimientos/1
@@ -15,7 +16,7 @@ class MovimientosController < ApplicationController
 
   # GET /movimientos/new
   def new
-    @movimiento = Movimiento.new
+    @movimiento = @expediente.movimientos.new
   end
 
   # GET /movimientos/1/edit
@@ -25,12 +26,12 @@ class MovimientosController < ApplicationController
   # POST /movimientos
   # POST /movimientos.json
   def create
-    @movimiento = Movimiento.new(movimiento_params)
+    @movimiento = @expediente.movimientos.new(movimiento_params)
 
     respond_to do |format|
       if @movimiento.save
-        format.html { redirect_to @movimiento, notice: 'Movimiento was successfully created.' }
-        format.json { render :show, status: :created, location: @movimiento }
+        format.html { redirect_to [@expediente, @movimiento], notice: 'Movimiento creado satisfactoriamente.' }
+        format.json { render :show, status: :created, location: [@expediente, @movimiento] }
       else
         format.html { render :new }
         format.json { render json: @movimiento.errors, status: :unprocessable_entity }
@@ -43,8 +44,8 @@ class MovimientosController < ApplicationController
   def update
     respond_to do |format|
       if @movimiento.update(movimiento_params)
-        format.html { redirect_to @movimiento, notice: 'Movimiento was successfully updated.' }
-        format.json { render :show, status: :ok, location: @movimiento }
+        format.html { redirect_to [@expediente, @movimiento], notice: 'Movimiento actualizado satisfactoriamente.' }
+        format.json { render :show, status: :ok, location: [@expediente, @movimiento] }
       else
         format.html { render :edit }
         format.json { render json: @movimiento.errors, status: :unprocessable_entity }
@@ -57,13 +58,17 @@ class MovimientosController < ApplicationController
   def destroy
     @movimiento.destroy
     respond_to do |format|
-      format.html { redirect_to movimientos_url, notice: 'Movimiento was successfully destroyed.' }
+      format.html { redirect_to expediente_movimientos_url(@expediente, @movimiento), notice: 'Movimiento eliminado satisfactoriamente.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_expediente
+      @expediente = Expediente.find(params[:expediente_id])
+    end
+
     def set_movimiento
       @movimiento = Movimiento.find(params[:id])
     end

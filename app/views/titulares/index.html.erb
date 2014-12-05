@@ -8,6 +8,16 @@
         <%= render partial: 'search_form', locals: {titular: @titular} %>
       </div>
     </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <%= link_to new_titular_path, class: "btn btn-info" do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Titular
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="col-md-9">
     <%= render partial: 'titulares', locals: {titulares: @titulares} %>

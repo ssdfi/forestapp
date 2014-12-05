@@ -6,13 +6,12 @@ class ActividadesController < ApplicationController
   # GET /actividades
   # GET /actividades.json
   def index
-    @actividades = @movimiento.actividades
+    redirect_to [@expediente, @movimiento]
   end
 
   # GET /actividades/1
   # GET /actividades/1.json
   def show
-    @actividades = @actividad.actividades_plantaciones
   end
 
   # GET /actividades/1/map
@@ -22,7 +21,7 @@ class ActividadesController < ApplicationController
 
   # GET /actividades/new
   def new
-    @actividad = Actividad.new
+    @actividad = @movimiento.actividades.new
   end
 
   # GET /actividades/1/edit
@@ -32,12 +31,12 @@ class ActividadesController < ApplicationController
   # POST /actividades
   # POST /actividades.json
   def create
-    @actividad = Actividad.new(actividad_params)
+    @actividad = @movimiento.actividades.new(actividad_params)
 
     respond_to do |format|
       if @actividad.save
-        format.html { redirect_to @actividad, notice: 'Actividad was successfully created.' }
-        format.json { render :show, status: :created, location: @actividad }
+        format.html { redirect_to [@expediente, @movimiento, @actividad], notice: 'Actividad creada satisfactoriamente.' }
+        format.json { render :show, status: :created, location: [@expediente, @movimiento, @actividad] }
       else
         format.html { render :new }
         format.json { render json: @actividad.errors, status: :unprocessable_entity }
@@ -50,8 +49,8 @@ class ActividadesController < ApplicationController
   def update
     respond_to do |format|
       if @actividad.update(actividad_params)
-        format.html { redirect_to @actividad, notice: 'Actividad was successfully updated.' }
-        format.json { render :show, status: :ok, location: @actividad }
+        format.html { redirect_to [@expediente, @movimiento, @actividad], notice: 'Actividad actualizada satisfactoriamente.' }
+        format.json { render :show, status: :ok, location: [@expediente, @movimiento, @actividad] }
       else
         format.html { render :edit }
         format.json { render json: @actividad.errors, status: :unprocessable_entity }
@@ -64,7 +63,7 @@ class ActividadesController < ApplicationController
   def destroy
     @actividad.destroy
     respond_to do |format|
-      format.html { redirect_to actividades_url, notice: 'Actividad was successfully destroyed.' }
+      format.html { redirect_to expediente_movimiento_actividades_url(@expediente, @movimiento), notice: 'Actividad eliminada satisfactoriamente.' }
       format.json { head :no_content }
     end
   end

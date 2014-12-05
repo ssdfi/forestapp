@@ -1,8 +1,7 @@
-<%= form_for(@actividad) do |f| %>
+<%= bootstrap_form_for [@expediente, @movimiento, @actividad], layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
   <% if @actividad.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@actividad.errors.count, "error") %> prohibited this actividad from being saved:</h2>
-
+      <h2><%= pluralize(@actividad.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
       <ul>
       <% @actividad.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,32 +9,12 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :movimiento_id %><br>
-    <%= f.text_field :movimiento_id %>
-  </div>
-  <div class="field">
-    <%= f.label :tipo_actividad_id %><br>
-    <%= f.text_field :tipo_actividad_id %>
-  </div>
-  <div class="field">
-    <%= f.label :superficie_presentada %><br>
-    <%= f.text_field :superficie_presentada %>
-  </div>
-  <div class="field">
-    <%= f.label :superficie_certificada %><br>
-    <%= f.text_field :superficie_certificada %>
-  </div>
-  <div class="field">
-    <%= f.label :superficie_inspeccionada %><br>
-    <%= f.text_field :superficie_inspeccionada %>
-  </div>
-  <div class="field">
-    <%= f.label :superficie_registrada %><br>
-    <%= f.text_field :superficie_registrada %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.collection_select :tipo_actividad_id, TipoActividad.all, :id, :descripcion %>
+  <%= f.text_field :superficie_presentada, label: "Superficie Presentada" %>
+  <%= f.text_field :superficie_certificada, label: "Superficie Certificada" %>
+  <%= f.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
+  <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+  <hr/>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+  <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>

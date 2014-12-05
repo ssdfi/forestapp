@@ -10,6 +10,7 @@ class PlantacionesController < ApplicationController
   # GET /plantaciones/1
   # GET /plantaciones/1.json
   def show
+    @expedientes = @plantacion.expedientes.page params[:page]
   end
 
   # GET /plantaciones/1/map

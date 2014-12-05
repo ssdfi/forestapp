@@ -1,6 +1,10 @@
-<h1>Editing movimiento</h1>
+<% content_for :head do %>
+  <%= javascript_include_tag 'edit_movimiento' %>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @movimiento %> |
-<%= link_to 'Back', movimientos_path %>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Editar movimiento</h2>
+    <%= render 'form' %>
+  </div>
+</div>

@@ -6,6 +6,10 @@
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
+          <dt>ID Movimiento:</dt>
+          <dd><%= link_to @movimiento.id, [@expediente, @movimiento] %></dd>
+          <dt>ID Actividad:</dt>
+          <dd><%= @actividad.id %></dd>
           <dt>Tipo de actividad:</dt>
           <dd><%= @actividad.tipo_actividad.descripcion %></dd>
           <dt>Presentado:</dt>
@@ -19,6 +23,23 @@
         </dl>
       </div>
     </div>
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Acciones</h3>
+    </div>
+    <div class="panel-body panel-actions">
+      <p>
+        <%= link_to edit_expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), class: "btn btn-info" do %>
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
+        <% end %>
+      </p>
+      <p>
+        <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Movimiento?' } do %>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Actividad
+        <% end %><br/>
+      </p>
+    </div>
+  </div>
   </div>
   <div class="col-md-9">
     <h4>Plantaciones</h4>
@@ -39,26 +60,26 @@
         </tr>
       </thead>
       <tbody>
-        <% @actividades.each do |actividad| %>
+        <% @actividad.actividades_plantaciones.each do |actividad_plantacion| %>
           <tr>
-            <td><%= actividad.plantacion.id %></td>
-            <td><%= actividad.plantacion.titular.nombre if actividad.plantacion.titular %></td>
-            <td><%= actividad.plantacion.especies.first.nombre_comun %></td>
-            <td><%= actividad.plantacion.tipo_plantacion.descripcion %></td>
-            <td><%= actividad.superficie_presentada %></td>
-            <td><%= actividad.superficie_certificada %></td>
-            <td><%= actividad.superficie_inspeccionada %></td>
-            <td><%= actividad.superficie_registrada %></td>
-            <td><%= actividad.plantacion.hectareas %></td>
+            <td><%= link_to actividad_plantacion.plantacion.id, actividad_plantacion.plantacion %></td>
+            <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
+            <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun %></td>
+            <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion %></td>
+            <td><%= actividad_plantacion.superficie_presentada %></td>
+            <td><%= actividad_plantacion.superficie_certificada %></td>
+            <td><%= actividad_plantacion.superficie_inspeccionada %></td>
+            <td><%= actividad_plantacion.superficie_registrada %></td>
+            <td><%= actividad_plantacion.plantacion.hectareas %></td>
             <td>
-              <% if actividad.comentarios.length < 10 %>
-                <%= actividad.comentarios %>
+              <% if actividad_plantacion.comentarios and actividad_plantacion.comentarios.length > 10 %>
+                <abbr title="<%= actividad.comentarios %>"><%= "#{actividad_plantacion.comentarios[0..9]}..." %></abbr>
               <% else %>
-                <abbr title="<%= actividad.comentarios %>"><%= "#{actividad.comentarios[0..9]}..." %></abbr>
+                <%= actividad_plantacion.comentarios %>
               <% end %>
             </td>
             <td class="icon icon-lg">
-              <%= link_to plantacion_map_path(actividad.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
+              <%= link_to plantacion_map_path(actividad_plantacion.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
                 <span class="glyphicon glyphicon-globe"></span>
               <% end %>
             </td>

@@ -1,8 +1,7 @@
-<%= form_for(@movimiento) do |f| %>
+<%= bootstrap_form_for [@expediente, @movimiento], layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
   <% if @movimiento.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@movimiento.errors.count, "error") %> prohibited this movimiento from being saved:</h2>
-
+      <h2><%= pluralize(@movimiento.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
       <ul>
       <% @movimiento.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,64 +9,28 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :expediente_id %><br>
-    <%= f.text_field :expediente_id %>
+  <%= f.text_field :numero_ficha, label: "Número de ficha" %>
+  <%= f.collection_select :inspector_id, Inspector.all, :id, :descripcion %>
+  <%= f.collection_select :reinspector_id, Inspector.all, :id, :descripcion %>
+  <%= f.collection_select :responsable_id, Responsable.all, :id, :nombre %>
+  <%= f.number_field :anio_inspeccion, label: "Año inspección" %>
+  <%= f.collection_select :destino_id, Destino.all, :id, :descripcion %>
+  <%= f.date_field :fecha_entrada %>
+  <%= f.date_field :fecha_salida %>
+  <%= f.number_field :etapa %>
+  <%= f.text_area :observacion, label: "Observación" %>
+  <%= f.text_area :observacion_interna, label: "Observación interna" %>
+  <div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+      <%= f.check_box :auditar, label: "" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :numero_ficha %><br>
-    <%= f.number_field :numero_ficha %>
+  <div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+      <%= f.check_box :validado, label: "" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :inspector_id %><br>
-    <%= f.text_field :inspector_id %>
-  </div>
-  <div class="field">
-    <%= f.label :reinspector %><br>
-    <%= f.number_field :reinspector %>
-  </div>
-  <div class="field">
-    <%= f.label :responsable_id %><br>
-    <%= f.text_field :responsable_id %>
-  </div>
-  <div class="field">
-    <%= f.label :anio_inspeccion %><br>
-    <%= f.text_field :anio_inspeccion %>
-  </div>
-  <div class="field">
-    <%= f.label :destino_id %><br>
-    <%= f.text_field :destino_id %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_entrada %><br>
-    <%= f.date_select :fecha_entrada %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_salida %><br>
-    <%= f.date_select :fecha_salida %>
-  </div>
-  <div class="field">
-    <%= f.label :etapa %><br>
-    <%= f.text_field :etapa %>
-  </div>
-  <div class="field">
-    <%= f.label :observacion %><br>
-    <%= f.text_area :observacion %>
-  </div>
-  <div class="field">
-    <%= f.label :observacion_interna %><br>
-    <%= f.text_area :observacion_interna %>
-  </div>
-  <div class="field">
-    <%= f.label :auditar %><br>
-    <%= f.check_box :auditar %>
-  </div>
-  <div class="field">
-    <%= f.label :validado %><br>
-    <%= f.check_box :validado %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <hr/>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+  <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>

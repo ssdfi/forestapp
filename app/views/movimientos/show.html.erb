@@ -6,13 +6,17 @@
       </div>
       <div class="panel-body">
         <dl class="dl-horizontal">
-          <dt>Número de ficha:</dt>
+          <dt>ID Expediente:</dt>
+          <dd><%= link_to @expediente.id, @expediente %></dd>
+          <dt>ID Movimiento:</dt>
+          <dd><%= @movimiento.id %></dd>
+          <dt>Número de Ficha:</dt>
           <dd><%= @movimiento.numero_ficha %></dd>
           <dt>Año de Inspección:</dt>
           <dd><%= @movimiento.anio_inspeccion %></dd>
-          <dt>Fecha de entrada:</dt>
+          <dt>Fecha de Entrada:</dt>
           <dd><%= l @movimiento.fecha_entrada if @movimiento.fecha_entrada %></dd>
-          <dt>Fecha de salida:</dt>
+          <dt>Fecha de Salida:</dt>
           <dd><%= l @movimiento.fecha_salida if @movimiento.fecha_salida %></dd>
           <dt>Estabilidad Fiscal:</dt>
           <dd>
@@ -32,12 +36,34 @@
           <dd><%= @movimiento.destino.descripcion if @movimiento.destino %></dd>
           <dt>Observación:</dt>
           <dd><%= @movimiento.observacion %></dd>
-          <dt>Observación interna:</dt>
+          <dt>Observación Interna:</dt>
           <dd><%= @movimiento.observacion_interna %></dd>
         </dl>
       </div>
       <div class="panel-footer">
         <%= render partial: 'common/boolean_label', locals: {value: @movimiento.validado, true_label: "Validado", false_label: "Sin validar"} %>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <p>
+          <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento), class: "btn btn-info" do %>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
+          <% end %>
+        </p>
+        <p>
+          <%= link_to expediente_movimiento_path(@expediente, @movimiento), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Movimiento?' } do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
+          <% end %><br/>
+        </p>
+        <p>
+          <%= link_to new_expediente_movimiento_actividad_path(@expediente, @movimiento), class: "btn btn-info" do %>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
+          <% end %>
+        </p>
       </div>
     </div>
   </div>
