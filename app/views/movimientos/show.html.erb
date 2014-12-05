@@ -72,6 +72,7 @@
     <table class="table table-hover table-grid" id="actividades">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Tipo actividad</th>
           <th>Presentado</th>
           <th>Certificado</th>
@@ -83,6 +84,7 @@
       <tbody>
         <% @actividades.each do |actividad| %>
           <tr data-link="<%= expediente_movimiento_actividad_path(@movimiento.expediente, @movimiento, actividad) %>">
+            <td><%= actividad.id %></td>
             <td><%= actividad.tipo_actividad.descripcion %></td>
             <td><%= actividad.superficie_presentada %></td>
             <td><%= actividad.superficie_certificada %></td>

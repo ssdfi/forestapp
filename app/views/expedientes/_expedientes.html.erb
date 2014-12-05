@@ -14,7 +14,7 @@
   <tbody>
     <% @expedientes.each do |expediente| %>
       <tr data-link="<%= expediente_path(expediente) %>">
-        <td><%= expediente.id %></td>
+        <td><%= link_to expediente.id, expediente %></td>
         <td nowrap><%= expediente.numero_interno %></td>
         <td nowrap><%= expediente.numero_expediente %></td>
         <td><%= l expediente.ultima_entrada if expediente.ultima_entrada %></td>

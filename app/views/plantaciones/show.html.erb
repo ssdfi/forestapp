@@ -8,6 +8,50 @@
         <dl class="dl-horizontal">
           <dt>ID Plantación:</dt>
           <dd><%= @plantacion.id %></dd>
+          <dt>Titular:</dt>
+          <dd><%= @plantacion.titular.nombre if @plantacion.titular %></dd>
+          <dt>Año de Plantación:</dt>
+          <dd><%= @plantacion.anio_plantacion %></dd>
+          <dt>Tipo de Plantación:</dt>
+          <dd><%= @plantacion.tipo_plantacion.descripcion if @plantacion.tipo_plantacion %></dd>
+          <dt>Nomenclatura Catastral:</dt>
+          <dd><%= @plantacion.nomenclatura_catastral %></dd>
+          <dt>Estado de Plantación:</dt>
+          <dd><%= @plantacion.estado_plantacion.descripcion if @plantacion.estado_plantacion %></dd>
+          <dt>Distancia entre Plantas:</dt>
+          <dd><%= @plantacion.distancia_plantas %></dd>
+          <dt>Cantidad de Filas:</dt>
+          <dd><%= @plantacion.cantidad_filas %></dd>
+          <dt>Distancia entre Filas:</dt>
+          <dd><%= @plantacion.distancia_filas %></dd>
+          <dt>Densidad:</dt>
+          <dd><%= @plantacion.densidad %></dd>
+          <dt>Fuente de Información:</dt>
+          <dd><%= @plantacion.fuente_informacion.descripcion if @plantacion.fuente_informacion %></dd>
+          <dt>Fecha de Información:</dt>
+          <dd><%= @plantacion.fecha_informacion %></dd>
+          <dt>Fuente de Imagen:</dt>
+          <dd><%= @plantacion.fuente_imagen.descripcion if @plantacion.fuente_imagen %></dd>
+          <dt>Fecha de Imagen:</dt>
+          <dd><%= @plantacion.fecha_imagen %></dd>
+          <dt>Zona:</dt>
+          <dd><%= @plantacion.zona.descripcion if @plantacion.zona %></dd>
+          <dt>Departamento:</dt>
+          <dd><%= @plantacion.departamento.descripcion if @plantacion.departamento %></dd>
+          <dt>Estrato de Desarrollo:</dt>
+          <dd><%= @plantacion.estrato_desarrollo.descripcion if @plantacion.estrato_desarrollo %></dd>
+          <dt>Uso Forestal:</dt>
+          <dd><%= @plantacion.uso_forestal.descripcion if @plantacion.uso_forestal %></dd>
+          <dt>Uso Anterior:</dt>
+          <dd><%= @plantacion.uso_anterior.descripcion if @plantacion.uso_anterior %></dd>
+          <dt>Objetivo de Plantación:</dt>
+          <dd><%= @plantacion.objetivo_plantacion.descripcion if @plantacion.objetivo_plantacion %></dd>
+          <dt>Activo:</dt>
+          <dd>
+            <%= render partial: 'common/boolean_value', locals: {value: @plantacion.activo} %>
+          </dd>
+          <dt>Comentarios:</dt>
+          <dd><%= @plantacion.comentarios %></dd>
         </dl>
       </div>
     </div>

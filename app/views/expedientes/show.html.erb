@@ -72,6 +72,7 @@
     <table class="table table-hover table-grid">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Ficha</th>
           <th>Año</th>
           <th>Entrada</th>
@@ -85,6 +86,7 @@
         <tbody>
           <% @movimientos.each do |movimiento| %>
             <tr data-link="<%= expediente_movimiento_path(@expediente, movimiento) %>">
+              <td><%= movimiento.id %></td>
               <td><%= movimiento.numero_ficha %></td>
               <td><%= movimiento.anio_inspeccion %></td>
               <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada%></td>
