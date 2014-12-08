@@ -73,7 +73,7 @@
             <td><%= actividad_plantacion.plantacion.hectareas %></td>
             <td>
               <% if actividad_plantacion.comentarios and actividad_plantacion.comentarios.length > 10 %>
-                <abbr title="<%= actividad.comentarios %>"><%= "#{actividad_plantacion.comentarios[0..9]}..." %></abbr>
+                <abbr title="<%= actividad_plantacion.comentarios %>"><%= "#{actividad_plantacion.comentarios[0..9]}..." %></abbr>
               <% else %>
                 <%= actividad_plantacion.comentarios %>
               <% end %>

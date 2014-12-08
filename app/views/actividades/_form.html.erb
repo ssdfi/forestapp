@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [@expediente, @movimiento, @actividad], layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
+<%= bootstrap_nested_form_for [@expediente, @movimiento, @actividad], layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
   <% if @actividad.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@actividad.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
@@ -14,6 +14,26 @@
   <%= f.text_field :superficie_certificada, label: "Superficie Certificada" %>
   <%= f.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
   <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+  <hr/>
+  <h3>Plantaciones</h3>
+  <%= f.fields_for :actividades_plantaciones do |apf| %>
+    <%= apf.number_field :plantacion_id, label: "ID Plantación" %>
+    <%= apf.text_field :superficie_presentada, label: "Superficie Presentada" %>
+    <%= apf.text_field :superficie_certificada, label: "Superficie Certificada" %>
+    <%= apf.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
+    <%= apf.text_field :superficie_registrada, label: "Superficie Registrada" %>
+    <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion %>
+    <%= apf.text_area :comentarios, label: "Comentarios" %>
+    <div class="cleafix" style="height: 20px;">
+      <%= apf.link_to_remove class: "btn btn-danger btn-xs pull-right" do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
+      <% end %>
+    </div>
+    <hr/>
+  <% end %>
+  <%= f.link_to_add :actividades_plantaciones, class: "btn btn-primary btn-xs" do %>
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Plantación
+  <% end %>
   <hr/>
   <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>

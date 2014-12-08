@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-switch
+//= require jquery_nested_form
 
 // $.fn.bootstrapSwitch.defaults.size = 'mini';
 $.fn.bootstrapSwitch.defaults.onText = 'Sí';

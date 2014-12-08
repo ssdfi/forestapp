@@ -84,6 +84,8 @@ class ActividadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def actividad_params
-      params.require(:actividad).permit(:movimiento_id, :tipo_actividad_id, :superficie_presentada, :superficie_certificada, :superficie_inspeccionada, :superficie_registrada)
+      params.require(:actividad).permit(:movimiento_id, :tipo_actividad_id, :superficie_presentada, :superficie_certificada, :superficie_inspeccionada, :superficie_registrada,
+        actividades_plantaciones_attributes: [:id, :plantacion_id, :superficie_presentada, :superficie_certificada, :superficie_inspeccionada, :superficie_registrada,
+          :estado_aprobacion_id, :comentarios, :_destroy])
     end
 end
