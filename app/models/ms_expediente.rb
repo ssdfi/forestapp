@@ -1,6 +1,7 @@
 class MsExpediente < ActiveRecord::Base
   establish_connection :sqlserver
   self.table_name = 'Expedientes'
+  self.primary_key = :NumExpediente
 
   has_many :movimientos, class_name: 'MsMovimiento', foreign_key: 'NumExpediente', primary_key: 'NumExpediente'
 
