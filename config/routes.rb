@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get 'map'
   end
 
+  resources :zonas do
+    resources :departamentos
+  end
+
   resources :titulares
 
 end

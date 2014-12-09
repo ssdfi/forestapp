@@ -8,23 +8,26 @@ namespace :db do
       puts "######################################################################################"
 
       count = 0
-      Unificado.find_each do |unificado|
-
-        # Crear plantación
+      TmpUnificado.find_each do |unificado|
 
         tipo_actividad = TipoActividad.find_by_descripcion(unificado.actividad)
         estado_aprobacion = EstadoAprobacion.find_by_descripcion(unificado.estado)
+        zona = Zona.find_by_descripcion(unificado.zona)
+
+        # Crear plantación
+
         especies = [
           Especie.find_by_codigo_sp(unificado.especie)
         ]
+
         plantacion = Plantacion.create!(
           anio_plantacion: unificado.anio_plantacion,
           tipo_plantacion: TipoPlantacion.find_by_codigo(unificado.tipo_plantacion),
           densidad: unificado.numero_plantas,
-          zona: Zona.find_by_descripcion(unificado.zona),
+          zona: zona,
           activo: true,
           comentarios: unificado.observaciones,
-          unificado: unificado,
+          unificado_id: unificado.id,
           geom: unificado.geom,
           especies: especies.compact
         )
@@ -43,6 +46,7 @@ namespace :db do
         unless expediente
           expediente = Expediente.create!(
             numero_interno: numero_interno,
+            zona: zona,
             plurianual: !etapa.nil?,
             activo: true
           )
@@ -86,8 +90,6 @@ namespace :db do
         if actividad_plantacion and unificado.numero_productor != '0'
           observacion = TmpObservacion.where("numero_interno = ? and numero_productor = ? and actividad = ?", numero_interno, unificado.numero_productor, tipo_actividad.codigo).first
           unless observacion.nil?
-            # puts observacion.inspect
-            # exit
             actividad_plantacion.superficie_presentada = observacion.presentado
             actividad_plantacion.superficie_certificada = observacion.certificado
             actividad_plantacion.superficie_inspeccionada = observacion.inspeccionado
@@ -104,8 +106,8 @@ namespace :db do
         tmp_titular = tmp_titular.first
 
         unless tmp_titular.nil?
-          titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0' 
-          titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0' 
+          titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0'
+          titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0'
           titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
           if titular.nil?
             titular = Titular.create!(
@@ -113,7 +115,7 @@ namespace :db do
               dni: tmp_titular.dni != '0' ? tmp_titular.dni : nil,
               cuit: tmp_titular.cuit != '0' ? tmp_titular.cuit : nil
             )
-          end  
+          end
           plantacion.titular = titular
           plantacion.save!
         end

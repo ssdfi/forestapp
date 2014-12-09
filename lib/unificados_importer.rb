@@ -29,7 +29,7 @@ class UnificadosImporter
         @shape.each do |record|
           next if record.geometry.nil?
           record.geometry.each do |geom|
-            u = Unificado.create!(
+            u = TmpUnificado.create!(
               zona: @zona.descripcion,
               anio: @anio,
               actividad: @tipo_actividad.descripcion,

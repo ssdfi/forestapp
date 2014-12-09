@@ -1,8 +1,10 @@
 class Expediente < ActiveRecord::Base
+  belongs_to :zona
+  belongs_to :departamento
   has_many :movimientos
   has_and_belongs_to_many :titulares
 
-  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :zona, :departamento, :pendiente, :estabilidad_fiscal
+  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal
 
   def incompleto=(value)
     if !!value == value
@@ -36,16 +38,6 @@ class Expediente < ActiveRecord::Base
     @fecha_hasta = value unless value.blank?
   end
 
-  def zona
-    @zona = Zona.find_by_codigo(numero_interno[0..1]) unless @zona
-    @zona
-  end
-
-  def departamento
-    @departamento = @zona.departamentos.find_by_codigo(numero_interno[3..5]) unless @departamento or @zona.nil?
-    @departamento
-  end
-
   def ultima_entrada
     movimientos.order(:fecha_entrada).last.fecha_entrada if movimientos.count > 0
   end
@@ -58,6 +50,7 @@ class Expediente < ActiveRecord::Base
     expedientes = all
     if expediente
       expedientes = expedientes.where("numero_interno ILIKE ?", "%#{expediente.numero_interno}%") unless expediente.numero_interno.blank?
+      expedientes = expedientes.where(zona_id: expediente.zona_id) unless expediente.zona_id.nil?
       expedientes = expedientes.where("numero_expediente ILIKE ?", "%#{expediente.numero_expediente}%") unless expediente.numero_expediente.blank?
       expedientes = expedientes.where("numero_expediente IS #{'NOT' unless expediente.incompleto} NULL") unless expediente.incompleto.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", expediente.fecha_desde) unless expediente.fecha_desde.nil?

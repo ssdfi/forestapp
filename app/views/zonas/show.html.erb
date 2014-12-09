@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @zona.codigo %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @zona.descripcion %>
+</p>
+
+<p>
+  <strong>Srid:</strong>
+  <%= @zona.srid %>
+</p>
+
+<p>
+  <strong>Provincia:</strong>
+  <%= @zona.provincia %>
+</p>
+
+<p>
+  <strong>Codigo indec:</strong>
+  <%= @zona.codigo_indec %>
+</p>
+
+<%= link_to 'Edit', edit_zona_path(@zona) %> |
+<%= link_to 'Back', zonas_path %>

@@ -24,6 +24,7 @@ namespace :db do
         puts "Unificados importados de #{File.basename(dir)}: #{subtotal}"
         total += subtotal
         subtotal = 0
+        break
       end
 
       puts "######################################################################################"

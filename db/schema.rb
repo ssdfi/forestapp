@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141127181647) do
+ActiveRecord::Schema.define(version: 20141208201530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,10 +135,14 @@ ActiveRecord::Schema.define(version: 20141127181647) do
     t.boolean  "activo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "zona_id"
+    t.integer  "departamento_id"
   end
 
+  add_index "expedientes", ["departamento_id"], :name => "index_expedientes_on_departamento_id"
   add_index "expedientes", ["numero_expediente"], :name => "index_expedientes_on_numero_expediente"
   add_index "expedientes", ["numero_interno"], :name => "index_expedientes_on_numero_interno"
+  add_index "expedientes", ["zona_id"], :name => "index_expedientes_on_zona_id"
 
   create_table "expedientes_titulares", id: false, force: true do |t|
     t.integer "expediente_id", null: false
@@ -244,8 +248,6 @@ ActiveRecord::Schema.define(version: 20141127181647) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "geom",                   limit: {:srid=>0, :type=>"geometry"}
-    t.text     "fecha_informacion_tmp"
-    t.text     "fecha_imagen_tmp"
   end
 
   add_index "plantaciones", ["departamento_id"], :name => "index_plantaciones_on_departamento_id"
@@ -333,7 +335,7 @@ ActiveRecord::Schema.define(version: 20141127181647) do
   add_index "tmp_titulares", ["titular"], :name => "index_tmp_titulares_on_titular"
   add_index "tmp_titulares", ["titular_mayusculas"], :name => "index_tmp_titulares_on_titular_mayusculas"
 
-  create_table "unificados", force: true do |t|
+  create_table "tmp_unificados", force: true do |t|
     t.string   "zona"
     t.string   "anio"
     t.string   "actividad"
@@ -355,7 +357,7 @@ ActiveRecord::Schema.define(version: 20141127181647) do
     t.spatial  "geom",             limit: {:srid=>0, :type=>"geometry"}
   end
 
-  add_index "unificados", ["geom"], :name => "index_unificados_on_geom", :spatial => true
+  add_index "tmp_unificados", ["geom"], :name => "index_tmp_unificados_on_geom", :spatial => true
 
   create_table "usos_anteriores", force: true do |t|
     t.string   "codigo"

@@ -25,7 +25,7 @@ class CreatePlantaciones < ActiveRecord::Migration
       t.references :error, index: true
       t.text :comentarios
       t.integer :mpf_id
-      t.references :unificado
+      t.integer :unificado_id
 
       t.timestamps
     end

@@ -8,7 +8,7 @@ class ExpedientesImporter
   end
 
   def import
-    MsExpediente.all.each do |expediente|
+    MsExpediente.find_each do |expediente|
       next if expediente.Borrado
       ActiveRecord::Base.transaction do
         begin
@@ -31,20 +31,27 @@ class ExpedientesImporter
   private
 
     def import_expediente(msexpediente)
+      zona = Zona.find_by_codigo(msexpediente.NumIntExp_Pro.to_s.rjust(2, '0'))
+
       expediente = Expediente.create!(
         numero_interno: msexpediente.numero_interno,
         numero_expediente: msexpediente.NumExpediente,
+        zona: zona,
+        departamento: zona.departamentos.find_by_codigo(msexpediente.NumIntExp_Dto.to_s.rjust(3, '0')),
         tecnico: msexpediente.Tecnico,
         titular: msexpediente.Titular,
         plurianual: msexpediente.Plurianual,
         agrupado: msexpediente.Agrupado,
         activo: !msexpediente.Borrado
       )
+
       create_titulares(expediente)
+
       msexpediente.movimientos.each do |movimiento|
         next if movimiento.Eliminado
         import_movimiento(expediente, movimiento)
       end
+
       @data[:expedientes] += 1
       puts "#{@data[:expedientes]} expedientes importados hasta el momento." if @data[:expedientes] % 1000 == 0
     end
