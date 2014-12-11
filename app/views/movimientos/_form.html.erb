@@ -18,6 +18,11 @@
   <%= f.date_field :fecha_entrada %>
   <%= f.date_field :fecha_salida %>
   <%= f.number_field :etapa %>
+  <div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+      <%= f.check_box :estabilidad_fiscal, label: "" %>
+    </div>
+  </div>
   <%= f.text_area :observacion, label: "Observación" %>
   <%= f.text_area :observacion_interna, label: "Observación interna" %>
   <div class="form-group">

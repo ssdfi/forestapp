@@ -76,3 +76,8 @@ td.icon-lg span {
 .panel-actions a {
   width: 100%;
 }
+
+dd {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

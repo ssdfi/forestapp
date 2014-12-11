@@ -19,7 +19,7 @@
 // $.fn.bootstrapSwitch.defaults.size = 'mini';
 $.fn.bootstrapSwitch.defaults.onText = 'Sí';
 $.fn.bootstrapSwitch.defaults.offText = 'No';
-$.fn.bootstrapSwitch.defaults.labelWidth = '100';
+$.fn.bootstrapSwitch.defaults.labelWidth = '150';
 
 $(function() {
   $("tr[data-link]").click(function () {
