@@ -24,5 +24,15 @@ $(document).ready ->
       )
     $("#titularesModal").modal('hide')
 
+  $("#expediente_zona_id").change ->
+    $("#expediente_departamento_id").prop('disabled', true);
+    $("#expediente_departamento_id").empty()
+    if $("#expediente_zona_id").val()
+      $.ajax(url: "/zonas/" + $("#expediente_zona_id").val() + "/departamentos.json").done (data) ->
+        $("#expediente_departamento_id").append($("<option />"))
+        for departamento in $(data)
+          $("#expediente_departamento_id").append($("<option />").val(departamento.id).text(departamento.descripcion))
+        $("#expediente_departamento_id").prop('disabled', false);
+
 this.selectAllTitulares = ->
   $("#expediente_titular_ids option").prop('selected', true)

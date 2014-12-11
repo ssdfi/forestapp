@@ -41,11 +41,12 @@ $(document).ready ->
   $("#plantacion_zona_id").change ->
     $("#plantacion_departamento_id").prop('disabled', true);
     $("#plantacion_departamento_id").empty()
-    $.ajax(url: "/zonas/" + $("#plantacion_zona_id").val() + "/departamentos.json").done (data) ->
-      $("#plantacion_departamento_id").append($("<option />"))
-      for departamento in $(data)
-        $("#plantacion_departamento_id").append($("<option />").val(departamento.id).text(departamento.descripcion))
-      $("#plantacion_departamento_id").prop('disabled', false);
+    if $("#plantacion_zona_id").val()
+      $.ajax(url: "/zonas/" + $("#plantacion_zona_id").val() + "/departamentos.json").done (data) ->
+        $("#plantacion_departamento_id").append($("<option />"))
+        for departamento in $(data)
+          $("#plantacion_departamento_id").append($("<option />").val(departamento.id).text(departamento.descripcion))
+        $("#plantacion_departamento_id").prop('disabled', false);
 
 this.selectAllEspecies = ->
   $("#plantacion_especie_ids option").prop('selected', true)
