@@ -1,6 +1,10 @@
-<h1>Editing plantacion</h1>
+<% content_for :head do %>
+  <%= javascript_include_tag 'edit_plantacion' %>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @plantacion %> |
-<%= link_to 'Back', plantaciones_path %>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Editar Plantación</h2>
+    <%= render 'form' %>
+  </div>
+</div>

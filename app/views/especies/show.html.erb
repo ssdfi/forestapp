@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Genero:</strong>
+  <%= @especie.genero_id %>
+</p>
+
+<p>
+  <strong>Codigo sp:</strong>
+  <%= @especie.codigo_sp %>
+</p>
+
+<p>
+  <strong>Codigo:</strong>
+  <%= @especie.codigo %>
+</p>
+
+<p>
+  <strong>Nombre cientifico:</strong>
+  <%= @especie.nombre_cientifico %>
+</p>
+
+<p>
+  <strong>Nombre comun:</strong>
+  <%= @especie.nombre_comun %>
+</p>
+
+<p>
+  <strong>Inscripcion inase:</strong>
+  <%= @especie.inscripcion_inase %>
+</p>
+
+<%= link_to 'Edit', edit_especie_path(@especie) %> |
+<%= link_to 'Back', especies_path %>

@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     resources :departamentos
   end
 
+  resources :especies
+  resources :generos
+
   resources :titulares
 
 end

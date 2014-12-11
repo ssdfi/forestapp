@@ -25,7 +25,7 @@ class Plantacion < ActiveRecord::Base
   end
 
   def hectareas
-    (geom.area / 10000).round 1
+    (geom.area / 10000).round 1 if tipo_plantacion_id == 1
   end
 
   def to_geojson

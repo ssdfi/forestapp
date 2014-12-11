@@ -1,0 +1,2 @@
+module GenerosHelper
+end

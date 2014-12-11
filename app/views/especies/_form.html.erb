@@ -1,0 +1,41 @@
+<%= form_for(@especie) do |f| %>
+  <% if @especie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@especie.errors.count, "error") %> prohibited this especie from being saved:</h2>
+
+      <ul>
+      <% @especie.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :genero_id %><br>
+    <%= f.number_field :genero_id %>
+  </div>
+  <div class="field">
+    <%= f.label :codigo_sp %><br>
+    <%= f.text_field :codigo_sp %>
+  </div>
+  <div class="field">
+    <%= f.label :codigo %><br>
+    <%= f.text_field :codigo %>
+  </div>
+  <div class="field">
+    <%= f.label :nombre_cientifico %><br>
+    <%= f.text_field :nombre_cientifico %>
+  </div>
+  <div class="field">
+    <%= f.label :nombre_comun %><br>
+    <%= f.text_field :nombre_comun %>
+  </div>
+  <div class="field">
+    <%= f.label :inscripcion_inase %><br>
+    <%= f.text_field :inscripcion_inase %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,35 @@
+<h1>Listing especies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Genero</th>
+      <th>Codigo sp</th>
+      <th>Codigo</th>
+      <th>Nombre cientifico</th>
+      <th>Nombre comun</th>
+      <th>Inscripcion inase</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @especies.each do |especie| %>
+      <tr>
+        <td><%= especie.genero_id %></td>
+        <td><%= especie.codigo_sp %></td>
+        <td><%= especie.codigo %></td>
+        <td><%= especie.nombre_cientifico %></td>
+        <td><%= especie.nombre_comun %></td>
+        <td><%= especie.inscripcion_inase %></td>
+        <td><%= link_to 'Show', especie %></td>
+        <td><%= link_to 'Edit', edit_especie_path(especie) %></td>
+        <td><%= link_to 'Destroy', especie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Especie', new_especie_path %>

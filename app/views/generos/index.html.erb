@@ -1,0 +1,27 @@
+<h1>Listing generos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @generos.each do |genero| %>
+      <tr>
+        <td><%= genero.codigo %></td>
+        <td><%= genero.descripcion %></td>
+        <td><%= link_to 'Show', genero %></td>
+        <td><%= link_to 'Edit', edit_genero_path(genero) %></td>
+        <td><%= link_to 'Destroy', genero, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Genero', new_genero_path %>
