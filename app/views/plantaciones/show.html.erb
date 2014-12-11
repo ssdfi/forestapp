@@ -10,6 +10,16 @@
           <dd><%= @plantacion.id %></dd>
           <dt>Titular:</dt>
           <dd><%= @plantacion.titular.nombre if @plantacion.titular %></dd>
+          <dt>Superficie:</dt>
+          <dd><%= @plantacion.hectareas %></dd>
+          <dt>Especie/s:</dt>
+          <dd>
+            <ul class="list-unstyled">
+              <% @plantacion.especies.each do |especie| %>
+                <li><%= especie.nombre_comun %></li>
+              <% end %>
+            </ul>
+          </dd>
           <dt>Año de Plantación:</dt>
           <dd><%= @plantacion.anio_plantacion %></dd>
           <dt>Tipo de Plantación:</dt>
