@@ -66,4 +66,11 @@ namespace :deploy do
     end
   end
 
+  desc 'Show deployed revision'
+  task :revision do
+    on roles(:app) do
+      execute :cat, release_path.join('REVISION')
+    end
+  end
+
 end
