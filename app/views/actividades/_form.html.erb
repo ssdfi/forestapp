@@ -22,7 +22,7 @@
     <%= apf.text_field :superficie_certificada, label: "Superficie Certificada" %>
     <%= apf.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
     <%= apf.text_field :superficie_registrada, label: "Superficie Registrada" %>
-    <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion %>
+    <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, label: "Estado de Aprobación" %>
     <%= apf.text_area :comentarios, label: "Comentarios" %>
     <div class="cleafix" style="height: 20px;">
       <%= apf.link_to_remove class: "btn btn-danger btn-xs pull-right" do %>

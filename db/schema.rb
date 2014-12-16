@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211202447) do
+ActiveRecord::Schema.define(version: 20141211215455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,6 +262,16 @@ ActiveRecord::Schema.define(version: 20141211202447) do
   add_index "plantaciones", ["uso_anterior_id"], :name => "index_plantaciones_on_uso_anterior_id"
   add_index "plantaciones", ["uso_forestal_id"], :name => "index_plantaciones_on_uso_forestal_id"
   add_index "plantaciones", ["zona_id"], :name => "index_plantaciones_on_zona_id"
+
+  create_table "plantaciones_historico", force: true do |t|
+    t.integer  "plantacion_nueva_id"
+    t.integer  "plantacion_anterior_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plantaciones_historico", ["plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantacion_anterior_id"
+  add_index "plantaciones_historico", ["plantacion_nueva_id"], :name => "index_plantaciones_historico_on_plantacion_nueva_id"
 
   create_table "responsables", force: true do |t|
     t.string   "codigo"
