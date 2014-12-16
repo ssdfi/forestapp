@@ -20,6 +20,7 @@ class Titular < ActiveRecord::Base
       titulares = where("nombre ILIKE ?", "%#{titular.nombre}%") unless titular.nombre.blank?
       titulares = titulares.where("dni ILIKE ?", "%#{titular.dni}%") unless titular.dni.blank?
       titulares = titulares.where("cuit ILIKE ?", "%#{titular.cuit}%") unless titular.cuit.blank?
+      titulares = titulares.distinct
     end
     titulares
   end

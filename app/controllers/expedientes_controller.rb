@@ -6,7 +6,7 @@ class ExpedientesController < ApplicationController
   def index
     @expediente_filter = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
-    @expedientes = Expediente.search(@expediente)
+    @expedientes = Expediente.search(@expediente_filter)
     @expedientes = @expedientes.order(updated_at: :desc)
     @expedientes = @expedientes.page params[:page]
 
@@ -76,6 +76,8 @@ class ExpedientesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
-      params.require(:expediente).permit(:numero_interno, :numero_expediente, :zona_id, :departamento_id, :tecnico, :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, titular_ids: [])
+      params.require(:expediente).permit(:numero_interno, :numero_expediente, :zona_id, :departamento_id, :tecnico,
+        :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal,
+        :etapa, :responsable_id, :validado, titular_ids: [])
     end
 end
