@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Buscador</h3>
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'search_form', locals: {tecnico: @tecnico} %>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <%= link_to new_tecnico_path, class: "btn btn-info" do %>
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Técnico
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <%= render partial: 'tecnicos', locals: {tecnicos: @tecnicos} %>
+  </div>
+</div>

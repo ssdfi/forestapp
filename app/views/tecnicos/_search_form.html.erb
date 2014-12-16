@@ -1,0 +1,6 @@
+<%= bootstrap_form_for tecnico, url: tecnicos_path, method: "get", layout: :horizontal, label_col: "col-sm-5", control_col: "col-sm-7" do |f| %>
+  <%= f.text_field :nombre, label: "Nombre" %>
+  <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
+  <hr/>
+  <%= f.submit "Buscar", class: "btn btn-primary pull-right" %>
+<% end %>

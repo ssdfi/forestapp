@@ -1,6 +1,7 @@
 class Expediente < ActiveRecord::Base
   belongs_to :zona
   belongs_to :departamento
+  belongs_to :tecnico
   has_many :movimientos
   has_and_belongs_to_many :titulares
 
@@ -63,6 +64,7 @@ class Expediente < ActiveRecord::Base
     if expediente
       expedientes = expedientes.where("numero_interno ILIKE ?", "%#{expediente.numero_interno}%") unless expediente.numero_interno.blank?
       expedientes = expedientes.where(zona_id: expediente.zona_id) unless expediente.zona_id.nil?
+      expedientes = expedientes.where(tecnico_id: expediente.tecnico_id) unless expediente.tecnico_id.nil?
       expedientes = expedientes.where("numero_expediente ILIKE ?", "%#{expediente.numero_expediente}%") unless expediente.numero_expediente.blank?
       expedientes = expedientes.where("numero_expediente IS #{'NOT' unless expediente.incompleto} NULL") unless expediente.incompleto.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.responsable_id = ?", expediente.responsable_id) unless expediente.responsable_id.nil?

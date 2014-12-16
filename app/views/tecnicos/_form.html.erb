@@ -1,0 +1,21 @@
+<%= bootstrap_form_for @tecnico, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
+  <% if @tecnico.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tecnico.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
+      <ul>
+      <% @tecnico.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.text_field :nombre, label: "Nombre" %>
+  <div class="form-group">
+    <div class="col-sm-9 col-sm-offset-3">
+      <%= f.check_box :activo, label: "" %>
+    </div>
+  </div>
+  <hr/>
+  <%= link_to "Cancelar", :back, class: "btn btn-default" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+<% end %>

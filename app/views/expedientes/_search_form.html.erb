@@ -6,6 +6,7 @@
   <%= f.date_field :fecha_desde, label: "Fecha desde", value: expediente.fecha_desde %>
   <%= f.date_field :fecha_hasta, label: "Fecha hasta", value: expediente.fecha_hasta %>
   <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Responsable", include_blank: true} %>
+  <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :plurianual, label: "Plurianual"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :agrupado, label: "Agrupado"} %>

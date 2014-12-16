@@ -11,9 +11,9 @@
   <% end %>
   <%= f.text_field :numero_interno, label: "Número interno" %>
   <%= f.text_field :numero_expediente, label: "Número expediente" %>
-  <%= f.collection_select :zona_id, Zona.all, :id, :descripcion, {label: "Zona", include_blank: true} %>
+  <%= f.collection_select :zona_id, Zona.all.order(:descripcion), :id, :descripcion, {label: "Zona", include_blank: true} %>
   <%= f.collection_select :departamento_id, (@expediente.zona.departamentos if @expediente.zona) || [], :id, :descripcion, {label: "Departamento", include_blank: true} %>
-  <%= f.text_field :tecnico, label: "Técnico" %>
+  <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
       <%= f.check_box :plurianual, label: "" %>

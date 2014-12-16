@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141211215455) do
+ActiveRecord::Schema.define(version: 20141216215517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,18 +130,19 @@ ActiveRecord::Schema.define(version: 20141211215455) do
     t.string   "numero_expediente"
     t.string   "titular"
     t.boolean  "agrupado"
-    t.string   "tecnico"
     t.boolean  "plurianual"
     t.boolean  "activo"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "zona_id"
     t.integer  "departamento_id"
+    t.integer  "tecnico_id"
   end
 
   add_index "expedientes", ["departamento_id"], :name => "index_expedientes_on_departamento_id"
   add_index "expedientes", ["numero_expediente"], :name => "index_expedientes_on_numero_expediente"
   add_index "expedientes", ["numero_interno"], :name => "index_expedientes_on_numero_interno"
+  add_index "expedientes", ["tecnico_id"], :name => "index_expedientes_on_tecnico_id"
   add_index "expedientes", ["zona_id"], :name => "index_expedientes_on_zona_id"
 
   create_table "expedientes_titulares", id: false, force: true do |t|
@@ -281,6 +282,15 @@ ActiveRecord::Schema.define(version: 20141211215455) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tecnicos", force: true do |t|
+    t.string   "nombre"
+    t.boolean  "activo",     default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tecnicos", ["nombre"], :name => "index_tecnicos_on_nombre"
 
   create_table "tipos_actividad", force: true do |t|
     t.string   "codigo"

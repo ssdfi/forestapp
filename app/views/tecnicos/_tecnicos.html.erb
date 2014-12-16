@@ -1,0 +1,26 @@
+<table class="table table-hover table-grid">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th class="icon">Activo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tecnicos.each do |tecnico| %>
+      <tr data-link="<%= tecnico_path(tecnico) %>">
+        <td><%= tecnico.id %></td>
+        <td><%= tecnico.nombre %></td>
+        <td class="icon">
+           <%= render partial: 'common/boolean_value', locals: {value: tecnico.activo} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="well well-sm clearfix">
+  <div class="pagination-info pull-left">
+    <%= page_entries_info tecnicos %>
+  </div>
+  <%= paginate tecnicos %>
+</div>

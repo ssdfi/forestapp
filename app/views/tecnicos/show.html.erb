@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Titular</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Nombre:</dt>
+          <dd><%= @tecnico.nombre %></dd>
+          <dt>Activo:</dt>
+          <dd>
+            <%= render partial: 'common/boolean_value', locals: {value: @tecnico.activo} %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Acciones</h3>
+      </div>
+      <div class="panel-body panel-actions">
+        <p>
+          <%= link_to edit_tecnico_path(@tecnico), class: "btn btn-info" do %>
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Técnico
+          <% end %>
+        </p>
+        <p>
+          <%= link_to tecnico_path(@tecnico), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Técnico?' } do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Técnico
+          <% end %><br/>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h4>Expedientes</h4>
+    <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
+  </div>
+</div>
