@@ -4,7 +4,7 @@ class ExpedientesController < ApplicationController
   # GET /expedientes
   # GET /expedientes.json
   def index
-    @expediente = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
+    @expediente_filter = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
     @expedientes = Expediente.search(@expediente)
     @expedientes = @expedientes.order(updated_at: :desc)

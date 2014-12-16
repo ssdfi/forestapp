@@ -74,7 +74,7 @@
         <tr>
           <th>ID</th>
           <th>Ficha</th>
-          <th>Año</th>
+          <th>Etapa</th>
           <th>Entrada</th>
           <th>Salida</th>
           <th class="icon">E.Fiscal</th>
@@ -88,7 +88,7 @@
             <tr data-link="<%= expediente_movimiento_path(@expediente, movimiento) %>">
               <td><%= movimiento.id %></td>
               <td><%= movimiento.numero_ficha %></td>
-              <td><%= movimiento.anio_inspeccion %></td>
+              <td><%= movimiento.etapa %></td>
               <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada%></td>
               <td><%= l movimiento.fecha_salida if movimiento.fecha_salida %></td>
               <td class="icon">
