@@ -29,12 +29,12 @@
       <%= f.check_box :activo, label: "" %>
     </div>
   </div>
-  <%= f.collection_select :titular_ids, @expediente.titulares, :id, :nombre, {label: "Titular/es", selected: nil}, {multiple: true, size: 5}%>
+  <%= f.collection_select :titular_ids, @expediente.titulares, :id, :nombre, {label: "Titulares Asociados", selected: nil}, {multiple: true, size: 5}%>
   <div class="form-group" style="margin-top: -10px;">
     <div class="col-sm-9 col-sm-offset-3">
       <div class="pull-right">
         <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#titularesModal">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Asociar
         </button>
         <button id="remove-titular" type="button" class="btn btn-default btn-xs">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
@@ -52,7 +52,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="titularesModalLabel">Agregar Titular</h4>
+        <h4 class="modal-title" id="titularesModalLabel">Asociar Titular a Expediente</h4>
       </div>
       <div class="modal-body">
         <div class="row">

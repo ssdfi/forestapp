@@ -12,7 +12,7 @@ $(document).ready ->
     for titular in $(data)
       $("#titulares").append(
         $('<li></li>').append(
-          $("<input type='checkbox' checked='true' value='" + titular.id + "'>")
+          $("<input type='checkbox' value='" + titular.id + "'>")
         ).append($('<span> ' + titular.nombre + '</span>'))
       )
   )
