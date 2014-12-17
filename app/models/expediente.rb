@@ -32,7 +32,7 @@ class Expediente < ActiveRecord::Base
   end
 
   def etapa=(value)
-    @etapa = value.to_i unless value.blank?
+    @etapa = value unless value.blank?
   end
 
   def responsable_id=(value)
