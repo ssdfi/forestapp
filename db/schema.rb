@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216215517) do
+ActiveRecord::Schema.define(version: 20141217221552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 20141216215517) do
     t.text     "comentarios"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "fecha"
+    t.integer  "numero_plantas"
   end
 
   add_index "actividades_plantaciones", ["actividad_id"], :name => "index_actividades_plantaciones_on_actividad_id"

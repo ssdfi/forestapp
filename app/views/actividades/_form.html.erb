@@ -9,31 +9,78 @@
       </ul>
     </div>
   <% end %>
-  <%= f.collection_select :tipo_actividad_id, TipoActividad.all, :id, :descripcion %>
-  <%= f.text_field :superficie_presentada, label: "Superficie Presentada" %>
-  <%= f.text_field :superficie_certificada, label: "Superficie Certificada" %>
-  <%= f.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
-  <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+  <div class="row">
+    <div class="col-md-5">
+      <%= f.collection_select :tipo_actividad_id, TipoActividad.all, :id, :descripcion %>
+      <%= f.text_field :superficie_presentada, label: "Superficie Presentada" %>
+      <%= f.text_field :superficie_certificada, label: "Superficie Certificada" %>
+      <%= f.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
+      <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+    </div>
+  </div>
   <hr/>
   <h3>Plantaciones</h3>
-  <%= f.fields_for :actividades_plantaciones do |apf| %>
-    <%= apf.number_field :plantacion_id, label: "ID Plantación" %>
-    <%= apf.text_field :superficie_presentada, label: "Superficie Presentada" %>
-    <%= apf.text_field :superficie_certificada, label: "Superficie Certificada" %>
-    <%= apf.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
-    <%= apf.text_field :superficie_registrada, label: "Superficie Registrada" %>
-    <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, label: "Estado de Aprobación" %>
-    <%= apf.text_area :comentarios, label: "Comentarios" %>
-    <div class="cleafix" style="height: 20px;">
-      <%= apf.link_to_remove class: "btn btn-danger btn-xs pull-right" do %>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
+  <div class="row">
+    <div class="col-md-12">
+      <table id="plantaciones" class="table">
+        <thead>
+          <tr>
+            <th>Plantación ID</th>
+            <th>Fecha</th>
+            <th>Número de Plantas</th>
+            <th>Presentado</th>
+            <th>Certificado</th>
+            <th>Inspeccionado</th>
+            <th>Registrado</th>
+            <th>Estado Aprobación</th>
+            <th>Comentarios</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :actividades_plantaciones, :wrapper => false, label_col: "col-sm-0", control_col: "col-sm-12" do |apf| %>
+            <tr class="fields">
+              <td>
+                <%= apf.number_field :plantacion_id, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.date_field :fecha, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.number_field :numero_plantas, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.text_field :superficie_presentada, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.text_field :superficie_certificada, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.text_field :superficie_inspeccionada, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.text_field :superficie_registrada, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.text_area :comentarios, hide_label: true %>
+              </td>
+              <td>
+                <%= apf.link_to_remove class: "btn btn-danger btn-sm pull-right" do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= f.link_to_add :actividades_plantaciones, class: "btn btn-primary btn-sm", data: {target: "#plantaciones"} do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Plantación
       <% end %>
     </div>
-    <hr/>
-  <% end %>
-  <%= f.link_to_add :actividades_plantaciones, class: "btn btn-primary btn-xs" do %>
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Plantación
-  <% end %>
+  </div>
   <hr/>
   <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
