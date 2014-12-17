@@ -26,3 +26,12 @@ $(function() {
     window.location = this.dataset.link
   })
 });
+
+$(function() {
+  $("abbr").each(function () {
+    text = $(this).prop("title")
+    length = parseInt(this.dataset.length) || 8
+    if (text.length > length) text = text.substring(0, length)
+    $(this).text(text)
+  })
+});

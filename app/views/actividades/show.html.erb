@@ -72,11 +72,7 @@
             <td><%= actividad_plantacion.superficie_registrada %></td>
             <td><%= actividad_plantacion.plantacion.hectareas %></td>
             <td>
-              <% if actividad_plantacion.comentarios and actividad_plantacion.comentarios.length > 10 %>
-                <abbr title="<%= actividad_plantacion.comentarios %>"><%= "#{actividad_plantacion.comentarios[0..9]}..." %></abbr>
-              <% else %>
-                <%= actividad_plantacion.comentarios %>
-              <% end %>
+              <abbr title="<%= actividad_plantacion.comentarios %>" data-length="10"></abbr>
             </td>
             <td class="icon icon-lg">
               <%= link_to plantacion_map_path(actividad_plantacion.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>

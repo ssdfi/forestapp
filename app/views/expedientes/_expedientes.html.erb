@@ -4,6 +4,7 @@
       <th>ID</th>
       <th nowrap>Número interno</th>
       <th nowrap>Número expediente</th>
+      <th>Titular</th>
       <th>Última Entrada</th>
       <th>Última Salida</th>
       <th class="icon">Plurianual</th>
@@ -17,6 +18,9 @@
         <td><%= link_to expediente.id, expediente %></td>
         <td nowrap><%= expediente.numero_interno %></td>
         <td nowrap><%= expediente.numero_expediente %></td>
+        <td>
+          <abbr title="<%= expediente.titulares.map{ |e| e.nombre }.join(' - ') %>" data-length="20"></abbr>
+        </td>
         <td><%= l expediente.ultima_entrada if expediente.ultima_entrada %></td>
         <td><%= l expediente.ultima_salida if expediente.ultima_salida %></td>
         <td class="icon">
