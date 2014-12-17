@@ -22,6 +22,6 @@ class Titular < ActiveRecord::Base
       titulares = titulares.where("cuit ILIKE ?", "%#{titular.cuit}%") unless titular.cuit.blank?
       titulares = titulares.distinct
     end
-    titulares
+    titulares.order(:nombre)
   end
 end

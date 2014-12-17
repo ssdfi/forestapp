@@ -8,6 +8,6 @@ class Tecnico < ActiveRecord::Base
       tecnicos = tecnicos.where(activo: tecnico.activo) unless tecnico.activo.nil?
       tecnicos = tecnicos.distinct
     end
-    tecnicos
+    tecnicos.order(:nombre)
   end
 end
