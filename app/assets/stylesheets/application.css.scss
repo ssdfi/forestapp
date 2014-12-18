@@ -56,7 +56,7 @@ td.icon-lg span {
 }
 
 .info-box {
-  background-color: $state-info-bg;
+  background-color: $brand-info;
   border-radius: $border-radius-base;
   padding: $padding-small-horizontal;
 
@@ -78,7 +78,7 @@ td.icon-lg span {
 }
 
 .navbar-primary {
-  background-color: $btn-primary-bg;
+  background-color: $brand-primary;
 }
 
 .navbar-primary > a {
@@ -86,7 +86,7 @@ td.icon-lg span {
 }
 
 .navbar-info {
-  background-color: $btn-info-bg;
+  background-color: $brand-info;
 }
 
 .navbar-info > a {
@@ -94,9 +94,16 @@ td.icon-lg span {
 }
 
 .navbar-danger {
-  background-color: $btn-danger-bg;
+  background-color: $brand-danger;
 }
 
 .navbar-info > a {
   color: $btn-danger-color !important;
+}
+
+.navbar-brand {
+  font-size: $font-size-h3;
+  padding-top: $padding-large-vertical;
+  color: $brand-info !important;
+  font-weight: $headings-font-weight;
 }

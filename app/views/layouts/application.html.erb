@@ -18,7 +18,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">ForestApp</a>
+        <a class="navbar-brand" href="/">
+          <span class="glyphicon glyphicon-tree-conifer" aria-hidden="true"></span> ForestApp
+        </a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -31,14 +33,14 @@
           <li>
             <%= link_to "Técnicos", tecnicos_path() %>
           </li>
-        </ul >
-        <ul class="nav navbar-nav navbar-right">
-          <li class="navbar-primary">
-            <%= link_to @expediente.numero_interno, @expediente if @expediente and @expediente.numero_interno %>
-          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <%= yield :actions %>
+          <% if @expediente and @expediente.numero_interno %>
+            <li class="navbar-primary">
+              <%= link_to @expediente.numero_interno, @expediente %>
+            </li>
+          <% end %>
         </ul>
       </div><!--/.navbar-collapse -->
     </div>
