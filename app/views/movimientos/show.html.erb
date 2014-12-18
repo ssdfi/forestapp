@@ -1,3 +1,21 @@
+<% content_for :actions do %>
+  <li>
+    <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento) do %>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
+    <% end %>
+  </li>
+  <li>
+    <%= link_to expediente_movimiento_path(@expediente, @movimiento), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Movimiento?' } do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
+    <% end %>
+  </li>
+  <li>
+    <%= link_to new_expediente_movimiento_actividad_path(@expediente, @movimiento) do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
+    <% end %>
+  </li>
+<% end %>
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-primary">
@@ -44,28 +62,6 @@
       </div>
       <div class="panel-footer">
         <%= render partial: 'common/boolean_label', locals: {value: @movimiento.validado, true_label: "Validado", false_label: "Sin validar"} %>
-      </div>
-    </div>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Acciones</h3>
-      </div>
-      <div class="panel-body panel-actions">
-        <p>
-          <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento), class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
-          <% end %>
-        </p>
-        <p>
-          <%= link_to expediente_movimiento_path(@expediente, @movimiento), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Movimiento?' } do %>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
-          <% end %><br/>
-        </p>
-        <p>
-          <%= link_to new_expediente_movimiento_actividad_path(@expediente, @movimiento), class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
-          <% end %>
-        </p>
       </div>
     </div>
   </div>

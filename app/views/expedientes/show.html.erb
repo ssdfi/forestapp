@@ -1,3 +1,21 @@
+<% content_for :actions do %>
+  <li>
+    <%= link_to edit_expediente_path do %>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Expediente
+    <% end %>
+  </li>
+  <li>
+    <%= link_to expediente_path, method: :delete, data: { confirm: '¿Está seguro que desea elminar el Expediente?' } do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Expediente
+    <% end %>
+  </li>
+  <li>
+    <%= link_to new_expediente_movimiento_path(@expediente) do %>
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Movimiento
+    <% end %>
+  </li>
+<% end %>
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-primary">
@@ -42,28 +60,6 @@
       </div>
       <div class="panel-footer">
         <%= render partial: 'common/boolean_label', locals: {value: @expediente.activo, true_label: "Activo", false_label: "Inactivo"} %>
-      </div>
-    </div>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Acciones</h3>
-      </div>
-      <div class="panel-body panel-actions">
-        <p>
-          <%= link_to edit_expediente_path, class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Expediente
-          <% end %>
-        </p>
-        <p>
-          <%= link_to expediente_path, class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Expediente?' } do %>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Expediente
-          <% end %><br/>
-        </p>
-        <p>
-          <%= link_to new_expediente_movimiento_path(@expediente), class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Movimiento
-          <% end %>
-        </p>
       </div>
     </div>
   </div>

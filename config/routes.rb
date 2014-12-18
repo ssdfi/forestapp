@@ -1,31 +1,30 @@
 Rails.application.routes.draw do
-  resources :tecnicos
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'expedientes#index'
 
-  resources :expedientes do
-    resources :movimientos do
-      resources :actividades do
-        get 'map'
+  scope(path_names: { new: 'crear', edit: 'editar' }) do
+    resources :expedientes do
+      resources :movimientos do
+        resources :actividades do
+          get 'map', path: 'mapa'
+        end
       end
     end
+
+    resources :plantaciones do
+      get 'map', path: 'mapa'
+    end
+
+    resources :zonas do
+      resources :departamentos
+    end
+
+    resources :especies
+    resources :generos
+    resources :titulares
+    resources :tecnicos
   end
-
-  resources :plantaciones do
-    get 'map'
-  end
-
-  resources :zonas do
-    resources :departamentos
-  end
-
-  resources :especies
-  resources :generos
-
-  resources :titulares
-
 end

@@ -33,9 +33,12 @@
           </li>
         </ul >
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <%= link_to @expediente.numero_interno, @expediente if @expediente %>
+          <li class="navbar-primary">
+            <%= link_to @expediente.numero_interno, @expediente if @expediente and @expediente.numero_interno %>
           </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <%= yield :actions %>
         </ul>
       </div><!--/.navbar-collapse -->
     </div>

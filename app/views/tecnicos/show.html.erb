@@ -1,3 +1,16 @@
+<% content_for :actions do %>
+  <li>
+    <%= link_to edit_tecnico_path(@tecnico) do %>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Técnico
+    <% end %>
+  </li>
+  <li>
+    <%= link_to tecnico_path(@tecnico), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Técnico?' } do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Técnico
+    <% end %>
+  </li>
+<% end %>
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-primary">
@@ -13,23 +26,6 @@
             <%= render partial: 'common/boolean_value', locals: {value: @tecnico.activo} %>
           </dd>
         </dl>
-      </div>
-    </div>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Acciones</h3>
-      </div>
-      <div class="panel-body panel-actions">
-        <p>
-          <%= link_to edit_tecnico_path(@tecnico), class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Técnico
-          <% end %>
-        </p>
-        <p>
-          <%= link_to tecnico_path(@tecnico), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Técnico?' } do %>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Técnico
-          <% end %><br/>
-        </p>
       </div>
     </div>
   </div>

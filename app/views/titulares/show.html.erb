@@ -1,3 +1,16 @@
+<% content_for :actions do %>
+  <li>
+    <%= link_to edit_titular_path(@titular) do %>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Titular
+    <% end %>
+  </li>
+  <li>
+    <%= link_to titular_path(@titular), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Titular?' } do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Titular
+    <% end %>
+  </li>
+<% end %>
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-primary">
@@ -13,23 +26,6 @@
           <dt>CUIT:</dt>
           <dd><%= @titular.cuit %></dd>
         </dl>
-      </div>
-    </div>
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Acciones</h3>
-      </div>
-      <div class="panel-body panel-actions">
-        <p>
-          <%= link_to edit_titular_path(@titular), class: "btn btn-info" do %>
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Titular
-          <% end %>
-        </p>
-        <p>
-          <%= link_to titular_path(@titular), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Titular?' } do %>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Titular
-          <% end %><br/>
-        </p>
       </div>
     </div>
   </div>

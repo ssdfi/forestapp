@@ -1,3 +1,16 @@
+<% content_for :actions do %>
+  <li>
+    <%= link_to edit_expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad) do %>
+      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
+    <% end %>
+  </li>
+  <li>
+    <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), method: :delete, data: { confirm: '¿Está seguro que desea eliminar la Actividad?' } do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Actividad
+    <% end %>
+  </li>
+<% end %>
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel panel-primary">
@@ -23,23 +36,6 @@
         </dl>
       </div>
     </div>
-    <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title">Acciones</h3>
-    </div>
-    <div class="panel-body panel-actions">
-      <p>
-        <%= link_to edit_expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), class: "btn btn-info" do %>
-          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
-        <% end %>
-      </p>
-      <p>
-        <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), class: "btn btn-danger", method: :delete, data: { confirm: '¿Está seguro que desea elminar el Movimiento?' } do %>
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Actividad
-        <% end %><br/>
-      </p>
-    </div>
-  </div>
   </div>
   <div class="col-md-9">
     <h4>Plantaciones</h4>

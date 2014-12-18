@@ -76,3 +76,27 @@ td.icon-lg span {
 .panel-actions a {
   width: 100%;
 }
+
+.navbar-primary {
+  background-color: $btn-primary-bg;
+}
+
+.navbar-primary > a {
+  color: $btn-primary-color !important;
+}
+
+.navbar-info {
+  background-color: $btn-info-bg;
+}
+
+.navbar-info > a {
+  color: $btn-info-color !important;
+}
+
+.navbar-danger {
+  background-color: $btn-danger-bg;
+}
+
+.navbar-info > a {
+  color: $btn-danger-color !important;
+}
