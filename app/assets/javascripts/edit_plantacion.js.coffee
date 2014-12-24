@@ -1,12 +1,12 @@
 $(document).ready ->
   $("#plantacion_activo").bootstrapSwitch({labelText: "Activo"});
 
-  $("#titularesModal form").on("ajax:success", (e, data, status, xhr) ->
+  $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
     $("#titulares").empty()
     for titular in $(data)
       $("#titulares").append(
         $('<li></li>').append(
-          $("<input type='radio' name=titularesRadios' checked='true' value='" + titular.id + "'>")
+          $("<input type='radio' name=titulares-radios' value='" + titular.id + "'>")
         ).append($('<span> ' + titular.nombre + '</span>'))
       )
   )
@@ -15,18 +15,18 @@ $(document).ready ->
     for titular in $("#titulares li input:checked")
       $("#plantacion_titular_id").val(titular.value)
       $("#plantacion_titular").val($(titular).siblings('span').text())
-    $("#titularesModal").modal('hide')
+    $("#titulares-modal").modal('hide')
 
   $("#remove-especie").click ->
     for especie in $("#plantacion_especie_ids option:selected")
       especie.remove()
 
-  $("#especiesModal form").on("ajax:success", (e, data, status, xhr) ->
+  $("#especies-modal form").on("ajax:success", (e, data, status, xhr) ->
     $("#especies").empty()
     for especie in $(data)
       $("#especies").append(
         $('<li></li>').append(
-          $("<input type='checkbox' checked='true' value='" + especie.id + "'>")
+          $("<input type='checkbox' value='" + especie.id + "'>")
         ).append($('<span> ' + especie.nombre_cientifico + '</span>'))
       )
   )
@@ -36,7 +36,7 @@ $(document).ready ->
       $("#plantacion_especie_ids").append(
         $("<option value='" + especie.value + "'>" + $(especie).siblings('span').text() + "</option>")
       )
-    $("#especiesModal").modal('hide')
+    $("#especies-modal").modal('hide')
 
   $("#plantacion_zona_id").change ->
     $("#plantacion_departamento_id").prop('disabled', true);

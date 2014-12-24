@@ -18,8 +18,8 @@ class Plantacion < ActiveRecord::Base
   has_many :actividades, through: :actividades_plantaciones
   has_many :movimientos, through: :actividades
   has_many :expedientes, through: :movimientos
-  has_many :plantaciones_historico_nuevas, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_nueva_id'
-  has_many :plantaciones_historico_anteriores, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_anterior_id'
+  has_many :plantaciones_historico_nuevas, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_anterior_id'
+  has_many :plantaciones_historico_anteriores, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_nueva_id'
 
   def geom
     geoutil = GeoUtil.instance
@@ -59,11 +59,11 @@ class Plantacion < ActiveRecord::Base
   end
 
   def plantaciones_nuevas
-    plantaciones_historico_anteriores.map { |plantacion_historico| plantacion_historico.plantacion_nueva }
+    plantaciones_historico_nuevas.map { |plantacion_historico| plantacion_historico.plantacion_nueva }
   end
 
   def plantaciones_anteriores
-    plantaciones_historico_nuevas.map { |plantacion_historico| plantacion_historico.plantacion_anterior }
+    plantaciones_historico_anteriores.map { |plantacion_historico| plantacion_historico.plantacion_anterior }
   end
 
 end

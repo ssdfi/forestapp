@@ -7,7 +7,7 @@ $(document).ready ->
     for titular in $("#expediente_titular_ids option:selected")
       titular.remove()
 
-  $("#titularesModal form").on("ajax:success", (e, data, status, xhr) ->
+  $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
     $("#titulares").empty()
     for titular in $(data)
       $("#titulares").append(
@@ -22,7 +22,7 @@ $(document).ready ->
       $("#expediente_titular_ids").append(
         $("<option value='" + titular.value + "'>" + $(titular).siblings('span').text() + "</option>")
       )
-    $("#titularesModal").modal('hide')
+    $("#titulares-modal").modal('hide')
 
   $("#expediente_zona_id").change ->
     $("#expediente_departamento_id").prop('disabled', true);

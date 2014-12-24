@@ -15,7 +15,7 @@
       <div class="input-group">
         <input id="plantacion_titular" type="text" class="form-control" value="<%= @plantacion.titular.nombre if @plantacion.titular %>" readonly>
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" data-toggle="modal" data-target="#titularesModal">
+          <button class="btn btn-default" type="button" data-toggle="modal" data-target="#titulares-modal">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
         </span>
@@ -27,7 +27,7 @@
   <div class="form-group" style="margin-top: -10px;">
     <div class="col-sm-9 col-sm-offset-3">
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#especiesModal">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#especies-modal">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
         </button>
         <button id="remove-especie" type="button" class="btn btn-default btn-xs">
@@ -64,12 +64,12 @@
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>
 
-<div class="modal fade" id="especiesModal" tabindex="-1" role="dialog" aria-labelledby="especiesModalLabel" aria-hidden="true">
+<div class="modal fade" id="especies-modal" tabindex="-1" role="dialog" aria-labelledby="especies-modal-label" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="especiesModalLabel">Agregar Especie</h4>
+        <h4 class="modal-title" id="especies-modal-label">Agregar Especie</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -98,12 +98,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="titularesModal" tabindex="-1" role="dialog" aria-labelledby="titularesModalLabel" aria-hidden="true">
+<div class="modal fade" id="titulares-modal" tabindex="-1" role="dialog" aria-labelledby="titulares-modal-label" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="titularesModalLabel">Seleccionar Titular</h4>
+        <h4 class="modal-title" id="titulares-modal-label">Seleccionar Titular</h4>
       </div>
       <div class="modal-body">
         <div class="row">
