@@ -7,6 +7,15 @@ class Expediente < ActiveRecord::Base
 
   attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, :etapa, :responsable_id, :validado
 
+  before_save :set_values
+
+  def set_values
+    if self.numero_interno_changed?
+      self.zona = Zona.find_by_codigo(self.numero_interno[0..1])
+      self.departamento = self.zona.departamentos.find_by_codigo(self.numero_interno[3..5])
+    end
+  end
+
   def incompleto=(value)
     if !!value == value
       @incompleto = value
