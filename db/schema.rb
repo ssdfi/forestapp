@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217221552) do
+ActiveRecord::Schema.define(version: 20141226163333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20141217221552) do
     t.integer  "zona_id"
     t.integer  "departamento_id"
     t.integer  "tecnico_id"
+    t.integer  "anio"
   end
 
   add_index "expedientes", ["departamento_id"], :name => "index_expedientes_on_departamento_id"
@@ -198,7 +199,7 @@ ActiveRecord::Schema.define(version: 20141217221552) do
     t.integer  "destino_id"
     t.date     "fecha_entrada"
     t.date     "fecha_salida"
-    t.string   "etapa"
+    t.integer  "etapa"
     t.boolean  "estabilidad_fiscal"
     t.text     "observacion"
     t.text     "observacion_interna"

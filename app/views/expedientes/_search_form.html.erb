@@ -2,7 +2,7 @@
   <%= f.text_field :numero_interno, label: "Número interno" %>
   <%= f.text_field :numero_expediente, label: "Número expediente" %>
   <%= f.collection_select :zona_id, Zona.all.order(:descripcion), :id, :descripcion, {label: "Zona", include_blank: true} %>
-  <%= f.number_field :etapa, label: "Etapa", value: expediente.etapa %>
+  <%= f.number_field :etapa, label: "Año/Etapa", value: expediente.etapa %>
   <%= f.date_field :fecha_desde, label: "Fecha desde", value: expediente.fecha_desde %>
   <%= f.date_field :fecha_hasta, label: "Fecha hasta", value: expediente.fecha_hasta %>
   <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Responsable", include_blank: true} %>

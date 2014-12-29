@@ -77,7 +77,7 @@ class Expediente < ActiveRecord::Base
       expedientes = expedientes.where("numero_expediente ILIKE ?", "%#{expediente.numero_expediente}%") unless expediente.numero_expediente.blank?
       expedientes = expedientes.where("numero_expediente IS #{'NOT' unless expediente.incompleto} NULL") unless expediente.incompleto.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.responsable_id = ?", expediente.responsable_id) unless expediente.responsable_id.nil?
-      expedientes = expedientes.joins(:movimientos).where("movimientos.etapa = ?", expediente.etapa) unless expediente.etapa.nil?
+      expedientes = expedientes.joins(:movimientos).where("expedientes.anio = ? OR movimientos.etapa = ?", expediente.etapa.to_i, expediente.etapa.to_i) unless expediente.etapa.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", expediente.fecha_desde) unless expediente.fecha_desde.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", expediente.fecha_hasta) unless expediente.fecha_hasta.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.estabilidad_fiscal = ?", expediente.estabilidad_fiscal) unless expediente.estabilidad_fiscal.nil?
