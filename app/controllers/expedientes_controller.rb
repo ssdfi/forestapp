@@ -3,14 +3,23 @@ class ExpedientesController < ApplicationController
 
   # GET /expedientes
   # GET /expedientes.json
+  # GET /expedientes.csv
   def index
     @expediente_filter = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
     @expedientes = Expediente.search(@expediente_filter)
     @expedientes = @expedientes.order(updated_at: :desc)
-    @expedientes = @expedientes.page params[:page]
 
-    redirect_to @expedientes.first if @expedientes.count == 1
+    respond_to do |format|
+      format.html do
+        @expedientes = @expedientes.page params[:page]
+        redirect_to @expedientes.first if @expedientes.count == 1
+      end
+      format.csv do
+        @filename = "expedientes.csv"
+      end
+      format.json
+    end
   end
 
   # GET /expedientes/1

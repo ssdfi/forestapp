@@ -1,0 +1,12 @@
+csv.headers do |csv|
+  csv.columns :numero_interno, :numero_expediente, :titulares, :zona, :departamento, :tecnico
+  csv.mappings numero_interno: 'Número Interno', numero_expediente: 'Número Expediente', titulares: 'Titulares', tecnico: 'Técnico'
+end
+
+csv.rows @expedientes do |csv, expediente|
+  csv.cells :numero_interno, :numero_expediente
+  csv.cell :titulares, expediente.titulares.map{ |e| e.nombre }.join(' - ')
+  csv.cell :zona, expediente.zona.descripcion if expediente.zona
+  csv.cell :departamento, expediente.departamento.descripcion if expediente.departamento
+  csv.cell :tecnico, expediente.tecnico.nombre if expediente.tecnico
+end

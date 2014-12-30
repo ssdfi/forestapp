@@ -7,8 +7,7 @@
       <th>Titular</th>
       <th>Última Entrada</th>
       <th>Última Salida</th>
-      <th class="icon">Plurianual</th>
-      <th class="icon">Agrupado</th>
+      <th>Técnico</th>
       <th class="icon">Activo</th>
     </tr>
   </thead>
@@ -23,12 +22,7 @@
         </td>
         <td><%= l expediente.ultima_entrada if expediente.ultima_entrada %></td>
         <td><%= l expediente.ultima_salida if expediente.ultima_salida %></td>
-        <td class="icon">
-           <%= render partial: 'common/boolean_value', locals: {value: expediente.plurianual} %>
-        </td>
-        <td class="icon">
-          <%= render partial: 'common/boolean_value', locals: {value: expediente.agrupado} %>
-        </td>
+        <td><%= expediente.tecnico.nombre if expediente.tecnico %></td>
         <td class="icon">
           <%= render partial: 'common/boolean_value', locals: {value: expediente.activo} %>
         </td>

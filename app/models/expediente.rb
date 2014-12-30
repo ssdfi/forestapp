@@ -13,6 +13,7 @@ class Expediente < ActiveRecord::Base
     if self.numero_interno_changed?
       self.zona = Zona.find_by_codigo(self.numero_interno[0..1])
       self.departamento = self.zona.departamentos.find_by_codigo(self.numero_interno[3..5])
+      self.anio = self.numero_interno[11..12].to_i
     end
   end
 

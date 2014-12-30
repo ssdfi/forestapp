@@ -64,6 +64,8 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.3)
+    csv_shaper (1.1.1)
+      activesupport (>= 3.0.0)
     dbf (2.0.7)
       fastercsv (~> 1.5.4)
     diff-lcs (1.2.5)
@@ -200,6 +202,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   coffee-rails (~> 4.0.0)
+  csv_shaper
   execjs
   jbuilder (~> 2.0)
   jquery-rails
