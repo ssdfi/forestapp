@@ -14,6 +14,8 @@
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :validado, label: "Validado"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :estabilidad_fiscal, label: "Estabilidad Fiscal"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :incompleto, label: "Incompleto"} %>
+  <%= f.date_field :fecha_desde, label: "Fecha desde" %>
+  <%= f.date_field :fecha_hasta, label: "Fecha hasta" %>
   <hr/>
   <%= f.submit "Buscar", class: "btn btn-primary pull-right", onclick: "$(this).parent().prop('action', '#{expedientes_path}')" %> 
   <%= f.submit "Exportar a CSV", class: "btn btn-default", onclick: "$(this).parent().prop('action', '#{expedientes_path(format: 'csv')}')" %>
