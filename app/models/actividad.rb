@@ -6,4 +6,8 @@ class Actividad < ActiveRecord::Base
   has_many :plantaciones, :through => :actividades_plantaciones
 
   accepts_nested_attributes_for :actividades_plantaciones, reject_if: :all_blank, allow_destroy: true
+
+  def superficie_registrada
+    read_attribute(:superficie_registrada) || actividades_plantaciones.sum(:superficie_registrada)
+  end
 end

@@ -25,13 +25,13 @@
           <dd><%= @actividad.id %></dd>
           <dt>Tipo de actividad:</dt>
           <dd><%= @actividad.tipo_actividad.descripcion %></dd>
-          <dt>Presentado:</dt>
+          <dt>Sup. Presentada:</dt>
           <dd><%= @actividad.superficie_presentada %></dd>
-          <dt>Certificado:</dt>
+          <dt>Sup. Certificada:</dt>
           <dd><%= @actividad.superficie_certificada %></dd>
-          <dt>Inspeccionado:</dt>
+          <dt>Sup. Inspeccionada:</dt>
           <dd><%= @actividad.superficie_inspeccionada %></dd>
-          <dt>Registrado:</dt>
+          <dt>Sup. Registrada:</dt>
           <dd><%= @actividad.superficie_registrada %></dd>
         </dl>
       </div>
@@ -57,8 +57,8 @@
           <tr>
             <td><%= link_to actividad_plantacion.plantacion.id, actividad_plantacion.plantacion %></td>
             <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
-            <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun %></td>
-            <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion %></td>
+            <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun if actividad_plantacion.plantacion.especies.count > 0 %></td>
+            <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>
             <td><%= actividad_plantacion.superficie_registrada %></td>
             <td><%= actividad_plantacion.plantacion.hectareas %></td>
             <td>

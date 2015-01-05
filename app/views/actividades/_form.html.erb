@@ -15,7 +15,7 @@
       <%= f.text_field :superficie_presentada, label: "Superficie Presentada" %>
       <%= f.text_field :superficie_certificada, label: "Superficie Certificada" %>
       <%= f.text_field :superficie_inspeccionada, label: "Superficie Inspeccionada" %>
-      <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+      <%= f.text_field :superficie_registrada, label: "Superficie Registrada", readonly: true %>
     </div>
   </div>
   <hr/>
@@ -28,10 +28,7 @@
             <th>Plantación ID</th>
             <th>Fecha</th>
             <th>Número de Plantas</th>
-            <th>Presentado</th>
-            <th>Certificado</th>
-            <th>Inspeccionado</th>
-            <th>Registrado</th>
+            <th>Superficie Registrada</th>
             <th>Estado Aprobación</th>
             <th>Comentarios</th>
             <th></th>
@@ -41,22 +38,13 @@
           <%= f.fields_for :actividades_plantaciones, :wrapper => false, label_col: "col-sm-0", control_col: "col-sm-12" do |apf| %>
             <tr class="fields">
               <td>
-                <%= apf.number_field :plantacion_id, hide_label: true %>
+                <%= apf.number_field :plantacion_id, hide_label: true, required: true %>
               </td>
               <td>
                 <%= apf.date_field :fecha, hide_label: true %>
               </td>
               <td>
                 <%= apf.number_field :numero_plantas, hide_label: true %>
-              </td>
-              <td>
-                <%= apf.text_field :superficie_presentada, hide_label: true %>
-              </td>
-              <td>
-                <%= apf.text_field :superficie_certificada, hide_label: true %>
-              </td>
-              <td>
-                <%= apf.text_field :superficie_inspeccionada, hide_label: true %>
               </td>
               <td>
                 <%= apf.text_field :superficie_registrada, hide_label: true %>
