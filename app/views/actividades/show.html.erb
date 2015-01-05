@@ -46,10 +46,7 @@
           <th>Titular</th>
           <th>Especie</th>
           <th>Tipo</th>
-          <th>Presentado</th>
-          <th>Certificado</th>
-          <th>Inspeccionado</th>
-          <th>Registrado</th>
+          <th>Superficie Registrada</th>
           <th>Polígono</th>
           <th>Comentarios</th>
           <th class="icon">Mapa</th>
@@ -62,9 +59,6 @@
             <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
             <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun %></td>
             <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion %></td>
-            <td><%= actividad_plantacion.superficie_presentada %></td>
-            <td><%= actividad_plantacion.superficie_certificada %></td>
-            <td><%= actividad_plantacion.superficie_inspeccionada %></td>
             <td><%= actividad_plantacion.superficie_registrada %></td>
             <td><%= actividad_plantacion.plantacion.hectareas %></td>
             <td>
