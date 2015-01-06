@@ -15,6 +15,6 @@
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :estabilidad_fiscal, label: "Estabilidad Fiscal"} %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :incompleto, label: "Incompleto"} %>
   <hr/>
-  <%= f.submit "Buscar", class: "btn btn-primary pull-right", onclick: "$(this).parent().prop('action', '#{expedientes_path}')" %> 
-  <%= f.submit "Exportar a CSV", class: "btn btn-default", onclick: "$(this).parent().prop('action', '#{expedientes_path(format: 'csv')}')" %>
+  <%= f.submit "Buscar", class: "btn btn-primary pull-right", id: "buscar", "data-url" => expedientes_path %>
+  <%= f.submit "Exportar a CSV", class: "btn btn-default", id: "exportar", "data-url" => expedientes_path(format: 'csv'), "data-count" => @count %>
 <% end %>
