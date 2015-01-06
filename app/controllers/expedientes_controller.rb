@@ -12,6 +12,7 @@ class ExpedientesController < ApplicationController
 
     respond_to do |format|
       format.html do
+        @count = @expedientes.count
         @expedientes = @expedientes.page params[:page]
         redirect_to @expedientes.first if @expedientes.count == 1
       end
