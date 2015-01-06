@@ -4,5 +4,5 @@ $(document).ready ->
 
   $('#exportar').on 'click', ->
     if this.dataset.count >= 1000
-      unless confirm "Se van a exportar " + this.dataset.count + " registros. Esto podría tomar varios minutos. ¿Desea continuar?"
+      unless confirm "Se van a exportar " + this.dataset.count + " registros. ¿Desea continuar?"
         false
