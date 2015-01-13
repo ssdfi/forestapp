@@ -9,6 +9,11 @@
       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
     <% end %>
   </li>
+  <li>
+    <a href="#" data-toggle="modal" data-target="#plantaciones-modal">
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar Plantación
+    </a>
+  </li>
 <% end %>
 
 <div class="row">
@@ -69,18 +74,54 @@
           <dd><%= @plantacion.uso_anterior.descripcion if @plantacion.uso_anterior %></dd>
           <dt>Objetivo de Plantación:</dt>
           <dd><%= @plantacion.objetivo_plantacion.descripcion if @plantacion.objetivo_plantacion %></dd>
-          <dt>Activo:</dt>
-          <dd>
-            <%= render partial: 'common/boolean_value', locals: {value: @plantacion.activo} %>
-          </dd>
           <dt>Comentarios:</dt>
           <dd><%= @plantacion.comentarios %></dd>
         </dl>
+      </div>
+      <div class="panel-footer">
+        <%= render partial: 'common/boolean_label', locals: {value: @plantacion.activo, true_label: "Activo", false_label: "Inactivo"} %>
       </div>
     </div>
   </div>
   <div class="col-md-9">
     <h4>Expedientes</h4>
     <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
+    <% if @plantacion.plantaciones_nuevas.count > 0 %>
+      <hr/>
+      <h4>Histórico (Nuevas)</h4>
+      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas} %>
+    <% end %>
+    <% if @plantacion.plantaciones_anteriores.count > 0 %>
+      <hr/>
+      <h4>Histórico (Anteriores)</h4>
+      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores} %>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal fade" id="plantaciones-modal" tabindex="-1" role="dialog" aria-labelledby="plantaciones-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        <h4 class="modal-title" id="plantaciones-modal-label">Nuevas Plantaciones</h4>
+      </div>
+      <%= bootstrap_form_tag url: plantacion_replace_path(@plantacion), method: :put, layout: :horizontal do |f| %>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <%= f.text_area "plantaciones_nuevas_ids", label: "Plantaciones", rows: "10", required: true %>
+              <div class="alert alert-info" role="alert">
+                <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>Agregue un ID por línea.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <%= f.submit "Reemplazar", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

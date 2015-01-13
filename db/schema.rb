@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150105204842) do
+ActiveRecord::Schema.define(version: 20150106165910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,6 +272,7 @@ ActiveRecord::Schema.define(version: 20150105204842) do
   end
 
   add_index "plantaciones_historico", ["plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantacion_anterior_id"
+  add_index "plantaciones_historico", ["plantacion_nueva_id", "plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantaciones_ids", :unique => true
   add_index "plantaciones_historico", ["plantacion_nueva_id"], :name => "index_plantaciones_historico_on_plantacion_nueva_id"
 
   create_table "responsables", force: true do |t|

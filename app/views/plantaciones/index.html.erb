@@ -1,23 +1,11 @@
-<h1>Listing plantaciones</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @plantaciones.each do |plantacion| %>
-      <tr>
-        <td><%= link_to 'Show', plantacion %></td>
-        <td><%= link_to 'Edit', edit_plantacion_path(plantacion) %></td>
-        <td><%= link_to 'Destroy', plantacion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Plantacion', new_plantacion_path %>
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'plantaciones', locals: {plantaciones: @plantaciones} %>
+    <div class="well well-sm clearfix">
+      <div class="pagination-info pull-left">
+        <%= page_entries_info @plantaciones %>
+      </div>
+      <%= paginate @plantaciones %>
+    </div>
+  </div>
+</div>

@@ -21,8 +21,6 @@ class Plantacion < ActiveRecord::Base
   has_many :plantaciones_historico_nuevas, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_anterior_id'
   has_many :plantaciones_historico_anteriores, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_nueva_id'
 
-  default_scope { where(activo: true) }
-
   def geom
     geoutil = GeoUtil.instance
     geoutil.cast(read_attribute(:geom), zona.srid, false)
@@ -45,8 +43,8 @@ class Plantacion < ActiveRecord::Base
       {
         "ID" => id,
         "Titular" => titular ? titular.nombre : '',
-        "Especie" => especies.first.nombre_comun,
-        "Superficie Polígono" => hectareas
+        "Especie" => especies.first ? especies.first.nombre_comun : '',
+        "Superficie Polígono" => hectareas || ''
       }
     )
   end

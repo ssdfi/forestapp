@@ -1,10 +1,10 @@
 class PlantacionesController < ApplicationController
-  before_action :set_plantacion, only: [:show, :edit, :update, :destroy, :map]
+  before_action :set_plantacion, only: [:show, :edit, :update, :destroy, :map, :replace]
 
   # GET /plantaciones
   # GET /plantaciones.json
   def index
-    @plantaciones = Plantacion.all
+    @plantaciones = Plantacion.all.page params[:page]
   end
 
   # GET /plantaciones/1
@@ -67,8 +67,29 @@ class PlantacionesController < ApplicationController
     end
   end
 
+  # PUT /plantaciones/1/replace
+  # PUT /plantaciones/1/replace.json
+  def replace
+    @plantacion.activo = false
+    params[:plantaciones_nuevas_ids].split("\n").each do |plantacion_id|
+      @plantacion.plantaciones_historico_nuevas << PlantacionHistorico.new(
+        "plantacion_nueva_id" => plantacion_id.to_i
+      ) unless plantacion_id.to_i == 0 or @plantacion.plantaciones_historico_nuevas.pluck(:plantacion_nueva_id).include? plantacion_id.to_i
+    end
+    respond_to do |format|
+      if @plantacion.save
+        format.html { redirect_to @plantacion, notice: 'Plantación reemplazada satisfactoriamente.' }
+        format.json { render :show, status: :ok, location: @plantacion }
+      else
+        format.html { render :show }
+        format.json { render json: @plantacion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_plantacion
       @plantacion = Plantacion.find(params[:id] || params[:plantacion_id])
     end

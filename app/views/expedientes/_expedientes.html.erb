@@ -30,9 +30,11 @@
     <% end %>
   </tbody>
 </table>
-<div class="well well-sm clearfix">
-  <div class="pagination-info pull-left">
-    <%= page_entries_info @expedientes %>
+<% unless @expedientes.count < 15 %>
+  <div class="well well-sm clearfix">
+    <div class="pagination-info pull-left">
+      <%= page_entries_info @expedientes %>
+    </div>
+    <%= paginate @expedientes %>
   </div>
-  <%= paginate @expedientes %>
-</div>
+<% end %>

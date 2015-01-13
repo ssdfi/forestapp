@@ -1,0 +1,28 @@
+<table class="table table-hover table-grid">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Titular</th>
+      <th>Especie</th>
+      <th>Tipo</th>
+      <th>Polígono</th>
+      <th class="icon">Mapa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% plantaciones.each do |plantacion| %>
+      <tr>
+        <td><%= link_to plantacion.id, plantacion %></td>
+        <td><%= link_to plantacion.titular.nombre, plantacion.titular if plantacion.titular %></td>
+        <td><%= plantacion.especies.first.nombre_comun if plantacion.especies.count > 0 %></td>
+        <td><%= plantacion.tipo_plantacion.descripcion if plantacion.tipo_plantacion %></td>
+        <td><%= plantacion.hectareas %></td>
+        <td class="icon icon-lg">
+          <%= link_to plantacion_map_path(plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
+            <span class="glyphicon glyphicon-globe"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
