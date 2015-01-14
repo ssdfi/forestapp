@@ -46,10 +46,15 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
-  gem 'factory_girl'
+  gem 'pry-rails'
+end
+
+group :test do
+  gem 'factory_girl_rails'
   gem 'guard-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'capybara-webkit'
 end
 
 gem 'bootstrap-sass', '~> 3.3.0'
