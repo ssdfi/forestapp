@@ -23,7 +23,11 @@ class Plantacion < ActiveRecord::Base
 
   def geom
     geoutil = GeoUtil.instance
-    geoutil.cast(read_attribute(:geom), zona.srid, false)
+    geoutil.cast(read_attribute(:geom), srid, false)
+  end
+
+  def srid
+    @srid ||= Plantacion.where(:id => id).pluck("ST_SRID(geom)").first
   end
 
   def hectareas
