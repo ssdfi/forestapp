@@ -30,7 +30,7 @@
     <% end %>
   </tbody>
 </table>
-<% unless @expedientes.count < 15 %>
+<% if @expedientes.num_pages > 1 %>
   <div class="well well-sm clearfix">
     <div class="pagination-info pull-left">
       <%= page_entries_info @expedientes %>
