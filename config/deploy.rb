@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'forestapp'
-set :repo_url, 'git@bitbucket.org:maurimiranda/forestapp.git'
+set :repo_url, 'git@github.com:maurimiranda/forestapp.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
