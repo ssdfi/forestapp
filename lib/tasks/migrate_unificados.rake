@@ -25,7 +25,7 @@ namespace :db do
           tipo_plantacion: TipoPlantacion.find_by_codigo(unificado.tipo_plantacion),
           densidad: unificado.numero_plantas,
           zona: zona,
-          departamento: zona.departamentos.find_by_codigo(u.numero_interno[7..9]),
+          departamento: zona.departamentos.find_by_codigo(unificado.numero_interno[7..9]),
           activo: true,
           comentarios: unificado.observaciones,
           unificado_id: unificado.id,

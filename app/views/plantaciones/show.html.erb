@@ -84,15 +84,16 @@
     </div>
   </div>
   <div class="col-md-9">
-    <h4>Expedientes</h4>
-    <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
-    <% if @plantacion.plantaciones_nuevas.count > 0 %>
+    <% if @plantacion.expedientes.count > 0 %>
+      <h4>Expedientes</h4>
+      <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
       <hr/>
+    <% end %>
+    <% if @plantacion.plantaciones_nuevas.count > 0 %>
       <h4>Histórico (Nuevas)</h4>
       <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas} %>
     <% end %>
     <% if @plantacion.plantaciones_anteriores.count > 0 %>
-      <hr/>
       <h4>Histórico (Anteriores)</h4>
       <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores} %>
     <% end %>
