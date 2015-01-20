@@ -32,6 +32,8 @@ class ExpedientesImporter
 
     def import_expediente(msexpediente)
       zona = Zona.find_by_codigo(msexpediente.NumIntExp_Pro.to_s.rjust(2, '0'))
+      tecnico = Tecnico.find_by_nombre(msexpediente.Tecnico)
+      tecnico = Tecnico.create(nombre: msexpediente.Tecnico) unless tecnico or msexpediente.Tecnico.blank?
 
       expediente = Expediente.create!(
         numero_interno: msexpediente.numero_interno,
@@ -39,7 +41,7 @@ class ExpedientesImporter
         zona: zona,
         departamento: zona.departamentos.find_by_codigo(msexpediente.NumIntExp_Dto.to_s.rjust(3, '0')),
         anio: msexpediente.NumIntExp_Ano < 80 ? msexpediente.NumIntExp_Ano + 2000 : msexpediente.NumIntExp_Ano + 1900,
-        tecnico: msexpediente.Tecnico,
+        tecnico: tecnico,
         titular: msexpediente.Titular,
         plurianual: msexpediente.Plurianual,
         agrupado: msexpediente.Agrupado,
