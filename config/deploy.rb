@@ -5,7 +5,8 @@ set :application, 'forestapp'
 set :repo_url, 'git@github.com:maurimiranda/forestapp.git'
 
 # Default branch is :master
-ask :branch, proc{`git tag`.split("\n").last}
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+# ask :branch, proc { `git tag`.split("\n").last }
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/forestapp'
