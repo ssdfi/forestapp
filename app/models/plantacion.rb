@@ -23,24 +23,37 @@ class Plantacion < ActiveRecord::Base
   has_many :plantaciones_nuevas, class_name: 'Plantacion', through: :plantaciones_historico_nuevas, source: 'plantacion_nueva'
   has_many :plantaciones_anteriores, class_name: 'Plantacion', through: :plantaciones_historico_anteriores, source: 'plantacion_anterior'
 
+  ##
+  # Devuelve el atributo geom proyectado con el SRID correspondiente
   def geom
     geoutil = GeoUtil.instance
     geoutil.cast(read_attribute(:geom), srid, false)
   end
 
+  ##
+  # Obtiene el SRID de la plantación
+  #
+  # Como el sistema de referencia no está definido a nivel de tabla, es necesario obtener el SRID individual de cada registro a través
+  # de la función ST_SRID
   def srid
     @srid ||= Plantacion.where(:id => id).pluck("ST_SRID(geom)").first
   end
 
+  ##
+  # Calcula las hectáreas de superfice de la plantación si es del tipo macizo
   def hectareas
     (geom.area / 10000).round 1 if tipo_plantacion_id == 1
   end
 
+  ##
+  # Devuelve la plantación en formato GeoJSON
   def to_geojson
     geoutil = GeoUtil.instance
     geoutil.encode_json(to_feature)
   end
 
+  ##
+  # Convierte la plantación en un objeto compatible con GeoJSON
   def to_feature
     geoutil = GeoUtil.instance
     geoutil.feature_to_geojson(
@@ -55,6 +68,8 @@ class Plantacion < ActiveRecord::Base
     )
   end
 
+  ##
+  # Devuelve un GeoJSON con todas las plantaciones enviadas como parámetro
   def self.plantaciones_to_geojson(plantaciones)
     geoutil = GeoUtil.instance
     features = []

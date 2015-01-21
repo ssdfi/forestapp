@@ -2,6 +2,8 @@ class Especie < ActiveRecord::Base
   belongs_to :genero
   has_and_belongs_to_many :plantaciones
 
+  ##
+  # Busca las especies que coincidan con los atributos definidos en el objeto Especie pasado como parámetro
   def self.search(especie)
     especies = all
     if especie

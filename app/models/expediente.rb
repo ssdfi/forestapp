@@ -9,6 +9,8 @@ class Expediente < ActiveRecord::Base
 
   before_save :set_values
 
+  ##
+  # Define los valores de zona, departamento y anio a partir del número interno
   def set_values
     if self.numero_interno_changed?
       self.zona = Zona.find_by_codigo(self.numero_interno[0..1])
@@ -61,14 +63,20 @@ class Expediente < ActiveRecord::Base
     @fecha_hasta = value unless value.blank?
   end
 
+  ##
+  # Devuelve la fecha de entrada del último movimiento del expediente
   def ultima_entrada
     movimientos.order(:fecha_entrada).last.fecha_entrada if movimientos.count > 0
   end
 
+  ##
+  # Devuelve la fecha de salida del último movimiento del expediente
   def ultima_salida
     movimientos.order(:fecha_salida).last.fecha_salida if movimientos.count > 0
   end
 
+  ##
+  # Busca los expedientes que coincidan con los atributos definidos en el objeto Expdiente pasado como parámetro
   def self.search(expediente)
     expedientes = all
     if expediente

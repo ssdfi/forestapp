@@ -21,12 +21,21 @@ $.fn.bootstrapSwitch.defaults.onText = 'Sí';
 $.fn.bootstrapSwitch.defaults.offText = 'No';
 $.fn.bootstrapSwitch.defaults.labelWidth = '150';
 
+/**
+ * Define el método click para redirigir a la url definida en la propiedad data-link al hacer click en un <tr>
+ * que contenga dicha propiedad.
+ */
 $(function() {
   $("tr[data-link]").click(function () {
     window.location = this.dataset.link
   })
 });
 
+/**
+ * Trunca el texto de todos los tags <abbr> si el largo supera la cantidad de caracteres definido en la propiedad
+ * data-length. El texto utilizado se define en la propiedad data-title. Si la propiedad data-length no está
+ * definida, se trunca el texto si la cantidad de caracteres es mayor a 8.
+ */
 $(function() {
   $("abbr").each(function () {
     text = $(this).prop("title")

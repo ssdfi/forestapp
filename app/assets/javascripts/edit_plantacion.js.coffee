@@ -1,6 +1,12 @@
 $(document).ready ->
+
+  ### Convierte los checkbox en switch ###
   $("#plantacion_activo").bootstrapSwitch({labelText: "Activo"});
 
+  ###*
+   * Ejecuta la llamada AJAX para hacer la búsqueda de titulares y lista los resultados
+   * con un radio button (La plantación sólo puede tener un titular)
+   ###
   $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
     $("#titulares").empty()
     for titular in $(data)
@@ -11,16 +17,25 @@ $(document).ready ->
       )
   )
 
+  ###*
+   * Al hacer click en el botón de seleccionar titular en la ventanda modal, se define como
+   * titular de la plantación el seleccionado mediante el radio button
+   ###
   $("#select-titular").click ->
     for titular in $("#titulares li input:checked")
       $("#plantacion_titular_id").val(titular.value)
       $("#plantacion_titular").val($(titular).siblings('span').text())
     $("#titulares-modal").modal('hide')
 
+  ### Elimina las especies seleccionadas ###
   $("#remove-especie").click ->
     for especie in $("#plantacion_especie_ids option:selected")
       especie.remove()
 
+  ###*
+   * Ejecuta la llamada AJAX para hacer la búsqueda de especies y lista los resultados
+   * con un checkbox
+   ###
   $("#especies-modal form").on("ajax:success", (e, data, status, xhr) ->
     $("#especies").empty()
     for especie in $(data)
@@ -31,6 +46,10 @@ $(document).ready ->
       )
   )
 
+  ###*
+   * Al hacer click en el botón de agregar especies en la ventanda modal, se agregan al listado
+   * todos las especies que han sido seleccionados mediante el checkbox
+   ###
   $("#add-especie").click ->
     for especie in $("#especies li input:checked")
       $("#plantacion_especie_ids").append(
@@ -38,6 +57,7 @@ $(document).ready ->
       )
     $("#especies-modal").modal('hide')
 
+  ### Busca y carga los departamentos pertenecientes a la zona seleccionada ###
   $("#plantacion_zona_id").change ->
     $("#plantacion_departamento_id").prop('disabled', true);
     $("#plantacion_departamento_id").empty()
@@ -48,5 +68,6 @@ $(document).ready ->
           $("#plantacion_departamento_id").append($("<option />").val(departamento.id).text(departamento.descripcion))
         $("#plantacion_departamento_id").prop('disabled', false);
 
-this.selectAllEspecies = ->
-  $("#plantacion_especie_ids option").prop('selected', true)
+  ### Selecciona todos las especies del listado antes ejectuar el submit del formulario ###
+  $("form").submit ->
+    $("#plantacion_especie_ids option").prop('selected', true)

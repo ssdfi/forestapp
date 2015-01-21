@@ -1,6 +1,8 @@
 class Tecnico < ActiveRecord::Base
   has_many :expedientes
 
+  ##
+  # Busca los técnicos que coincidan con los atributos definidos en el objeto Tecnico pasado como parámetro
   def self.search(tecnico)
     tecnicos = all
     if tecnico

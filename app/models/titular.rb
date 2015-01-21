@@ -3,6 +3,9 @@ class Titular < ActiveRecord::Base
   has_and_belongs_to_many :expedientes_titular, class_name: 'Expediente', source: :expedientes
   has_many :expedientes_plantacion, -> { distinct }, class_name: 'Expediente', through: :plantaciones, source: :expedientes
 
+  ##
+  # Devuelve los expedientes relacionados con el titular, ya sea los expedientes directos como los expedientes agrupados
+  # que incluyan una plantación perteneciente al titular
   def expedientes
     query1 = self.expedientes_titular
     query2 = self.expedientes_plantacion
@@ -14,6 +17,8 @@ class Titular < ActiveRecord::Base
     Expediente.from(sql)
   end
 
+  ##
+  # Busca los titulares que coincidan con los atributos definidos en el objeto Titular pasado como parámetro
   def self.search(titular)
     titulares = all
     if titular
