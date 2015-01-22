@@ -38,9 +38,6 @@ class ExpedientesImporter
       expediente = Expediente.create!(
         numero_interno: msexpediente.numero_interno,
         numero_expediente: msexpediente.NumExpediente,
-        zona: zona,
-        departamento: zona.departamentos.find_by_codigo(msexpediente.NumIntExp_Dto.to_s.rjust(3, '0')),
-        anio: msexpediente.NumIntExp_Ano < 80 ? msexpediente.NumIntExp_Ano + 2000 : msexpediente.NumIntExp_Ano + 1900,
         tecnico: tecnico,
         titular: msexpediente.Titular,
         plurianual: msexpediente.Plurianual,

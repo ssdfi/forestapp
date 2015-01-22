@@ -12,10 +12,10 @@ class Expediente < ActiveRecord::Base
   ##
   # Define los valores de zona, departamento y anio a partir del número interno
   def set_values
-    if self.numero_interno_changed?
-      self.zona = Zona.find_by_codigo(self.numero_interno[0..1])
-      self.departamento = self.zona.departamentos.find_by_codigo(self.numero_interno[3..5])
-      self.anio = self.numero_interno[11..12].to_i
+    if numero_interno_changed?
+      self.zona = Zona.find_by_codigo(numero_interno[0..1])
+      self.departamento = zona.departamentos.find_by_codigo(numero_interno[3..5]) if zona
+      self.anio = numero_interno[11..12].to_i < 80 ? numero_interno[11..12].to_i + 2000 : numero_interno[11..12].to_i + 1900
     end
   end
 

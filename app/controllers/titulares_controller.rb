@@ -7,7 +7,7 @@ class TitularesController < ApplicationController
     @titular = params[:titular] ? Titular.new(titular_params) : Titular.new
 
     @titulares = Titular.search(@titular)
-    @titulares = @titulares.order(updated_at: :desc)
+    @titulares = @titulares.order(:nombre)
     @titulares = @titulares.page(params[:page])
   end
 

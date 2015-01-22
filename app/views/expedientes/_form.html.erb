@@ -31,26 +31,26 @@
   <div class="form-group" style="margin-top: -10px;">
     <div class="col-sm-9 col-sm-offset-3">
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#titulares-modal">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal_titulares" id="add_titular">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Asociar
         </button>
-        <button id="remove-titular" type="button" class="btn btn-default btn-xs">
+        <button type="button" class="btn btn-default btn-xs" id="remove_titular">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
         </button>
       </div>
     </div>
   </div>
   <hr/>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
-  <%= link_to "Cancelar", :back, class: "btn btn-default" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save_expediente" %>
+  <%= link_to "Cancelar", :back, class: "btn btn-default", id: "cancel_expediente" %>
 <% end %>
 
-<div class="modal fade" id="titulares-modal" tabindex="-1" role="dialog" aria-labelledby="titulares-modal-label" aria-hidden="true">
+<div class="modal fade" id="modal_titulares" tabindex="-1" role="dialog" aria-labelledby="modal_titulares_label" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="titulares-modal-label">Asociar Titular a Expediente</h4>
+        <h4 class="modal-title" id="modal_titulares_label">Asociar Titular a Expediente</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -59,20 +59,20 @@
               <%= f.text_field "titular[nombre]", hide_label: true, placeholder: "Nombre" %>
               <%= f.text_field "titular[dni]", hide_label: true, placeholder: "DNI" %>
               <%= f.text_field "titular[cuit]", hide_label: true, placeholder: "CUIT" %>
-              <%= f.submit "Buscar", class: "btn btn-default" %>
+              <%= f.submit "Buscar", class: "btn btn-default", id: "modal_titulares_search" %>
             <% end %>
           </div>
         </div>
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <ul id="titulares"></ul>
+            <ul id="titulares_list"></ul>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="add-titular" type="button" class="btn btn-primary">Asociar</button>
+        <button id="modal_titulares_add" type="button" class="btn btn-primary">Asociar</button>
       </div>
     </div>
   </div>

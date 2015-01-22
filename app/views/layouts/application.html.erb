@@ -38,7 +38,7 @@
           <%= yield :actions %>
           <% if @expediente and @expediente.numero_interno %>
             <li class="navbar-primary">
-              <%= link_to @expediente.numero_interno, @expediente %>
+              <%= link_to @expediente.numero_interno, @expediente, id: "nav_expediente" %>
             </li>
           <% end %>
         </ul>
