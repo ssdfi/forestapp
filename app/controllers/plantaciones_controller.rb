@@ -72,9 +72,7 @@ class PlantacionesController < ApplicationController
   def replace
     @plantacion.activo = false
     params[:plantaciones_nuevas_ids].split("\n").each do |plantacion_id|
-      @plantacion.plantaciones_historico_nuevas << PlantacionHistorico.new(
-        "plantacion_nueva_id" => plantacion_id.to_i
-      ) unless plantacion_id.to_i == 0 or @plantacion.plantaciones_historico_nuevas.pluck(:plantacion_nueva_id).include? plantacion_id.to_i
+      @plantacion.plantaciones_nuevas << Plantacion.find(plantacion_id) unless plantacion_id.to_i == 0
     end
     respond_to do |format|
       if @plantacion.save

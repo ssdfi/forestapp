@@ -264,15 +264,12 @@ ActiveRecord::Schema.define(version: 20150123162041) do
   add_index "plantaciones", ["uso_forestal_id"], :name => "index_plantaciones_on_uso_forestal_id"
   add_index "plantaciones", ["zona_id"], :name => "index_plantaciones_on_zona_id"
 
-  create_table "plantaciones_historico", force: true do |t|
-    t.integer  "plantacion_nueva_id"
-    t.integer  "plantacion_anterior_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "plantaciones_historico", id: false, force: true do |t|
+    t.integer "plantacion_nueva_id"
+    t.integer "plantacion_anterior_id"
   end
 
   add_index "plantaciones_historico", ["plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantacion_anterior_id"
-  add_index "plantaciones_historico", ["plantacion_nueva_id", "plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantaciones_ids", :unique => true
   add_index "plantaciones_historico", ["plantacion_nueva_id"], :name => "index_plantaciones_historico_on_plantacion_nueva_id"
 
   create_table "responsables", force: true do |t|

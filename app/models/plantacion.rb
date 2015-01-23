@@ -18,15 +18,16 @@ class Plantacion < ActiveRecord::Base
   has_many :actividades, through: :actividades_plantaciones
   has_many :movimientos, through: :actividades
   has_many :expedientes, through: :movimientos
-  has_many :plantaciones_historico_nuevas, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_anterior_id'
-  has_many :plantaciones_historico_anteriores, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_nueva_id'
-  has_many :plantaciones_nuevas, class_name: 'Plantacion', through: :plantaciones_historico_nuevas, source: 'plantacion_nueva'
-  has_many :plantaciones_anteriores, class_name: 'Plantacion', through: :plantaciones_historico_anteriores, source: 'plantacion_anterior'
+  has_and_belongs_to_many :plantaciones_nuevas, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+    foreign_key: 'plantacion_anterior_id', association_foreign_key: 'plantacion_nueva_id'
+  has_and_belongs_to_many :plantaciones_anteriores, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+    foreign_key: 'plantacion_nueva_id', association_foreign_key: 'plantacion_anterior_id'
 
   ##
   # Devuelve el atributo geom proyectado con el SRID correspondiente
   def geom
     geoutil = GeoUtil.instance
+    puts srid
     geoutil.cast(read_attribute(:geom), srid, false)
   end
 
@@ -63,7 +64,7 @@ class Plantacion < ActiveRecord::Base
         "ID" => id,
         "Titular" => titular ? titular.nombre : '',
         "Especie" => especies.first ? especies.first.nombre_comun : '',
-        "Superficie Polígono" => hectareas || ''
+        "Superficie" => hectareas || ''
       }
     )
   end
