@@ -31,7 +31,6 @@ class ExpedientesImporter
   private
 
     def import_expediente(msexpediente)
-      zona = Zona.find_by_codigo(msexpediente.NumIntExp_Pro.to_s.rjust(2, '0'))
       tecnico = Tecnico.find_by_nombre(msexpediente.Tecnico)
       tecnico = Tecnico.create(nombre: msexpediente.Tecnico) unless tecnico or msexpediente.Tecnico.blank?
 
@@ -39,7 +38,6 @@ class ExpedientesImporter
         numero_interno: msexpediente.numero_interno,
         numero_expediente: msexpediente.NumExpediente,
         tecnico: tecnico,
-        titular: msexpediente.Titular,
         plurianual: msexpediente.Plurianual,
         agrupado: msexpediente.Agrupado,
         activo: !msexpediente.Borrado
