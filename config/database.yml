@@ -15,7 +15,7 @@ development:
 test:
   <<: *default
   host: localhost
-  database: forestal_test
+  database: forestal_dev
   username: forestal
 
 production:
