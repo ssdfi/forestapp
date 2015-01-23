@@ -92,6 +92,8 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.6)
+    foreigner (1.7.2)
+      activerecord (>= 3.0.0)
     formatador (0.2.5)
     guard (2.11.1)
       formatador (>= 0.2.4)
@@ -107,6 +109,8 @@ GEM
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.6.11)
+    immigrant (0.2.0)
+      activerecord (>= 3.0)
     jbuilder (2.2.4)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -275,7 +279,9 @@ DEPENDENCIES
   csv_shaper
   execjs
   factory_girl_rails
+  foreigner
   guard-rails
+  immigrant
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
