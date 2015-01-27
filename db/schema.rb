@@ -31,21 +31,16 @@ ActiveRecord::Schema.define(version: 20150123162041) do
   add_index "actividades", ["movimiento_id"], :name => "index_actividades_on_movimiento_id"
   add_index "actividades", ["tipo_actividad_id"], :name => "index_actividades_on_tipo_actividad_id"
 
-  create_table "actividades_expedientes", id: false, force: true do |t|
-    t.integer "actividad_id",  null: false
-    t.integer "expediente_id", null: false
-  end
-
   create_table "actividades_plantaciones", force: true do |t|
     t.integer  "actividad_id"
     t.integer  "plantacion_id"
-    t.decimal  "superficie_registrada"
     t.integer  "estado_aprobacion_id"
+    t.decimal  "superficie_registrada"
+    t.integer  "numero_plantas"
+    t.date     "fecha"
     t.text     "comentarios"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "fecha"
-    t.integer  "numero_plantas"
   end
 
   add_index "actividades_plantaciones", ["actividad_id"], :name => "index_actividades_plantaciones_on_actividad_id"
@@ -127,16 +122,15 @@ ActiveRecord::Schema.define(version: 20150123162041) do
   create_table "expedientes", force: true do |t|
     t.string   "numero_interno"
     t.string   "numero_expediente"
-    t.string   "titular"
+    t.integer  "tecnico_id"
+    t.integer  "zona_id"
+    t.integer  "departamento_id"
     t.boolean  "agrupado"
     t.boolean  "plurianual"
     t.boolean  "activo"
+    t.integer  "anio"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "zona_id"
-    t.integer  "departamento_id"
-    t.integer  "tecnico_id"
-    t.integer  "anio"
   end
 
   add_index "expedientes", ["departamento_id"], :name => "index_expedientes_on_departamento_id"
@@ -394,17 +388,6 @@ ActiveRecord::Schema.define(version: 20150123162041) do
   end
 
   add_index "usos_forestales", ["codigo"], :name => "index_usos_forestales_on_codigo"
-
-  create_table "versions", force: true do |t|
-    t.string   "item_type",  null: false
-    t.integer  "item_id",    null: false
-    t.string   "event",      null: false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "zonas", force: true do |t|
     t.string   "codigo"
