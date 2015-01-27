@@ -27,5 +27,10 @@ Rails.application.routes.draw do
     resources :generos
     resources :titulares
     resources :tecnicos
+
+    resources :sessions
+    get "/login" => "sessions#new"
+    get "/logout" => "sessions#destroy"
+    post "/adauth" => "sessions#create"
   end
 end
