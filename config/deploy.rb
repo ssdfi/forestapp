@@ -74,4 +74,11 @@ namespace :deploy do
     end
   end
 
+  desc 'Seed database'
+  task :seed do
+    on roles(:app) do
+      execute :rake, 'db:seed'
+    end
+  end
+
 end
