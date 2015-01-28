@@ -44,3 +44,12 @@ $(function() {
     $(this).text(text)
   })
 });
+
+/**
+ * Cierra automáticamente los mensajes informativos
+ */
+setTimeout(function() {
+  $(".alert.alert-info").fadeTo(1500, 0, function() {
+    $(this).remove();
+  }
+)}, 4000)
