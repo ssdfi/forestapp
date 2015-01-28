@@ -6,14 +6,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap3-switch";
-@import url(http://fonts.googleapis.com/css?family=Ramaraja);
 
 html, body {
   height: 100%;
 }
 
 body {
-  background-image: url('background.jpg');
+  background-image: image-url('background.jpg');
   background-size: cover cover;
 }
 
