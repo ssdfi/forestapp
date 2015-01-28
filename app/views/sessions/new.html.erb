@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-12">
+    <h1>
+      <i class="glyphicon glyphicon-tree-deciduous"></i>ForestApp
+    </h1>
+    <div class="panel panel-primary panel-login">
+      <div class="panel-heading">
+        <h2>Inicio de sesión</h2>
+      </div>
+      <div class="panel-body">
+        <%= bootstrap_form_tag url: adauth_path, method: "post", layout: :vertical do |f| %>
+          <%= f.text_field "username", hide_label: true, placeholder: "Nombre de usuario MAGyP" %>
+          <%= f.password_field "password", hide_label: true, placeholder: "Contraseña" %>
+          <button type="submit" class="btn btn-success pull-right">
+            <i class="glyphicon glyphicon-log-in"></i> Entrar
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

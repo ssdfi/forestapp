@@ -80,3 +80,5 @@ gem 'paper_trail'
 
 gem 'rails-i18n', '~> 4.0.0'
 gem 'csv_shaper'
+
+gem 'adauth'

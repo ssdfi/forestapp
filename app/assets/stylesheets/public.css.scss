@@ -1,15 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
  *= require rails_bootstrap_forms
  *= require_self
  */
@@ -18,6 +7,15 @@
 @import "bootstrap";
 @import "bootstrap3-switch";
 @import url(http://fonts.googleapis.com/css?family=Ramaraja);
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-image: url('background.jpg');
+  background-size: cover cover;
+}
 
 th.icon {
   text-align: center;
@@ -100,11 +98,10 @@ td.icon-lg span {
 }
 
 .navbar-brand {
-  font-size: $font-size-h2;
+  font-size: $font-size-h3;
   padding-top: $padding-large-vertical;
-  color: white !important;
-  font-weight: normal;
-  font-family: 'Ramaraja', serif;
+  color: $brand-info !important;
+  font-weight: $headings-font-weight;
 }
 
 .alert {
