@@ -24,10 +24,9 @@ class Plantacion < ActiveRecord::Base
     foreign_key: 'plantacion_nueva_id', association_foreign_key: 'plantacion_anterior_id'
 
   ##
-  # Devuelve el atributo geom proyectado con el SRID correspondiente
+  # Devuelve el atributo geom con el SRID correspondiente
   def geom
     geoutil = GeoUtil.instance
-    puts srid
     geoutil.cast(read_attribute(:geom), srid, false)
   end
 
