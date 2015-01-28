@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.2'
+
 gem 'rake', '10.4.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -35,7 +37,7 @@ gem 'spring',        group: :development
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'
-  gem 'rvm-capistrano'
+  gem 'capistrano-rvm'
   gem 'capistrano-passenger'
   gem 'railroady'
   gem 'seed_dump'
