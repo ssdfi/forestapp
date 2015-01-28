@@ -39,6 +39,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'railroady'
   gem 'seed_dump'
+  gem 'immigrant'
 end
 
 # Use debugger
@@ -65,6 +66,7 @@ gem "bootstrap-switch-rails"
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'
+gem 'foreigner'
 
 gem 'tiny_tds'
 gem 'activerecord-sqlserver-adapter'
@@ -78,3 +80,5 @@ gem 'paper_trail'
 
 gem 'rails-i18n', '~> 4.0.0'
 gem 'csv_shaper'
+
+gem 'adauth'

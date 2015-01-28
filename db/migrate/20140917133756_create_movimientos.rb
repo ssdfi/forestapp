@@ -10,7 +10,7 @@ class CreateMovimientos < ActiveRecord::Migration
       t.references :destino, index: true
       t.date :fecha_entrada
       t.date :fecha_salida
-      t.string :etapa
+      t.integer :etapa
       t.boolean :estabilidad_fiscal
       t.text :observacion
       t.text :observacion_interna

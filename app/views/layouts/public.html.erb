@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ForestApp</title>
+  <%= favicon_link_tag 'favicon.png' %>
+  <%= stylesheet_link_tag 'public' %>
+  <%= stylesheet_link_tag 'sessions' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container-fluid">
+    <%= render partial: "common/flash_messages", flash: flash %>
+    <%= yield %>
+  </div>
+</body>
+</html>

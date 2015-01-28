@@ -11,9 +11,9 @@ class CreatePlantaciones < ActiveRecord::Migration
       t.decimal :distancia_filas
       t.string :densidad
       t.references :fuente_informacion, index: true
-      t.string :fecha_informacion
+      t.integer :fecha_informacion
       t.references :fuente_imagen, index: true
-      t.string :fecha_imagen
+      t.integer :fecha_imagen
       t.references :zona, index: true
       t.references :departamento, index: true
       t.references :estrato_desarrollo, index: true

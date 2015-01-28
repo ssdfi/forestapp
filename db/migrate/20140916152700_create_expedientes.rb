@@ -3,11 +3,13 @@ class CreateExpedientes < ActiveRecord::Migration
     create_table :expedientes do |t|
       t.string :numero_interno
       t.string :numero_expediente
-      t.string :titular
+      t.references :tecnico, index: true
+      t.references :zona, index: true
+      t.references :departamento, index: true
       t.boolean :agrupado
-      t.string :tecnico
       t.boolean :plurianual
       t.boolean :activo
+      t.integer :anio
 
       t.timestamps
 

@@ -33,6 +33,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    adauth (2.0.5)
+      expects (~> 0.0.2)
+      net-ldap
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.2.20141016)
       execjs
@@ -85,6 +88,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.2)
+    expects (0.0.3)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -92,6 +96,8 @@ GEM
       railties (>= 3.0.0)
     fastercsv (1.5.5)
     ffi (1.9.6)
+    foreigner (1.7.2)
+      activerecord (>= 3.0.0)
     formatador (0.2.5)
     guard (2.11.1)
       formatador (>= 0.2.4)
@@ -107,6 +113,8 @@ GEM
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.6.11)
+    immigrant (0.2.0)
+      activerecord (>= 3.0)
     jbuilder (2.2.4)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -132,6 +140,7 @@ GEM
     multi_json (1.10.1)
     nenv (0.1.1)
     nested_form (0.3.2)
+    net-ldap (0.11)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -262,6 +271,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter
   activerecord-sqlserver-adapter
+  adauth
   autoprefixer-rails
   bootstrap-sass (~> 3.3.0)
   bootstrap-switch-rails
@@ -275,7 +285,9 @@ DEPENDENCIES
   csv_shaper
   execjs
   factory_girl_rails
+  foreigner
   guard-rails
+  immigrant
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ForestApp</title>
+  <title>
+    ForestApp
+    <% if @expediente and @expediente.numero_interno %>
+      <%= "(#{@expediente.numero_interno})" %>
+    <% else %>
+      <%= " - #{controller.controller_name.camelize}" %>
+    <% end %>
+  </title>
   <%= favicon_link_tag 'favicon.png' %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
@@ -19,19 +26,25 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">
-          <i class="glyphicon glyphicon-tree-deciduous"></i> ForestApp
+          <i class="glyphicon glyphicon-tree-deciduous"></i>
         </a>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li>
-            <%= link_to "Expedientes", expedientes_path() %>
+            <%= link_to expedientes_path do %>
+              Expedientes <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <% end %>
           </li>
           <li>
-            <%= link_to "Titulares", titulares_path() %>
+            <%= link_to titulares_path do %>
+              Titulares <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <% end %>
           </li>
           <li>
-            <%= link_to "Técnicos", tecnicos_path() %>
+            <%= link_to tecnicos_path do %>
+              Técnicos <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <% end %>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -41,6 +54,11 @@
               <%= link_to @expediente.numero_interno, @expediente, id: "nav_expediente" %>
             </li>
           <% end %>
+          <li class="navbar-danger">
+            <%= link_to logout_path, id: 'nav_logout', data: { confirm: '¿Está seguro que desea cerrar la sesión?' } do %>
+              <span class="glyphicon glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir
+            <% end %>
+          </li>
         </ul>
       </div><!--/.navbar-collapse -->
     </div>

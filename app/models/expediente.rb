@@ -5,6 +5,9 @@ class Expediente < ActiveRecord::Base
   has_many :movimientos
   has_and_belongs_to_many :titulares
 
+  validates :numero_interno, presence: true
+  validates :numero_expediente, presence: true
+
   attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, :etapa, :responsable_id, :validado
 
   before_save :set_values
