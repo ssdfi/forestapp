@@ -35,7 +35,7 @@ gem 'spring',        group: :development
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'
-  gem 'capistrano-rvm'
+  gem 'rvm-capistrano'
   gem 'capistrano-passenger'
   gem 'railroady'
   gem 'seed_dump'

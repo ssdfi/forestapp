@@ -4,6 +4,12 @@ lock '3.2.1'
 set :application, 'forestapp'
 set :repo_url, 'git@github.com:maurimiranda/forestapp.git'
 
+set :rvm_ruby_string, :local        # use the same ruby as used locally for deployment
+set :bundle_dir, ''
+set :bundle_flags, '--system --quiet'
+before 'deploy', 'rvm:install_rvm'  # install/update RVM
+before 'deploy', 'rvm:install_ruby' # install Ruby and create gemset (both if missing)
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 # ask :branch, proc { `git tag`.split("\n").last }
