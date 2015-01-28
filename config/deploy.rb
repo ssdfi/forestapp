@@ -61,26 +61,10 @@ namespace :deploy do
     end
   end
 
-  desc 'Initial DB Setup (Recreate DB and import data)'
-  task :db_reset do
-    on roles(:app), in: :sequence, wait: 5 do
-      # execute :bunlde, :exec, :rake, 'db:reset'
-      # execute :bunlde, :exec, :rake, 'db:import:all'
-      execute :rake, 'db:version'
-    end
-  end
-
   desc 'Show deployed revision'
   task :revision do
     on roles(:app) do
       execute :cat, release_path.join('REVISION')
-    end
-  end
-
-  desc 'Seed database'
-  task :seed do
-    on roles(:app) do
-      execute :rake, 'db:seed'
     end
   end
 
