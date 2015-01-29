@@ -2,6 +2,10 @@ require 'rails_helper'
 
 feature "Expedientes" do
 
+  before :each do
+    login_admin
+  end
+
   scenario "Crear Nuevo Expediente" do
     tecnico = Tecnico.first.nombre
     titulares = Titular.order(:nombre).first(3)
@@ -162,7 +166,7 @@ feature "Expedientes" do
   scenario "Buscar Expedientes por incompleto" do
     visit expedientes_path
     within("#new_expediente") do
-      choose('expediente_incompleto_false')
+      choose('expediente_incompleto_')
       click_on 'search'
     end
     expect(page).to have_selector('#expedientes tbody tr')
@@ -177,9 +181,11 @@ feature "Expedientes" do
 
   scenario "Buscar Expedientes con un sólo resultado" do
     expediente = Expediente.last
+    puts expediente.numero_interno
     visit expedientes_path
     within("#new_expediente") do
       fill_in 'expediente_numero_interno', with: expediente.numero_interno
+      choose('expediente_incompleto_')
       click_on 'search'
     end
     expect(current_path).to eq(expediente_path(expediente))

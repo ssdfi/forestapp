@@ -11,7 +11,7 @@
         <%= bootstrap_form_tag url: adauth_path, method: "post", layout: :vertical do |f| %>
           <%= f.text_field "username", hide_label: true, placeholder: "Nombre de usuario MAGyP" %>
           <%= f.password_field "password", hide_label: true, placeholder: "Contraseña" %>
-          <button type="submit" class="btn btn-success pull-right">
+          <button id='login' type="submit" class="btn btn-success pull-right">
             <i class="glyphicon glyphicon-log-in"></i> Entrar
           </button>
         <% end %>

@@ -2,10 +2,16 @@ class SessionsController < ApplicationController
   layout "public"
   skip_before_filter :authenticate_user, :only => [:new, :create]
 
-	def new
+	##
+  # Muestra el formulario de login si no existe un usuario activo
+  def new
 		redirect_to root_path if @current_user
 	end
 
+  ##
+  # Genera una nueva sesión a partir de los datos del formulario de login
+  #
+  # Lo autenticación se hace contra el ActiveDirectory del MAGyP
 	def create
 		adauth = Adauth.authenticate(params[:username], params[:password])
     if adauth
@@ -16,6 +22,8 @@ class SessionsController < ApplicationController
     end
 	end
 
+  ##
+  # Cierra la sesión activa
 	def destroy
     session[:current_user] = nil
 		redirect_to login_path
