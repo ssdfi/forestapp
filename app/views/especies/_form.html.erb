@@ -1,4 +1,4 @@
-<%= form_for(@especie) do |f| %>
+<%= form_for [@genero, @especie] do |f| %>
   <% if @especie.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@especie.errors.count, "error") %> prohibited this especie from being saved:</h2>

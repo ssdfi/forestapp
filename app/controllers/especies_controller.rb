@@ -1,14 +1,21 @@
 class EspeciesController < ApplicationController
+  before_action :set_genero
   before_action :set_especie, only: [:show, :edit, :update, :destroy]
 
   # GET /especies
   # GET /especies.json
   def index
-    @especie = params[:especie] ? Especie.new(especie_params) : Especie.new
-
-    @especies = Especie.search(@especie)
-    @especies = @especies.order(updated_at: :desc)
-    @especies = @especies.page(params[:page])
+    respond_to do |format|
+      format.html do
+        redirect_to generos_path unless @genero
+      end
+      format.json do
+        @especie = params[:especie] ? Especie.new(especie_params) : Especie.new
+        @especies = Especie.search(@especie)
+        @especies = @especies.order(updated_at: :desc)
+        @especies = @especies.page(params[:page])
+      end
+    end
   end
 
   # GET /especies/1
@@ -18,7 +25,7 @@ class EspeciesController < ApplicationController
 
   # GET /especies/new
   def new
-    @especie = Especie.new
+    @especie = @genero.especies.new
   end
 
   # GET /especies/1/edit
@@ -28,12 +35,12 @@ class EspeciesController < ApplicationController
   # POST /especies
   # POST /especies.json
   def create
-    @especie = Especie.new(especie_params)
+    @especie = @genero.especies.new(especie_params)
 
     respond_to do |format|
       if @especie.save
-        format.html { redirect_to @especie, notice: 'Especie was successfully created.' }
-        format.json { render :show, status: :created, location: @especie }
+        format.html { redirect_to [@genero, @especie], notice: 'Especie was successfully created.' }
+        format.json { render :show, status: :created, location: [@genero, @especie] }
       else
         format.html { render :new }
         format.json { render json: @especie.errors, status: :unprocessable_entity }
@@ -46,8 +53,8 @@ class EspeciesController < ApplicationController
   def update
     respond_to do |format|
       if @especie.update(especie_params)
-        format.html { redirect_to @especie, notice: 'Especie was successfully updated.' }
-        format.json { render :show, status: :ok, location: @especie }
+        format.html { redirect_to [@genero, @especie], notice: 'Especie was successfully updated.' }
+        format.json { render :show, status: :ok, location: [@genero, @especie] }
       else
         format.html { render :edit }
         format.json { render json: @especie.errors, status: :unprocessable_entity }
@@ -60,7 +67,7 @@ class EspeciesController < ApplicationController
   def destroy
     @especie.destroy
     respond_to do |format|
-      format.html { redirect_to especies_url, notice: 'Especie was successfully destroyed.' }
+      format.html { redirect_to genero_especies_url(@genero), notice: 'Especie was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +76,10 @@ class EspeciesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_especie
       @especie = Especie.find(params[:id])
+    end
+
+    def set_genero
+      @genero = Genero.find(params[:genero_id]) if params[:genero_id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

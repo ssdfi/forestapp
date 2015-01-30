@@ -1,9 +1,11 @@
 <% content_for :actions do %>
-  <li>
-    <%= link_to new_titular_path do %>
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Titular
-    <% end %>
-  </li>
+  <% if current_user.editor? %>
+    <li>
+      <%= link_to new_titular_path do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Titular
+      <% end %>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="row">

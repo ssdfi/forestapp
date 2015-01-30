@@ -2,6 +2,7 @@ class ActividadesController < ApplicationController
   before_action :set_expediente
   before_action :set_movimiento
   before_action :set_actividad, only: [:show, :map, :edit, :update, :destroy]
+  layout 'map', :only => [:map]
 
   # GET /actividades
   # GET /actividades.json

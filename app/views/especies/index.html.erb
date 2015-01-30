@@ -22,9 +22,9 @@
         <td><%= especie.nombre_cientifico %></td>
         <td><%= especie.nombre_comun %></td>
         <td><%= especie.inscripcion_inase %></td>
-        <td><%= link_to 'Show', especie %></td>
-        <td><%= link_to 'Edit', edit_especie_path(especie) %></td>
-        <td><%= link_to 'Destroy', especie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [@genero, especie] %></td>
+        <td><%= link_to 'Edit', edit_genero_especie_path(@genero, especie) %></td>
+        <td><%= link_to 'Destroy', [@genero, especie], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,8 @@
 
 <br>
 
-<%= link_to 'New Especie', new_especie_path %>
+<%= link_to 'New Especie', new_genero_especie_path(@genero) %>
+
+<br>
+
+<%= link_to 'Genero', genero_path(@genero) %>

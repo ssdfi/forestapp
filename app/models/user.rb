@@ -3,6 +3,9 @@
 class User
   include ActiveModel::Model
 
+  ADMIN_GROUP = "forestapp_admin"
+  EDITOR_GROUP = "forestapp_editor"
+
   attr_accessor :name, :groups
 
   ##
@@ -13,4 +16,13 @@ class User
       groups: ldap_object[:memberof].map { |group| group.match(/\bCN=(.*?),/)[1] }
     )
   end
+
+  def admin?
+    groups.include? ADMIN_GROUP
+  end
+
+  def editor?
+    groups.include? EDITOR_GROUP
+  end
+
 end

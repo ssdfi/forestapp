@@ -3,11 +3,13 @@
 <% end %>
 
 <% content_for :actions do %>
-  <li>
-    <%= link_to new_expediente_path, id: 'nav_new_expediente' do %>
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Expediente
-    <% end %>
-  </li>
+  <% if current_user.editor? %>
+    <li>
+      <%= link_to new_expediente_path, id: 'nav_new_expediente' do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Expediente
+      <% end %>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="row">

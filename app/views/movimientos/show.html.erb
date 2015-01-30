@@ -1,19 +1,23 @@
 <% content_for :actions do %>
-  <li>
-    <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento) do %>
-      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
-    <% end %>
-  </li>
-  <li>
-    <%= link_to expediente_movimiento_path(@expediente, @movimiento), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Movimiento?' } do %>
-      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
-    <% end %>
-  </li>
-  <li>
-    <%= link_to new_expediente_movimiento_actividad_path(@expediente, @movimiento) do %>
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
-    <% end %>
-  </li>
+  <% if current_user.editor? %>
+    <li>
+      <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento) do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
+      <% end %>
+    </li>
+    <li>
+      <%= link_to new_expediente_movimiento_actividad_path(@expediente, @movimiento) do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
+      <% end %>
+    </li>
+  <% end %>
+  <% if current_user.admin? %>
+    <li>
+      <%= link_to expediente_movimiento_path(@expediente, @movimiento), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Movimiento?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
+      <% end %>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="row">

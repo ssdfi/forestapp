@@ -1,19 +1,28 @@
 <% content_for :actions do %>
-  <li>
-    <%= link_to edit_plantacion_path(@plantacion) do %>
-      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Plantación
-    <% end %>
-  </li>
-  <li>
-    <%= link_to plantacion_path(@plantacion), method: :delete, data: { confirm: '¿Está seguro que desea eliminar la Plantación?' } do %>
-      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
-    <% end %>
-  </li>
-  <li>
-    <a href="#" data-toggle="modal" data-target="#plantaciones-modal">
-      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar Plantación
-    </a>
-  </li>
+  <% if current_user.editor? %>
+    <li>
+      <%= link_to edit_plantacion_path(@plantacion) do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Plantación
+      <% end %>
+    </li>
+    <li>
+      <%= link_to plantacion_map_path(@plantacion), target: '_blank' do %>
+        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Ver Mapa
+      <% end %>
+    </li>
+  <% end %>
+  <% if current_user.admin? %>
+    <li>
+      <%= link_to plantacion_path(@plantacion), method: :delete, data: { confirm: '¿Está seguro que desea eliminar la Plantación?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Plantación
+      <% end %>
+    </li>
+    <li>
+      <a href="#" data-toggle="modal" data-target="#plantaciones-modal">
+        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar Plantación
+      </a>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="row">

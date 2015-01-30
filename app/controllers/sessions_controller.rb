@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
-  layout "public"
+  layout 'public'
   skip_before_filter :authenticate_user, :only => [:new, :create]
+  skip_before_filter :authorize_user
 
 	##
   # Muestra el formulario de login si no existe un usuario activo
@@ -15,8 +16,8 @@ class SessionsController < ApplicationController
 	def create
 		adauth = Adauth.authenticate(params[:username], params[:password])
     if adauth
-      session[:current_user] = User.from_ldap(adauth.ldap_object)
-      redirect_to root_path, flash: { notice: "Sesión iniciada exitosamente. ¡Bienvenido #{session[:current_user].name}!" }
+      session[:current_user] = User.from_ldap(adauth.ldap_object).as_json
+      redirect_to root_path, flash: { notice: "Sesión iniciada exitosamente. ¡Bienvenido #{current_user.name}!" }
     else
       redirect_to login_path, flash: { error: "Usuario y/o contraseña incorrectos. Por favor, intente nuevamente." }
     end

@@ -1,5 +1,6 @@
 class PlantacionesController < ApplicationController
   before_action :set_plantacion, only: [:show, :edit, :update, :destroy, :map, :replace]
+  layout 'map', :only => [:map]
 
   # GET /plantaciones
   # GET /plantaciones.json
