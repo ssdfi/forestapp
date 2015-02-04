@@ -16,10 +16,21 @@
 //= require bootstrap-switch
 //= require jquery_nested_form
 
-// $.fn.bootstrapSwitch.defaults.size = 'mini';
+/*
+ * Define los valores por defecto de Bootstrap Switch
+ */
 $.fn.bootstrapSwitch.defaults.onText = 'Sí';
 $.fn.bootstrapSwitch.defaults.offText = 'No';
 $.fn.bootstrapSwitch.defaults.labelWidth = '150';
+
+/*
+ * Convierte todos los checkbox en switch
+ */
+$(function() {
+  $("input[data-label]").each(function () {
+    $(this).bootstrapSwitch({labelText: this.dataset.label});
+  })
+});
 
 /**
  * Define el método click para redirigir a la url definida en la propiedad data-link al hacer click en un <tr>

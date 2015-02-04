@@ -1,11 +1,7 @@
-<% content_for :head do %>
-  <%= javascript_include_tag 'expedientes' %>
-<% end %>
-
 <% content_for :actions do %>
   <% if current_user.editor? %>
     <li>
-      <%= link_to new_expediente_path, id: 'nav_new_expediente' do %>
+      <%= link_to new_expediente_path, id: 'nav-new-expediente' do %>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Expediente
       <% end %>
     </li>

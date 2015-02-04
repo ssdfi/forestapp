@@ -1,6 +1,11 @@
 #= require jquery
 #= require jquery_ujs
 #= require bootstrap-sprockets
+#= require leaflet
+#= require Google
+#= require L.Control.ZoomBox
+#= require Control.MiniMap
+#= require leaflet.label
 
 ### Construye el popup a mostrarse al hacer click en una plantación ###
 buildPopup = (properties) ->

@@ -10,26 +10,26 @@ feature "Expedientes" do
     tecnico = Tecnico.first.nombre
     titulares = Titular.order(:nombre).first(3)
     visit expedientes_path
-    click_on 'nav_new_expediente'
+    click_on 'nav-new-expediente'
     within('#new_expediente') do
       fill_in 'expediente_numero_interno', with: '01-001-000/00'
       fill_in 'expediente_numero_expediente', with: 'Exp-S00:0000000/0000'
       select tecnico, from: 'expediente_tecnico_id'
       toggle_all_switches
-      click_on 'add_titular'
+      click_on 'add-titular'
     end
-    within('#modal_titulares') do
-      click_on 'modal_titulares_search'
-      page.has_selector?('#titulares_list li')
+    within('#titulares-modal') do
+      click_on 'titulares-modal-search'
+      page.has_selector?('#titulares-list li')
       titulares.each do |titular|
-        check "titular_#{titular.id}"
+        check "titular-#{titular.id}"
       end
-      click_on 'modal_titulares_add'
+      click_on 'titulares-modal-add'
     end
     page.has_selector?('#expediente_titular_ids option')
     within('#new_expediente') do
       expect(page).to have_select('expediente_titular_ids', options: titulares.map { |t| t.nombre })
-      click_on 'save_expediente'
+      click_on 'save-expediente'
     end
     expect(current_path).to eq(expediente_path(Expediente.last))
   end
@@ -100,10 +100,10 @@ feature "Expedientes" do
   end
 
   scenario "Buscar Expedientes por técnico" do
-    expediente = Expediente.last
+    tecnico = Tecnico.joins(:expedientes).group("tecnicos.id").having("count(tecnicos.id) > ?", 1).first.nombre
     visit expedientes_path
     within("#new_expediente") do
-      select expediente.tecnico.nombre, from: 'expediente_tecnico_id'
+      select tecnico, from: 'expediente_tecnico_id'
       click_on 'search'
     end
     expect(page).to have_selector('#expedientes tbody tr')
@@ -205,14 +205,14 @@ feature "Expedientes" do
     expediente = Expediente.last
     visit expediente_path(expediente)
     titulares = expediente.titulares.pluck(:nombre)
-    click_on 'nav_edit_expediente'
+    click_on 'nav-edit-expediente'
     within("#edit_expediente_#{expediente.id}") do
       fill_in 'expediente_numero_interno', with: '11-111-111/11'
       expect(page).to have_select('expediente_titular_ids', options: titulares)
       select(titulares[0], from: 'expediente_titular_ids')
-      click_on 'remove_titular'
+      click_on 'remove-titular'
       expect(page).not_to have_select('expediente_titular_ids', options: titulares)
-      click_on 'save_expediente'
+      click_on 'save-expediente'
     end
     expect(current_path).to eq(expediente_path(expediente))
   end
@@ -221,7 +221,7 @@ feature "Expedientes" do
     expediente = Expediente.last
     visit expediente_path(expediente)
     accept_alert do
-      click_on 'nav_delete_expediente'
+      click_on 'nav-delete-expediente'
     end
     wait_for_ajax
     expect(current_path).to eq(expedientes_path)

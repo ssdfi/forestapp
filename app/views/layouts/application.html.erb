@@ -12,6 +12,7 @@
   <%= favicon_link_tag 'favicon.png' %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag params[:controller] %>
   <%= yield :head %>
   <%= csrf_meta_tags %>
 </head>
@@ -57,7 +58,7 @@
             </li>
           <% end %>
           <li class="navbar-danger">
-            <%= link_to logout_path, id: 'nav_logout', data: { confirm: '¿Está seguro que desea cerrar la sesión?' } do %>
+            <%= link_to logout_path, id: 'nav-logout', data: { confirm: '¿Está seguro que desea cerrar la sesión?' } do %>
               <span class="glyphicon glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir
             <% end %>
           </li>

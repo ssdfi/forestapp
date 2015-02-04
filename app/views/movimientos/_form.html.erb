@@ -20,22 +20,22 @@
   <%= f.number_field :etapa %>
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
-      <%= f.check_box :estabilidad_fiscal, label: "" %>
+      <%= f.check_box :estabilidad_fiscal, label: "", "data-label" => "Estabilidad Fiscal" %>
     </div>
   </div>
   <%= f.text_area :observacion, label: "Observación" %>
   <%= f.text_area :observacion_interna, label: "Observación interna" %>
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
-      <%= f.check_box :auditar, label: "" %>
+      <%= f.check_box :auditar, label: "", "data-label" => "Auditar" %>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
-      <%= f.check_box :validado, label: "" %>
+      <%= f.check_box :validado, label: "", "data-label" => "Validado" %>
     </div>
   </div>
   <hr/>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save_movimiento" %>
-  <%= link_to "Cancelar", :back, class: "btn btn-default", id: "cancel_expediente" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-movimiento" %>
+  <%= link_to "Cancelar", :back, class: "btn btn-default", id: "cancel-expediente" %>
 <% end %>

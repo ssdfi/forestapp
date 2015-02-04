@@ -47,7 +47,7 @@ class TitularesController < ApplicationController
   def update
     respond_to do |format|
       if @titular.update(titular_params)
-        format.html { redirect_to titulares_url, notice: 'Titular actualizado satisfactoriamente.' }
+        format.html { redirect_to @titular, notice: 'Titular actualizado satisfactoriamente.' }
         format.json { render :show, status: :ok, location: @titular }
       else
         format.html { render :edit }

@@ -53,8 +53,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_girl_rails'
-  gem 'guard-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'capybara-webkit'
@@ -64,7 +62,8 @@ gem 'bootstrap-sass', '~> 3.3.0'
 gem 'bootstrap_form'
 gem 'nested_form'
 gem 'autoprefixer-rails'
-gem "bootstrap-switch-rails"
+gem 'bootstrap-switch-rails'
+gem 'leaflet-rails'
 
 gem 'pg'
 gem 'activerecord-postgis-adapter'
