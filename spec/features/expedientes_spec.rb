@@ -15,7 +15,7 @@ feature "Expedientes" do
       fill_in 'expediente_numero_interno', with: '01-001-000/00'
       fill_in 'expediente_numero_expediente', with: 'Exp-S00:0000000/0000'
       select tecnico, from: 'expediente_tecnico_id'
-      page.execute_script("$('.bootstrap-switch-container input').bootstrapSwitch('toggleState')")
+      toggle_all_switches
       click_on 'add_titular'
     end
     within('#modal_titulares') do
@@ -181,7 +181,6 @@ feature "Expedientes" do
 
   scenario "Buscar Expedientes con un sólo resultado" do
     expediente = Expediente.last
-    puts expediente.numero_interno
     visit expedientes_path
     within("#new_expediente") do
       fill_in 'expediente_numero_interno', with: expediente.numero_interno
@@ -224,6 +223,7 @@ feature "Expedientes" do
     accept_alert do
       click_on 'nav_delete_expediente'
     end
+    wait_for_ajax
     expect(current_path).to eq(expedientes_path)
   end
 end
