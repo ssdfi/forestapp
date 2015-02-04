@@ -5,18 +5,5 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w(
-  map.js
-  Google.js
-  leaflet.label.js
-  edit_expediente.js
-  edit_movimiento.js
-  edit_plantacion.js
-  edit_tecnico.js
-  edit_actividad.js
-  expedientes.js
-  map.css
-  sessions.css
-  public.css
-  background.jpg
-)
+# Rails.application.config.assets.precompile += %w( )
+Rails.application.config.assets.precompile += ['*.js', '*.css', '*.jpg', '*.png', '*.svg']

@@ -1,14 +1,18 @@
 <% content_for :actions do %>
-  <li>
-    <%= link_to edit_expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad) do %>
-      <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
-    <% end %>
-  </li>
-  <li>
-    <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), method: :delete, data: { confirm: '¿Está seguro que desea eliminar la Actividad?' } do %>
-      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Actividad
-    <% end %>
-  </li>
+  <% if current_user.editor? %>
+    <li>
+      <%= link_to edit_expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad) do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
+      <% end %>
+    </li>
+  <% end %>
+  <% if current_user.admin? %>
+    <li>
+      <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), method: :delete, data: { confirm: '¿Está seguro que desea eliminar la Actividad?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Actividad
+      <% end %>
+    </li>
+  <% end %>
 <% end %>
 
 <div class="row">
@@ -54,8 +58,8 @@
       </thead>
       <tbody>
         <% @actividad.actividades_plantaciones.each do |actividad_plantacion| %>
-          <tr>
-            <td><%= link_to actividad_plantacion.plantacion.id, actividad_plantacion.plantacion %></td>
+          <tr data-link="<%= plantacion_path(actividad_plantacion.plantacion) %>">
+            <td><%= actividad_plantacion.plantacion.id %></td>
             <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
             <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun if actividad_plantacion.plantacion.especies.count > 0 %></td>
             <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 feature "Expedientes" do
 
+  before :each do
+    login_admin
+  end
+
   scenario "Crear Nuevo Expediente" do
     tecnico = Tecnico.first.nombre
     titulares = Titular.order(:nombre).first(3)
@@ -11,7 +15,7 @@ feature "Expedientes" do
       fill_in 'expediente_numero_interno', with: '01-001-000/00'
       fill_in 'expediente_numero_expediente', with: 'Exp-S00:0000000/0000'
       select tecnico, from: 'expediente_tecnico_id'
-      page.execute_script("$('.bootstrap-switch-container input').bootstrapSwitch('toggleState')")
+      toggle_all_switches
       click_on 'add_titular'
     end
     within('#modal_titulares') do
@@ -162,7 +166,7 @@ feature "Expedientes" do
   scenario "Buscar Expedientes por incompleto" do
     visit expedientes_path
     within("#new_expediente") do
-      choose('expediente_incompleto_false')
+      choose('expediente_incompleto_')
       click_on 'search'
     end
     expect(page).to have_selector('#expedientes tbody tr')
@@ -180,6 +184,7 @@ feature "Expedientes" do
     visit expedientes_path
     within("#new_expediente") do
       fill_in 'expediente_numero_interno', with: expediente.numero_interno
+      choose('expediente_incompleto_')
       click_on 'search'
     end
     expect(current_path).to eq(expediente_path(expediente))
@@ -218,6 +223,7 @@ feature "Expedientes" do
     accept_alert do
       click_on 'nav_delete_expediente'
     end
+    wait_for_ajax
     expect(current_path).to eq(expedientes_path)
   end
 end

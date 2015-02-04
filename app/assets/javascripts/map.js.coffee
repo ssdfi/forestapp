@@ -1,3 +1,7 @@
+#= require jquery
+#= require jquery_ujs
+#= require bootstrap-sprockets
+
 ### Construye el popup a mostrarse al hacer click en una plantación ###
 buildPopup = (properties) ->
   list = "<div>"
@@ -30,6 +34,7 @@ $(document).ready ->
   osm = L.tileLayer "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }
+  osmMini = L.tileLayer "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 
   ### Capa de imagen satelital de Google ###
   googleSatelital = new L.Google('SATELLITE')
@@ -66,4 +71,16 @@ $(document).ready ->
     "IGN Base": ignBase
   }, {
     "Plantaciones": geoJson
+  }).addTo map
+
+  ### Agrega otros controles al mapa ###
+  L.control.zoomBox({
+    className: "glyphicon glyphicon-zoom-in"
+  }).addTo map
+  new L.Control.MiniMap(osmMini, {
+    position: 'bottomleft',
+    zoomLevelOffset: -7
+  }).addTo map
+  L.control.scale({
+    imperial: false
   }).addTo map

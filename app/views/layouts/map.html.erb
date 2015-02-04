@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ForestApp - Visualizador de Mapas</title>
+  <%= favicon_link_tag 'favicon.png' %>
+  <%= javascript_include_tag "http://maps.google.com/maps/api/js?v=3&sensor=false" %>
+  <%= javascript_include_tag 'leaflet' %>
+  <%= javascript_include_tag 'Google' %>
+  <%= javascript_include_tag 'leaflet.label' %>
+  <%= javascript_include_tag 'L.Control.ZoomBox' %>
+  <%= javascript_include_tag 'Control.MiniMap' %>
+  <%= javascript_include_tag 'map' %>
+  <%= stylesheet_link_tag 'leaflet' %>
+  <%= stylesheet_link_tag 'L.Control.ZoomBox' %>
+  <%= stylesheet_link_tag 'Control.MiniMap' %>
+  <%= stylesheet_link_tag 'map' %>
+  <%= yield :head %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="map" class="map"></div>
+
+  <%= javascript_tag do %>
+    window.plantaciones = <%= raw @geojson %>
+  <% end %>
+  </div>
+</body>
+</html>

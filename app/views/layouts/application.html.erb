@@ -36,16 +36,18 @@
               Expedientes <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <% end %>
           </li>
-          <li>
-            <%= link_to titulares_path do %>
-              Titulares <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <% end %>
-          </li>
-          <li>
-            <%= link_to tecnicos_path do %>
-              Técnicos <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <% end %>
-          </li>
+          <% if current_user.editor? %>
+            <li>
+              <%= link_to titulares_path do %>
+                Titulares <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to tecnicos_path do %>
+                Técnicos <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <%= yield :actions %>

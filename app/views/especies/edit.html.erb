@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @especie %> |
-<%= link_to 'Back', especies_path %>
+<%= link_to 'Show', [@genero, @especie] %> |
+<%= link_to 'Back', genero_especies_path(@genero) %>

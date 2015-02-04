@@ -5,7 +5,7 @@ default: &default
 
 development:
   <<: *default
-  host: localhost
+  host: 127.0.0.1
   database: forestal_dev
   username: forestal
 
@@ -14,7 +14,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host: localhost
+  host: 127.0.0.1
   database: forestal_dev
   username: forestal
 

@@ -5,7 +5,6 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "bootstrap3-switch";
 
 html, body {
   height: 100%;
@@ -14,6 +13,7 @@ html, body {
 body {
   background-image: image-url('background.jpg');
   background-size: cover cover;
+  padding: 50px;
 }
 
 th.icon {

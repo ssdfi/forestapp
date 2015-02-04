@@ -29,8 +29,8 @@ class DepartamentosController < ApplicationController
 
     respond_to do |format|
       if @departamento.save
-        format.html { redirect_to @departamento, notice: 'Departamento was successfully created.' }
-        format.json { render :show, status: :created, location: @departamento }
+        format.html { redirect_to [@zona, @departamento], notice: 'Departamento was successfully created.' }
+        format.json { render :show, status: :created, location: [@zona, @departamento] }
       else
         format.html { render :new }
         format.json { render json: @departamento.errors, status: :unprocessable_entity }
@@ -43,8 +43,8 @@ class DepartamentosController < ApplicationController
   def update
     respond_to do |format|
       if @departamento.update(departamento_params)
-        format.html { redirect_to @departamento, notice: 'Departamento was successfully updated.' }
-        format.json { render :show, status: :ok, location: @departamento }
+        format.html { redirect_to [@zona, @departamento], notice: 'Departamento was successfully updated.' }
+        format.json { render :show, status: :ok, location: [@zona, @departamento] }
       else
         format.html { render :edit }
         format.json { render json: @departamento.errors, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class DepartamentosController < ApplicationController
   def destroy
     @departamento.destroy
     respond_to do |format|
-      format.html { redirect_to departamentos_url, notice: 'Departamento was successfully destroyed.' }
+      format.html { redirect_to zona_departamentos_url(@zona), notice: 'Departamento was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

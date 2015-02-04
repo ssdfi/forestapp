@@ -23,8 +23,11 @@ Rails.application.routes.draw do
       resources :departamentos
     end
 
-    resources :especies
-    resources :generos
+    resources :especies, only: [:index], constraints: { format: 'json' }
+    resources :generos do
+      resources :especies
+    end
+
     resources :titulares
     resources :tecnicos
 

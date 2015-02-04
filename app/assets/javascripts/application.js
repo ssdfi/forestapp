@@ -49,7 +49,7 @@ $(function() {
  * Cierra automáticamente los mensajes informativos
  */
 setTimeout(function() {
-  $(".alert.alert-info").fadeTo(1500, 0, function() {
+  $(".alert.alert-info").slideUp(1500, 0, function() {
     $(this).remove();
   }
 )}, 4000)
