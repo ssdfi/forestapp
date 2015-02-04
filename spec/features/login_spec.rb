@@ -10,7 +10,7 @@ feature "Login" do
   scenario "Cerrar Sesión" do
     login_public
     accept_alert do
-      click_on 'nav_logout'
+      click_on 'nav-logout'
     end
     wait_for_ajax
     expect(current_path).to eq(login_path)

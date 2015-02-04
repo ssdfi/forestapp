@@ -1,8 +1,5 @@
 $(document).ready ->
 
-  ### Convierte los checkbox en switch ###
-  $("#plantacion_activo").bootstrapSwitch({labelText: "Activo"});
-
   ###*
    * Ejecuta la llamada AJAX para hacer la búsqueda de titulares y lista los resultados
    * con un radio button (La plantación sólo puede tener un titular)

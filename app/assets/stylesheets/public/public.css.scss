@@ -1,3 +1,21 @@
+/*
+ *= require rails_bootstrap_forms
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-image: image-url('background.jpg');
+  background-size: cover cover;
+  padding: 50px;
+}
+
 h1 {
   margin-top: 100px;
   margin-bottom: -120px;

@@ -56,7 +56,7 @@
   <%= f.collection_select :objetivo_plantacion_id, ObjetivoPlantacion.all, :id, :descripcion, {label: "Objetivo de Plantación", include_blank: true} %>
   <div class="form-group">
     <div class="col-sm-8 col-sm-offset-4">
-      <%= f.check_box :activo, label: "" %>
+      <%= f.check_box :activo, label: "", "data-label" => "Activo" %>
     </div>
   </div>
   <hr/>
