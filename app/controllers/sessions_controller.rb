@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
 		adauth = Adauth.authenticate(params[:username], params[:password])
     if adauth
       session[:current_user] = User.from_ldap(adauth.ldap_object).as_json
-      redirect_to root_path, flash: { notice: "Sesión iniciada exitosamente. ¡Bienvenido #{current_user.name}!" }
+      redirect_to root_path, flash: { notice: "Sesión iniciada exitosamente." }
     else
       redirect_to login_path, flash: { error: "Usuario y/o contraseña incorrectos. Por favor, intente nuevamente." }
     end
