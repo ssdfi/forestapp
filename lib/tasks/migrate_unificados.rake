@@ -120,9 +120,20 @@ namespace :db do
           plantacion.titular = titular
           plantacion.save!
         end
-      count += 1
-      puts "#{count} unificados migrados hasta el momento." if count % 10000 == 0
+
+        count += 1
+        puts "#{count} unificados migrados hasta el momento." if count % 10000 == 0
       end
+
+      ActiveRecord::Base.execute(
+        "UPDATE plantaciones
+        SET geom = ST_SetSRID(geom, (
+          SELECT ST_SRID(geom)
+          FROM tmp_unificados
+          WHERE id = plantaciones.unificado_id)
+        ) WHERE unificado_id IS NOT NULL;"
+      )
+
       puts "######################################################################################"
       puts "TOTAL DE UNIFICADOS MIGRADOS: #{count}"
       puts "######################################################################################"
