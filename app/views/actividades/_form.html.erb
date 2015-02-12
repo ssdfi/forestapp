@@ -67,13 +67,13 @@
       <%= f.link_to_add :actividades_plantaciones, id: "add-plantacion", class: "btn btn-primary btn-sm", data: {target: "#plantaciones"} do %>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Plantación
       <% end %>
-      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#plantaciones-modal">
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#plantaciones-modal" id="add-plantaciones">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Lista de Plantaciones
       </button>
     </div>
   </div>
   <hr/>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-actividad" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>
 
@@ -98,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="add-plantaciones" type="button" class="btn btn-primary">Agregar</button>
+        <button id="plantaciones-modal-add" type="button" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>
