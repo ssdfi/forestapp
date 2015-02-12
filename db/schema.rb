@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123162041) do
+ActiveRecord::Schema.define(version: 20150212164900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(version: 20150123162041) do
   add_index "plantaciones", ["estrato_desarrollo_id"], :name => "index_plantaciones_on_estrato_desarrollo_id"
   add_index "plantaciones", ["fuente_imagen_id"], :name => "index_plantaciones_on_fuente_imagen_id"
   add_index "plantaciones", ["fuente_informacion_id"], :name => "index_plantaciones_on_fuente_informacion_id"
+  add_index "plantaciones", ["geom"], :name => "index_plantaciones_on_geom", :spatial => true
   add_index "plantaciones", ["objetivo_plantacion_id"], :name => "index_plantaciones_on_objetivo_plantacion_id"
   add_index "plantaciones", ["tipo_plantacion_id"], :name => "index_plantaciones_on_tipo_plantacion_id"
   add_index "plantaciones", ["titular_id"], :name => "index_plantaciones_on_titular_id"
