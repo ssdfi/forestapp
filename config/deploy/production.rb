@@ -6,7 +6,7 @@
 
 role :app, %w{deploy@magyp-forestal-app.magyp.gob.ar}
 role :web, %w{deploy@magyp-forestal-app.magyp.gob.ar}
-# role :db,  %w{deploy@magyp-forestal-db.magyp.gob.ar}
+role :db,  %w{deploy@magyp-forestal-app.magyp.gob.ar}
 
 
 # Extended Server Syntax
@@ -15,9 +15,7 @@ role :web, %w{deploy@magyp-forestal-app.magyp.gob.ar}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server 'magyp-forestal-app.magyp.gob.ar', user: 'deploy', roles: %w{web app}
-# server 'magyp-forestal-db.magyp.gob.ar', user: 'deploy', roles: %w{db}
-
+server 'magyp-forestal-app.magyp.gob.ar', user: 'deploy', roles: %w{web app db}
 
 # Custom SSH Options
 # ==================
