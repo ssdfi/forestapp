@@ -22,7 +22,10 @@
         </td>
         <td><%= l expediente.ultima_entrada if expediente.ultima_entrada %></td>
         <td><%= l expediente.ultima_salida if expediente.ultima_salida %></td>
-        <td><%= expediente.tecnico.nombre if expediente.tecnico %></td>
+        <td>
+          <% if expediente.tecnico %>
+            <abbr title="<%= expediente.tecnico.nombre %>" data-length="20"></abbr>
+          <% end %>
         <td class="icon">
           <%= render partial: 'common/boolean_value', locals: {value: expediente.activo} %>
         </td>

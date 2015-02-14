@@ -29,5 +29,6 @@ class CreatePlantaciones < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :plantaciones, :geom, using: :gist
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212164900) do
+ActiveRecord::Schema.define(version: 20150212200107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20150212164900) do
     t.decimal  "superficie_registrada"
     t.integer  "numero_plantas"
     t.date     "fecha"
-    t.text     "comentarios"
+    t.text     "observaciones"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,6 +46,22 @@ ActiveRecord::Schema.define(version: 20150212164900) do
   add_index "actividades_plantaciones", ["actividad_id"], :name => "index_actividades_plantaciones_on_actividad_id"
   add_index "actividades_plantaciones", ["estado_aprobacion_id"], :name => "index_actividades_plantaciones_on_estado_aprobacion_id"
   add_index "actividades_plantaciones", ["plantacion_id"], :name => "index_actividades_plantaciones_on_plantacion_id"
+
+  create_table "actividades_titulares", force: true do |t|
+    t.integer "actividad_id"
+    t.integer "titular_id"
+    t.integer "especie_id"
+    t.integer "tipo_plantacion_id"
+    t.decimal "superficie_presentada"
+    t.decimal "superficie_certificada"
+    t.decimal "superficie_inspeccionada"
+    t.text    "observaciones"
+  end
+
+  add_index "actividades_titulares", ["actividad_id"], :name => "index_actividades_titulares_on_actividad_id"
+  add_index "actividades_titulares", ["especie_id"], :name => "index_actividades_titulares_on_especie_id"
+  add_index "actividades_titulares", ["tipo_plantacion_id"], :name => "index_actividades_titulares_on_tipo_plantacion_id"
+  add_index "actividades_titulares", ["titular_id"], :name => "index_actividades_titulares_on_titular_id"
 
   create_table "departamentos", force: true do |t|
     t.integer  "zona_id"
@@ -408,6 +424,11 @@ ActiveRecord::Schema.define(version: 20150212164900) do
   add_foreign_key "actividades_plantaciones", "actividades", name: "actividades_plantaciones_actividad_id_fk", dependent: :delete
   add_foreign_key "actividades_plantaciones", "estados_aprobacion", name: "actividades_plantaciones_estado_aprobacion_id_fk", dependent: :nullify
   add_foreign_key "actividades_plantaciones", "plantaciones", name: "actividades_plantaciones_plantacion_id_fk", dependent: :delete
+
+  add_foreign_key "actividades_titulares", "actividades", name: "actividades_titulares_actividad_id_fk", dependent: :delete
+  add_foreign_key "actividades_titulares", "especies", name: "actividades_titulares_especie_id_fk", dependent: :nullify
+  add_foreign_key "actividades_titulares", "tipos_plantacion", name: "actividades_titulares_tipo_plantacion_id_fk", dependent: :nullify
+  add_foreign_key "actividades_titulares", "titulares", name: "actividades_titulares_titular_id_fk", dependent: :delete
 
   add_foreign_key "departamentos", "zonas", name: "departamentos_zona_id_fk", dependent: :delete
 

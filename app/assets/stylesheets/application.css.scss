@@ -35,7 +35,7 @@ td.icon-lg span {
   font-size: 200%;
 }
 
-.table-grid tr {
+.table-grid tr[data-link] {
   cursor: pointer;
 }
 
