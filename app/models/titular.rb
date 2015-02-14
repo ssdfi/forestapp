@@ -2,6 +2,7 @@ class Titular < ActiveRecord::Base
   has_many :plantaciones
   has_and_belongs_to_many :expedientes_titular, class_name: 'Expediente', source: :expedientes
   has_many :expedientes_plantacion, -> { distinct }, class_name: 'Expediente', through: :plantaciones, source: :expedientes
+  has_many :activiades_titulares, class_name: 'ActividadTitular'
 
   ##
   # Devuelve los expedientes relacionados con el titular, ya sea los expedientes directos como los expedientes agrupados

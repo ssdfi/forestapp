@@ -13,6 +13,8 @@ class ActividadesController < ApplicationController
   # GET /actividades/1
   # GET /actividades/1.json
   def show
+    @actividades_plantaciones = @actividad.actividades_plantaciones.page params[:plantaciones_page]
+    @actividades_titulares = @actividad.actividades_titulares.page params[:titulares_page]
   end
 
   # GET /actividades/1/map
@@ -87,6 +89,6 @@ class ActividadesController < ApplicationController
     def actividad_params
       params.require(:actividad).permit(:movimiento_id, :tipo_actividad_id, :superficie_presentada, :superficie_certificada, :superficie_inspeccionada, :superficie_registrada,
         actividades_plantaciones_attributes: [:id, :plantacion_id, :fecha, :numero_plantas, :superficie_presentada, :superficie_certificada, :superficie_inspeccionada, :superficie_registrada,
-          :estado_aprobacion_id, :comentarios, :_destroy])
+          :estado_aprobacion_id, :observaciones, :_destroy])
     end
 end
