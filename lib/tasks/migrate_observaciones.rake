@@ -63,9 +63,9 @@ namespace :db do
           titular: titular,
           especie: especie,
           tipo_plantacion: tipo_plantacion,
-          superficie_presentada: observacion.presentado,
-          superficie_certificada: observacion.certificado,
-          superficie_inspeccionada: observacion.inspeccionado,
+          superficie_presentada: observacion.presentado.gsub(',','.'),
+          superficie_certificada: observacion.certificado.gsub(',','.'),
+          superficie_inspeccionada: observacion.inspeccionado.gsub(',','.'),
           observaciones: observacion.observaciones
         )
 

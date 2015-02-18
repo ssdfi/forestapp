@@ -60,7 +60,7 @@
     </div>
   </div>
   <hr/>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-plantacion" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>
 
@@ -92,7 +92,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="especies-modal-add-especie" type="button" class="btn btn-primary">Agregar</button>
+        <button id="especies-modal-add" type="button" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="tituales-modal-select-titular" type="button" class="btn btn-primary">Seleccionar</button>
+        <button id="titulares-modal-select" type="button" class="btn btn-primary">Seleccionar</button>
       </div>
     </div>
   </div>

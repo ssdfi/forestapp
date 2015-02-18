@@ -3,7 +3,7 @@ require 'rails_helper'
 feature "Plantaciones" do
 
   before :each do
-    # login_admin
+    login_admin
   end
 
   scenario "Crear Nueva Plantacion" do
@@ -18,7 +18,7 @@ feature "Plantaciones" do
       click_on 'titulares-modal-search'
       page.has_selector?('#titulares-list li')
       choose "titular-#{titular.id}"
-      click_on 'titulares-modal-add'
+      click_on 'titulares-modal-select'
     end
     within('#new_plantacion') do
       click_on 'add-especie'
@@ -31,87 +31,82 @@ feature "Plantaciones" do
       end
       click_on 'especies-modal-add'
     end
-    sleep 10
-
-    # within('#new_plantacion') do
-    #   select_random_option find('#actividad_tipo_actividad_id')
-    #   fill_in 'actividad_superficie_presentada', with: random_area
-    #   fill_in 'actividad_superficie_certificada', with: random_area
-    #   fill_in 'actividad_superficie_inspeccionada', with: random_area
-    #   click_on 'add-plantacion'
-    # end
-    # plantacion = Plantacion.last
-    # superficie = random_area
-    # within(:xpath, "//table[@id='plantaciones']/tbody/tr[1]") do
-    #   find(:xpath, ".//input[contains(@id, 'plantacion_id')]").set plantacion.id
-    #   find(:xpath, ".//input[contains(@id, 'fecha')]").set '01/01/2015'
-    #   find(:xpath, ".//input[contains(@id, 'numero_plantas')]").set rand(100)
-    #   find(:xpath, ".//input[contains(@id, 'superficie_registrada')]").set superficie
-    #   select_random_option find(:xpath, ".//select[contains(@id, 'estado_aprobacion_id')]")
-    #   find(:xpath, ".//textarea[contains(@id, 'comentarios')]").set 'Comentarios'
-    # end
-    # within('#new_actividad') do
-    #   click_on 'save-actividad'
-    # end
-    # expect(current_path).to eq(expediente_movimiento_actividad_path(movimiento.expediente, movimiento, Actividad.last))
-    # visit expediente_movimiento_path(movimiento.expediente, movimiento)
-    # expect(page).to have_selector(:xpath, "//table[@id='actividades']/tbody/tr/td[.='#{superficie}']")
+    within('#new_plantacion') do
+      fill_in 'plantacion_anio_plantacion', with: '2010'
+      select_random_option find('#plantacion_tipo_plantacion_id')
+      fill_in 'plantacion_nomenclatura_catastral', with: '100000000000001-01'
+      select_random_option find('#plantacion_estado_plantacion_id')
+      fill_in 'plantacion_distancia_plantas', with: '8'
+      fill_in 'plantacion_cantidad_filas', with: '8'
+      fill_in 'plantacion_distancia_filas', with: '8'
+      fill_in 'plantacion_densidad', with: '8'
+      select_random_option find('#plantacion_fuente_informacion_id')
+      fill_in 'plantacion_fecha_informacion', with: '2010'
+      select_random_option find('#plantacion_fuente_imagen_id')
+      fill_in 'plantacion_fecha_imagen', with: '2010'
+      select_random_option find('#plantacion_zona_id')
+      page.has_selector?('#plantacion_departamento_id option')
+      select_random_option find('#plantacion_departamento_id')
+      select_random_option find('#plantacion_estrato_desarrollo_id')
+      select_random_option find('#plantacion_uso_forestal_id')
+      select_random_option find('#plantacion_uso_anterior_id')
+      select_random_option find('#plantacion_objetivo_plantacion_id')
+      toggle_switch('plantacion_activo')
+      click_on 'save-plantacion'
+    end
+    expect(current_path).to eq(plantacion_path(Plantacion.last))
   end
 
-  scenario "Mostrar Actividad" do
-    actividad = Actividad.last
-    visit expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad)
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{actividad.movimiento.id}']")
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{actividad.id}']")
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{actividad.superficie_registrada}']")
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{actividad.tipo_actividad.descripcion}']")
-    expect(page).to have_selector('table#plantaciones')
+  scenario "Listar Plantaciones" do
+    visit plantaciones_path
+    expect(page).to have_selector('#plantaciones tbody tr')
   end
 
-  scenario "Editar Actividad" do
-    actividad = Actividad.last
-    visit expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad)
-    click_on 'nav-edit-actividad'
-    within("#edit_actividad_#{actividad.id}") do
-      fill_in 'actividad_superficie_presentada', with: random_area
-      fill_in 'actividad_superficie_certificada', with: random_area
-      fill_in 'actividad_superficie_inspeccionada', with: random_area
-    end
-    find(:xpath, "//table[@id='plantaciones']/tbody/tr[1]/td[last()]/a").click
-    plantaciones = Plantacion.last(5)
-    click_on 'add-plantaciones'
-    within('#plantaciones-modal') do
-      fill_in 'plantaciones-ids', with: plantaciones.map{ |plantacion| plantacion.id }.join("\r\n")
-      click_on 'plantaciones-modal-add'
-    end
-    total = 0
-    all(:xpath, "//table[@id='plantaciones']/tbody/tr").each do |plantacion|
-      superficie = random_area
-      within(plantacion) do
-        find(:xpath, ".//input[contains(@id, 'fecha')]").set '01/01/2015'
-        find(:xpath, ".//input[contains(@id, 'numero_plantas')]").set rand(100)
-        find(:xpath, ".//input[contains(@id, 'superficie_registrada')]").set superficie
-        select_random_option find(:xpath, ".//select[contains(@id, 'estado_aprobacion_id')]")
-        find(:xpath, ".//textarea[contains(@id, 'comentarios')]").set 'Comentarios'
-      end
-      total += superficie
-    end
-    total = total.round(1)
-    within("#edit_actividad_#{actividad.id}") do
-      click_on 'save-actividad'
-    end
-    expect(current_path).to eq(expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad))
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{total}']")
+  scenario "Mostrar Plantación" do
+    plantacion = Plantacion.joins(:expedientes).last
+    visit plantacion_path(plantacion)
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.id}']")
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.zona.descripcion}']")
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.tipo_plantacion.descripcion}']")
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd/ul/li[.='#{plantacion.especies.last.nombre_cientifico}']")
+    expect(page).to have_selector('table#expedientes')
   end
 
-  scenario "Eliminar Actividad" do
-    actividad = Actividad.last
-    movimiento = actividad.movimiento
-    visit expediente_movimiento_actividad_path(movimiento.expediente, movimiento, actividad)
+  scenario "Editar Plantación" do
+    plantacion = Plantacion.last
+    visit plantacion_path(plantacion)
+    especies = plantacion.especies.pluck(:nombre_cientifico)
+    click_on 'nav-edit-plantacion'
+    within("#edit_plantacion_#{plantacion.id}") do
+      fill_in 'plantacion_anio_plantacion', with: '2015'
+      expect(page).to have_select('plantacion_especie_ids', options: especies)
+      select(especies[0], from: 'plantacion_especie_ids')
+      click_on 'remove-especie'
+      expect(page).not_to have_select('plantacion_especie_ids', options: especies)
+      click_on 'save-plantacion'
+    end
+    expect(current_path).to eq(plantacion_path(plantacion))
+  end
+
+  scenario "Eliminar Plantación" do
+    plantacion = Plantacion.last
+    visit plantacion_path(plantacion)
     accept_alert do
-      click_on 'nav-delete-actividad'
+      click_on 'nav-delete-plantacion'
     end
     wait_for_ajax
-    expect(current_path).to eq(expediente_movimiento_path(movimiento.expediente, movimiento))
+    expect(current_path).to eq(plantaciones_path)
+  end
+
+  scenario "Ver Mapa de Plantación" do
+    plantacion = Plantacion.where.not(geom: nil).where(tipo_plantacion_id: 1).first
+    visit plantacion_path(plantacion)
+    click_on 'nav-map-plantacion'
+    page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
+      expect(page).to have_selector('div.leaflet-overlay-pane svg g')
+      find('.leaflet-clickable').click
+      wait_for_ajax
+      expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
+    end
   end
 end
