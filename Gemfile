@@ -77,7 +77,7 @@ gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 
 gem 'kaminari'
-gem 'paper_trail'
+gem 'chronic_duration'
 
 gem 'rails-i18n', '~> 4.0.0'
 gem 'csv_shaper'

@@ -30,7 +30,7 @@
             <th>Número de Plantas</th>
             <th>Superficie Registrada</th>
             <th>Estado Aprobación</th>
-            <th>Comentarios</th>
+            <th>Observaciones</th>
             <th></th>
           </tr>
         </thead>
@@ -53,7 +53,7 @@
                 <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, hide_label: true %>
               </td>
               <td>
-                <%= apf.text_area :comentarios, hide_label: true %>
+                <%= apf.text_area :observaciones, hide_label: true %>
               </td>
               <td>
                 <%= apf.link_to_remove class: "btn btn-danger btn-sm pull-right" do %>

@@ -43,40 +43,103 @@
     </div>
   </div>
   <div class="col-md-9">
-    <h4>Plantaciones</h4>
-    <table class="table table-hover table-grid" id="plantaciones">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Titular</th>
-          <th>Especie</th>
-          <th>Tipo</th>
-          <th>Superficie Registrada</th>
-          <th>Superficie</th>
-          <th>Comentarios</th>
-          <th class="icon">Mapa</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @actividad.actividades_plantaciones.each do |actividad_plantacion| %>
-          <tr data-link="<%= plantacion_path(actividad_plantacion.plantacion) %>">
-            <td><%= actividad_plantacion.plantacion.id %></td>
-            <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
-            <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun if actividad_plantacion.plantacion.especies.count > 0 %></td>
-            <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>
-            <td><%= actividad_plantacion.superficie_registrada %></td>
-            <td><%= actividad_plantacion.plantacion.hectareas %></td>
-            <td>
-              <abbr title="<%= actividad_plantacion.comentarios %>" data-length="10"></abbr>
-            </td>
-            <td class="icon icon-lg">
-              <%= link_to plantacion_map_path(actividad_plantacion.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
-                <span class="glyphicon glyphicon-globe"></span>
-              <% end %>
-            </td>
-          </tr>
+    <div role="tabpanel">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="<%= 'active' if params[:tab].nil? or params[:tab] == 'plantaciones-tab' %>">
+          <a href="#plantaciones-tab" aria-controls="plantaciones-tab" role="tab" data-toggle="tab">Plantaciones</a>
+        </li>
+        <% if @expediente.agrupado %>
+          <li role="presentation" class="<%= 'active' if params[:tab] == 'titulares-tab' %>">
+            <a href="#titulares-tab" aria-controls="titulares-tab" role="tab" data-toggle="tab">Detalle de Titulares</a>
+          </li>
         <% end %>
-      </tbody>
-    </table>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane <%= 'active' if params[:tab].nil? or params[:tab] == 'plantaciones-tab' %>" id="plantaciones-tab">
+          <table class="table table-hover table-grid" id="plantaciones">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titular</th>
+                <th>Especie</th>
+                <th>Tipo</th>
+                <th>Superficie Registrada</th>
+                <th>Superficie</th>
+                <th>Observaciones</th>
+                <th class="icon">Mapa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @actividades_plantaciones.each do |actividad_plantacion| %>
+                <tr data-link="<%= plantacion_path(actividad_plantacion.plantacion) %>">
+                  <td><%= actividad_plantacion.plantacion.id %></td>
+                  <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
+                  <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun if actividad_plantacion.plantacion.especies.count > 0 %></td>
+                  <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>
+                  <td><%= actividad_plantacion.superficie_registrada %></td>
+                  <td><%= actividad_plantacion.plantacion.hectareas %></td>
+                  <td>
+                    <abbr title="<%= actividad_plantacion.observaciones %>" data-length="20"></abbr>
+                  </td>
+                  <td class="icon icon-lg">
+                    <%= link_to plantacion_map_path(actividad_plantacion.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
+                      <span class="glyphicon glyphicon-globe"></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% if @actividades_plantaciones.num_pages > 1 %>
+            <div class="well well-sm clearfix">
+              <div class="pagination-info pull-left">
+                <%= page_entries_info @actividades_plantaciones %>
+              </div>
+              <%= paginate @actividades_plantaciones, param_name: :plantaciones_page, params: {tab: "plantaciones-tab"} %>
+            </div>
+          <% end %>
+        </div>
+        <% if @expediente.agrupado %>
+          <div role="tabpanel" class="tab-pane <%= 'active' if params[:tab] == 'titulares-tab' %>" id="titulares-tab">
+            <table class="table table-hover table-grid" id="titulares">
+              <thead>
+                <tr>
+                  <th>Titular</th>
+                  <th>Especie</th>
+                  <th>Tipo de Plantación</th>
+                  <th>Presentado</th>
+                  <th>Certificado</th>
+                  <th>Inspeccionado</th>
+                  <th>Observaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @actividades_titulares.each do |actividad_titular| %>
+                  <tr>
+                    <td><%= link_to actividad_titular.titular.nombre, actividad_titular.titular if actividad_titular.titular %></td>
+                    <td><%= actividad_titular.especie.codigo_sp if actividad_titular.especie %></td>
+                    <td><%= actividad_titular.tipo_plantacion.codigo if actividad_titular.tipo_plantacion %></td>
+                    <td><%= actividad_titular.superficie_presentada %></td>
+                    <td><%= actividad_titular.superficie_certificada %></td>
+                    <td><%= actividad_titular.superficie_inspeccionada %></td>
+                    <td>
+                      <abbr title="<%= actividad_titular.observaciones %>" data-length="20"></abbr>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <% if @actividades_titulares.num_pages > 1 %>
+              <div class="well well-sm clearfix">
+                <div class="pagination-info pull-left">
+                  <%= page_entries_info @actividades_titulares %>
+                </div>
+                <%= paginate @actividades_titulares, param_name: :titulares_page, params: {tab: "titulares-tab"}  %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

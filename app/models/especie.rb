@@ -1,6 +1,7 @@
 class Especie < ActiveRecord::Base
   belongs_to :genero
   has_and_belongs_to_many :plantaciones
+  has_many :actividades_titulares, class_name: 'ActividadTitular'
 
   ##
   # Busca las especies que coincidan con los atributos definidos en el objeto Especie pasado como parámetro

@@ -4,8 +4,9 @@ namespace :db do
   namespace :import do
     desc "Importar Unificados desde archivos Shape"
     task unificados: :environment do
+      start_time = Time.now
       puts "\n######################################################################################"
-      puts "IMPORTANDO UNIFICADOS..."
+      puts "IMPORTANDO UNIFICADOS... (#{start_time})"
       puts "######################################################################################"
 
       dirs = Rails.application.config.path_unificados + '/**'
@@ -26,9 +27,9 @@ namespace :db do
         subtotal = 0
       end
 
-      puts "######################################################################################"
-      puts "TOTAL DE UNIFICADOS IMPORTADOS: #{total}"
-      puts "######################################################################################"
+      puts "##################################################################################################"
+      puts "TOTAL DE UNIFICADOS IMPORTADOS: #{total} (#{ChronicDuration.output(Time.now - start_time)})"
+      puts "##################################################################################################"
     end
   end
 end

@@ -25,7 +25,7 @@ feature "Actividades" do
       find(:xpath, ".//input[contains(@id, 'numero_plantas')]").set rand(100)
       find(:xpath, ".//input[contains(@id, 'superficie_registrada')]").set superficie
       select_random_option find(:xpath, ".//select[contains(@id, 'estado_aprobacion_id')]")
-      find(:xpath, ".//textarea[contains(@id, 'comentarios')]").set 'Comentarios'
+      find(:xpath, ".//textarea[contains(@id, 'observaciones')]").set 'Observaciones'
     end
     within('#new_actividad') do
       click_on 'save-actividad'
@@ -69,7 +69,7 @@ feature "Actividades" do
         find(:xpath, ".//input[contains(@id, 'numero_plantas')]").set rand(100)
         find(:xpath, ".//input[contains(@id, 'superficie_registrada')]").set superficie
         select_random_option find(:xpath, ".//select[contains(@id, 'estado_aprobacion_id')]")
-        find(:xpath, ".//textarea[contains(@id, 'comentarios')]").set 'Comentarios'
+        find(:xpath, ".//textarea[contains(@id, 'observaciones')]").set 'Observaciones'
       end
       total += superficie
     end

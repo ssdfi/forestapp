@@ -2,9 +2,9 @@ namespace :db do
   namespace :import do
     desc "Migrar Unificados a Plantaciones y Actividades"
     task migrate_unificados: :environment do
-
+      start_time = Time.now
       puts "\n######################################################################################"
-      puts "MIGRANDO UNIFICADOS..."
+      puts "MIGRANDO UNIFICADOS... (#{start_time})"
       puts "######################################################################################"
 
       count = 0
@@ -77,28 +77,12 @@ namespace :db do
           )
         end
 
-        unless actividad.nil?
-          actividad_plantacion = plantacion.actividades_plantaciones.create!(
-            actividad: actividad,
-            superficie_registrada: unificado.superficie,
-            estado_aprobacion: estado_aprobacion,
-            comentarios: unificado.observaciones
-          )
-        end
-
-        # Si es un expediente agrupado, buscar valores para cada productor
-
-        if actividad_plantacion and unificado.numero_productor != '0'
-          observacion = TmpObservacion.where("numero_interno = ? and numero_productor = ? and actividad = ?", numero_interno, unificado.numero_productor, tipo_actividad.codigo).first
-          unless observacion.nil?
-            actividad_plantacion.superficie_presentada = observacion.presentado
-            actividad_plantacion.superficie_certificada = observacion.certificado
-            actividad_plantacion.superficie_inspeccionada = observacion.inspeccionado
-            actividad_plantacion.superficie_registrada = observacion.registrado
-            actividad_plantacion.comentarios = observacion.observaciones
-            actividad_plantacion.save!
-          end
-        end
+        actividad_plantacion = plantacion.actividades_plantaciones.create!(
+          actividad: actividad,
+          superficie_registrada: unificado.superficie,
+          estado_aprobacion: estado_aprobacion,
+          observaciones: unificado.observaciones
+        )
 
         # Buscar/Crear titular
 
@@ -106,26 +90,21 @@ namespace :db do
         tmp_titular = tmp_titular.where(numero_productor: unificado.numero_productor) if unificado.numero_productor != '0'
         tmp_titular = tmp_titular.first
 
-        unless tmp_titular.nil?
+        if tmp_titular
           titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0'
           titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0'
           titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
-          if titular.nil?
-            titular = Titular.create!(
-              nombre: tmp_titular.titular,
-              dni: tmp_titular.dni != '0' ? tmp_titular.dni : nil,
-              cuit: tmp_titular.cuit != '0' ? tmp_titular.cuit : nil
-            )
-          end
-          plantacion.titular = titular
-          plantacion.save!
         end
+        titular = Titular.create!(nombre: unificado.titular) unless titular
+
+        plantacion.titular = titular
+        plantacion.save!
 
         count += 1
         puts "#{count} unificados migrados hasta el momento." if count % 10000 == 0
       end
 
-      ActiveRecord::Base.execute(
+      ActiveRecord::Base.connection.execute(
         "UPDATE plantaciones
         SET geom = ST_SetSRID(geom, (
           SELECT ST_SRID(geom)
@@ -134,9 +113,9 @@ namespace :db do
         ) WHERE unificado_id IS NOT NULL;"
       )
 
-      puts "######################################################################################"
-      puts "TOTAL DE UNIFICADOS MIGRADOS: #{count}"
-      puts "######################################################################################"
+      puts "################################################################################################"
+      puts "TOTAL DE UNIFICADOS MIGRADOS: #{count} (#{ChronicDuration.output(Time.now - start_time)})"
+      puts "################################################################################################"
     end
   end
 end

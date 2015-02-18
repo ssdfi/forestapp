@@ -7,7 +7,7 @@ class CreateActividadesPlantaciones < ActiveRecord::Migration
       t.decimal :superficie_registrada
       t.integer :numero_plantas
       t.date :fecha
-      t.text :comentarios
+      t.text :observaciones
 
       t.timestamps
     end
