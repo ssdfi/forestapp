@@ -12,7 +12,7 @@ class EspeciesController < ApplicationController
       format.json do
         @especie = params[:especie] ? Especie.new(especie_params) : Especie.new
         @especies = Especie.search(@especie)
-        @especies = @especies.order(updated_at: :desc)
+        @especies = @especies.order(:codigo_sp)
         @especies = @especies.page(params[:page])
       end
     end
