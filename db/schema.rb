@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212200107) do
+ActiveRecord::Schema.define(version: 20150219000026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,9 +211,9 @@ ActiveRecord::Schema.define(version: 20150212200107) do
     t.text     "observacion"
     t.text     "observacion_interna"
     t.boolean  "auditar"
-    t.boolean  "validado"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "validador_id"
   end
 
   add_index "movimientos", ["destino_id"], :name => "index_movimientos_on_destino_id"
@@ -221,6 +221,7 @@ ActiveRecord::Schema.define(version: 20150212200107) do
   add_index "movimientos", ["inspector_id"], :name => "index_movimientos_on_inspector_id"
   add_index "movimientos", ["reinspector_id"], :name => "index_movimientos_on_reinspector_id"
   add_index "movimientos", ["responsable_id"], :name => "index_movimientos_on_responsable_id"
+  add_index "movimientos", ["validador_id"], :name => "index_movimientos_on_validador_id"
 
   create_table "objetivos_plantacion", force: true do |t|
     t.string   "codigo"
@@ -449,6 +450,7 @@ ActiveRecord::Schema.define(version: 20150212200107) do
   add_foreign_key "movimientos", "inspectores", name: "movimientos_inspector_id_fk", dependent: :nullify
   add_foreign_key "movimientos", "inspectores", name: "movimientos_reinspector_id_fk", column: "reinspector_id", dependent: :nullify
   add_foreign_key "movimientos", "responsables", name: "movimientos_responsable_id_fk", column: "responsable_id", dependent: :nullify
+  add_foreign_key "movimientos", "responsables", name: "movimientos_validador_id_fk", column: "validador_id", dependent: :nullify
 
   add_foreign_key "plantaciones", "departamentos", name: "plantaciones_departamento_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "errores", name: "plantaciones_error_id_fk", dependent: :nullify

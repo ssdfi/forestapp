@@ -12,9 +12,10 @@
   <%= f.text_field :numero_ficha, label: "Número de ficha" %>
   <%= f.collection_select :inspector_id, Inspector.all, :id, :descripcion %>
   <%= f.collection_select :reinspector_id, Inspector.all, :id, :descripcion %>
-  <%= f.collection_select :responsable_id, Responsable.all, :id, :nombre %>
+  <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre %>
   <%= f.number_field :anio_inspeccion, label: "Año inspección" %>
   <%= f.collection_select :destino_id, Destino.all, :id, :descripcion %>
+  <%= f.collection_select :validador_id, Responsable.all.order(:nombre), :id, :nombre, include_blank: true %>
   <%= f.date_field :fecha_entrada %>
   <%= f.date_field :fecha_salida %>
   <%= f.number_field :etapa %>
@@ -28,11 +29,6 @@
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
       <%= f.check_box :auditar, label: "", "data-label" => "Auditar" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-9 col-sm-offset-3">
-      <%= f.check_box :validado, label: "", "data-label" => "Validado" %>
     </div>
   </div>
   <hr/>

@@ -59,6 +59,8 @@
           <dd><%= @movimiento.responsable.nombre if @movimiento.responsable %></dd>
           <dt>Destino:</dt>
           <dd><%= @movimiento.destino.descripcion if @movimiento.destino %></dd>
+          <dt>Validador:</dt>
+          <dd><%= @movimiento.validador.nombre if @movimiento.validador %></dd>
           <dt>Observación:</dt>
           <dd><%= @movimiento.observacion %></dd>
           <dt>Observación Interna:</dt>

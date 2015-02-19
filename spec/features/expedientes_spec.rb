@@ -99,6 +99,22 @@ feature "Expedientes" do
     expect(page).to have_selector('#expedientes tbody tr')
   end
 
+  scenario "Buscar Expedientes por validador" do
+    validador = Responsable.first
+    visit expedientes_path
+    within("#new_expediente") do
+      select validador.nombre, from: 'expediente_validador_id'
+      click_on 'search'
+    end
+    if validador.validaciones.count > 1
+      expect(page).to have_selector('#expedientes tbody tr')
+    elsif validador.validaciones.count == 1
+      expect(current_path).to eq(expediente_path(validador.validaciones.first.expediente))
+    else
+      expect(page).to_not have_selector('#expedientes tbody tr')
+    end
+  end
+
   scenario "Buscar Expedientes por técnico" do
     tecnico = Tecnico.joins(:expedientes).group("tecnicos.id").having("count(tecnicos.id) > ?", 1).first.nombre
     visit expedientes_path

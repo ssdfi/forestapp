@@ -36,7 +36,7 @@ feature "Movimientos" do
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{I18n.l movimiento.fecha_entrada}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{movimiento.inspector.descripcion}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{movimiento.observacion}']")
-    expect(find('.panel-footer .label-success').text).to eq('Validado')
+    expect(find('.panel-footer .label-danger').text).to eq('Sin validar')
     expect(page).to have_selector('table#actividades')
   end
 
@@ -46,11 +46,11 @@ feature "Movimientos" do
     click_on 'nav-edit-movimiento'
     within("#edit_movimiento_#{movimiento.id}") do
       fill_in 'movimiento_numero_ficha', with: '11111111'
-      toggle_switch '#movimiento_validado'
+      select_random_option find('#movimiento_validador_id')
       click_on 'save-movimiento'
     end
     expect(current_path).to eq(expediente_movimiento_path(movimiento.expediente, movimiento))
-    expect(find('.panel-footer .label-danger').text).to eq('Sin validar')
+    expect(find('.panel-footer .label-success').text).to eq('Validado')
   end
 
   scenario "Eliminar Movimiento" do
