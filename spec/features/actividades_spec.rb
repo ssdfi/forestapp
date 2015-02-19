@@ -91,4 +91,16 @@ feature "Actividades" do
     wait_for_ajax
     expect(current_path).to eq(expediente_movimiento_path(movimiento.expediente, movimiento))
   end
+
+  scenario "Ver Mapa de Actividad" do
+    actividad = ActividadPlantacion.last.actividad
+    visit expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad)
+    all('.glyphicon-globe')[0].click
+    page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
+      expect(page).to have_selector('div.leaflet-overlay-pane svg g')
+      all('svg g')[0].click
+      wait_for_ajax
+      expect(page).to have_selector('.leaflet-popup-content')
+    end
+  end
 end

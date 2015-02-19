@@ -104,7 +104,7 @@ feature "Plantaciones" do
     click_on 'nav-map-plantacion'
     page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
       expect(page).to have_selector('div.leaflet-overlay-pane svg g')
-      find('.leaflet-clickable').click
+      all('svg g')[0].click
       wait_for_ajax
       expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
     end
