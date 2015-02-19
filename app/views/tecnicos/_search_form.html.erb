@@ -2,5 +2,5 @@
   <%= f.text_field :nombre, label: "Nombre" %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
   <hr/>
-  <%= f.submit "Buscar", class: "btn btn-primary pull-right" %>
+  <%= f.submit "Buscar", class: "btn btn-primary pull-right", id: "search" %>
 <% end %>

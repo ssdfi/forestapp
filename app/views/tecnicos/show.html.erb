@@ -1,14 +1,15 @@
 <% content_for :actions do %>
   <% if current_user.editor? %>
     <li>
-      <%= link_to edit_tecnico_path(@tecnico) do %>
+      <%= link_to edit_tecnico_path(@tecnico), id: "nav-edit-tecnico" do %>
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Técnico
       <% end %>
     </li>
   <% end %>
   <% if current_user.admin? %>
     <li>
-      <%= link_to tecnico_path(@tecnico), method: :delete, data: { confirm: '¿Está seguro que desea eliminar el Técnico?' } do %>
+      <%= link_to tecnico_path(@tecnico), id: "nav-delete-tecnico", method: :delete,
+        data: { confirm: '¿Está seguro que desea eliminar el Técnico?' } do %>
         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Técnico
       <% end %>
     </li>
