@@ -1,7 +1,7 @@
 <% content_for :actions do %>
   <% if current_user.editor? %>
     <li>
-      <%= link_to new_titular_path do %>
+      <%= link_to new_titular_path, id: "nav-new-titular" do %>
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nuevo Titular
       <% end %>
     </li>
