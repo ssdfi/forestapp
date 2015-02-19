@@ -7,7 +7,7 @@ class Expediente < ActiveRecord::Base
 
   validates :numero_interno, presence: true
 
-  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, :etapa, :responsable_id, :validado
+  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, :etapa, :responsable_id, :validado, :validador_id
 
   before_save :set_values
 
@@ -45,6 +45,14 @@ class Expediente < ActiveRecord::Base
     end
   end
 
+  def validado=(value)
+    if !!value == value
+      @validado = value
+    elsif not value.blank?
+      @validado = (value == "true")
+    end
+  end
+
   def etapa=(value)
     @etapa = value unless value.blank?
   end
@@ -53,16 +61,16 @@ class Expediente < ActiveRecord::Base
     @responsable_id = value unless value.blank?
   end
 
-  def validado=(value)
-    @validado = value == "true" unless value.blank?
-  end
-
   def fecha_desde=(value)
     @fecha_desde = value unless value.blank?
   end
 
   def fecha_hasta=(value)
     @fecha_hasta = value unless value.blank?
+  end
+
+  def validador_id=(value)
+    @validador_id = value unless value.blank?
   end
 
   ##
@@ -92,7 +100,8 @@ class Expediente < ActiveRecord::Base
       expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", expediente.fecha_desde) unless expediente.fecha_desde.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", expediente.fecha_hasta) unless expediente.fecha_hasta.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.estabilidad_fiscal = ?", expediente.estabilidad_fiscal) unless expediente.estabilidad_fiscal.nil?
-      expedientes = expedientes.joins(:movimientos).where("movimientos.validado = ?", expediente.validado) unless expediente.validado.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.validador_id IS #{'NOT' if expediente.validado} NULL") unless expediente.validado.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.validador_id = ?", expediente.validador_id) unless expediente.validador_id.nil?
       expedientes = expedientes.where(plurianual: expediente.plurianual) unless expediente.plurianual.nil?
       expedientes = expedientes.where(agrupado: expediente.agrupado) unless expediente.agrupado.nil?
       expedientes = expedientes.where(activo: expediente.activo) unless expediente.activo.nil?

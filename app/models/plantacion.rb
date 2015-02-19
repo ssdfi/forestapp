@@ -36,13 +36,13 @@ class Plantacion < ActiveRecord::Base
   # Como el sistema de referencia no está definido a nivel de tabla, es necesario obtener el SRID individual de cada registro a través
   # de la función ST_SRID
   def srid
-    @srid ||= Plantacion.where(:id => id).pluck("ST_SRID(geom)").first
+    @srid ||= Plantacion.where(id: id).pluck("ST_SRID(geom)").first
   end
 
   ##
   # Calcula las hectáreas de superfice de la plantación si es del tipo macizo
   def hectareas
-    (geom.area / 10000).round 1 if tipo_plantacion_id == 1
+    (geom.area / 10000).round 1 if read_attribute(:geom) and tipo_plantacion_id == 1
   end
 
   ##
@@ -62,7 +62,7 @@ class Plantacion < ActiveRecord::Base
       {
         "ID" => id,
         "Titular" => titular ? titular.nombre : '',
-        "Especie" => especies.first ? especies.first.nombre_comun : '',
+        "Especie" => especies.first ? especies.first.nombre_cientifico : '',
         "Superficie" => hectareas || ''
       }
     )

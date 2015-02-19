@@ -80,8 +80,8 @@
           <th>Entrada</th>
           <th>Salida</th>
           <th class="icon">E.Fiscal</th>
-          <th class="icon">Validado</th>
           <th class="icon">Auditar</th>
+          <th class="icon">Validado</th>
         </tr>
       </thead>
       <tbody>
@@ -97,10 +97,10 @@
                 <%= render partial: 'common/boolean_value', locals: {value: movimiento.estabilidad_fiscal} %>
               </td>
               <td class="icon">
-                <%= render partial: 'common/boolean_value', locals: {value: movimiento.validado} %>
+                <%= render partial: 'common/boolean_value', locals: {value: movimiento.auditar} %>
               </td>
               <td class="icon">
-                <%= render partial: 'common/boolean_value', locals: {value: movimiento.auditar} %>
+                <%= render partial: 'common/boolean_value', locals: {value: movimiento.validado} %>
               </td>
             </tr>
           <% end %>

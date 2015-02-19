@@ -88,6 +88,6 @@ class ExpedientesController < ApplicationController
     def expediente_params
       params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico_id, :zona_id,
         :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal,
-        :etapa, :responsable_id, :validado, titular_ids: [])
+        :etapa, :responsable_id, :validado, :validador_id, titular_ids: [])
     end
 end

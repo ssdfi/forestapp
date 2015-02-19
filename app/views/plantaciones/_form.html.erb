@@ -15,7 +15,7 @@
       <div class="input-group">
         <input id="plantacion_titular" type="text" class="form-control" value="<%= @plantacion.titular.nombre if @plantacion.titular %>" readonly>
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" data-toggle="modal" data-target="#titulares-modal">
+          <button class="btn btn-default" type="button" data-toggle="modal" data-target="#titulares-modal" id="add-titular">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
         </span>
@@ -27,7 +27,7 @@
   <div class="form-group" style="margin-top: -10px;">
     <div class="col-sm-9 col-sm-offset-3">
       <div class="pull-right">
-        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#especies-modal">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#especies-modal" id="add-especie">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
         </button>
         <button id="remove-especie" type="button" class="btn btn-default btn-xs">
@@ -60,7 +60,7 @@
     </div>
   </div>
   <hr/>
-  <%= f.submit "Guardar", class: "btn btn-primary pull-right" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-plantacion" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
 <% end %>
 
@@ -79,7 +79,7 @@
               <%= f.text_field "especie[nombre_comun]", hide_label: true, placeholder: "Nombre Común" %>
               <%= f.text_field "especie[nombre_cientifico]", hide_label: true, placeholder: "Nombre Científico" %>
               <%= f.text_field "especie[codigo_sp]", hide_label: true, placeholder: "Código" %>
-              <%= f.submit "Buscar", class: "btn btn-default" %>
+              <%= f.submit "Buscar", class: "btn btn-default", id: "especies-modal-search" %>
             <% end %>
           </div>
         </div>
@@ -92,7 +92,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="add-especie" type="button" class="btn btn-primary">Agregar</button>
+        <button id="especies-modal-add" type="button" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>
@@ -112,20 +112,20 @@
               <%= f.text_field "titular[nombre]", hide_label: true, placeholder: "Nombre" %>
               <%= f.text_field "titular[dni]", hide_label: true, placeholder: "DNI" %>
               <%= f.text_field "titular[cuit]", hide_label: true, placeholder: "CUIT" %>
-              <%= f.submit "Buscar", class: "btn btn-default" %>
+              <%= f.submit "Buscar", class: "btn btn-default", id: "titulares-modal-search" %>
             <% end %>
           </div>
         </div>
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <ul id="titulares"></ul>
+            <ul id="titulares-list"></ul>
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button id="select-titular" type="button" class="btn btn-primary">Seleccionar</button>
+        <button id="titulares-modal-select" type="button" class="btn btn-primary">Seleccionar</button>
       </div>
     </div>
   </div>

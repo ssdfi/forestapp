@@ -5,11 +5,11 @@ $(document).ready ->
    * con un radio button (La plantación sólo puede tener un titular)
    ###
   $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
-    $("#titulares").empty()
+    $("#titulares-list").empty()
     for titular in $(data)
-      $("#titulares").append(
+      $("#titulares-list").append(
         $('<li></li>').append(
-          $("<input type='radio' name=titulares-radios' value='" + titular.id + "'>")
+          $("<input type='radio' name=titulares-radios' value='" + titular.id + "' id='titular-" + titular.id + "'>")
         ).append($('<span> ' + titular.nombre + '</span>'))
       )
   )
@@ -18,8 +18,8 @@ $(document).ready ->
    * Al hacer click en el botón de seleccionar titular en la ventanda modal, se define como
    * titular de la plantación el seleccionado mediante el radio button
    ###
-  $("#select-titular").click ->
-    for titular in $("#titulares li input:checked")
+  $("#titulares-modal-select").click ->
+    for titular in $("#titulares-list li input:checked")
       $("#plantacion_titular_id").val(titular.value)
       $("#plantacion_titular").val($(titular).siblings('span').text())
     $("#titulares-modal").modal('hide')
@@ -38,8 +38,8 @@ $(document).ready ->
     for especie in $(data)
       $("#especies").append(
         $('<li></li>').append(
-          $("<input type='checkbox' value='" + especie.id + "'>")
-        ).append($('<span> ' + especie.nombre_cientifico + '</span>'))
+          $("<input type='checkbox' value='" + especie.id + "' id='especie-" + especie.id + "'>")
+        ).append($('<span> ' + especie.codigo_sp + ' (' + especie.nombre_cientifico + ')</span>'))
       )
   )
 
@@ -47,7 +47,7 @@ $(document).ready ->
    * Al hacer click en el botón de agregar especies en la ventanda modal, se agregan al listado
    * todos las especies que han sido seleccionados mediante el checkbox
    ###
-  $("#add-especie").click ->
+  $("#especies-modal-add").click ->
     for especie in $("#especies li input:checked")
       $("#plantacion_especie_ids").append(
         $("<option value='" + especie.value + "'>" + $(especie).siblings('span').text() + "</option>")
