@@ -97,7 +97,6 @@ class ExpedientesImporter
         observacion: msmovimiento.observacion,
         observacion_interna: msmovimiento.ObsInt,
         auditar: msmovimiento.Para_Auditar,
-        validado: false,
         estabilidad_fiscal: !msmovimiento.ObsInt.match(/^EF/).nil?
       )
 
