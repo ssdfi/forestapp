@@ -109,4 +109,18 @@ feature "Plantaciones" do
       expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
     end
   end
+
+  scenario "Reemplazar Plantación" do
+    plantacion_nueva = Plantacion.last
+    plantacion_anterior = Plantacion.first
+    visit plantacion_path(plantacion_anterior)
+    click_on 'nav-replace-plantacion'
+    within('#plantaciones-modal') do
+      fill_in 'plantaciones_nuevas_ids', with: plantacion_nueva.id
+      click_on 'plantaciones-modal-replace'
+    end
+    expect(page).to have_selector(:xpath, "//table[@id='plantaciones_nuevas']/tbody/tr/td[contains(., '#{plantacion_nueva.id}')]")
+    visit plantacion_path(plantacion_nueva)
+    expect(page).to have_selector(:xpath, "//table[@id='plantaciones_anteriores']/tbody/tr/td[contains(., '#{plantacion_anterior.id}')]")
+  end
 end
