@@ -114,3 +114,12 @@ td.icon-lg span {
     padding-right: 10px;
   }
 }
+
+@media print {
+  a[href]:after {
+    content: none;
+  }
+  abbr[title] {
+    content: attr(title);
+  }
+}

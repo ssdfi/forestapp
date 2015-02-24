@@ -10,6 +10,11 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Actividad
       <% end %>
     </li>
+    <li>
+      <%= link_to expediente_movimiento_report_path(@expediente, @movimiento), id: "nav-report-movimiento", target: '_blank' do %>
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Generar Reporte
+      <% end %>
+    </li>
   <% end %>
   <% if current_user.admin? %>
     <li>
@@ -83,7 +88,7 @@
           <th>Certificado</th>
           <th>Inspeccionado</th>
           <th>Registrado</th>
-          <th class="icon">Mapa</th>
+          <th class="icon hidden-print">Mapa</th>
         </tr>
       </thead>
       <tbody>
@@ -95,7 +100,7 @@
             <td><%= actividad.superficie_certificada %></td>
             <td><%= actividad.superficie_inspeccionada %></td>
             <td><%= actividad.superficie_registrada %></td>
-            <td class="icon icon-lg">
+            <td class="icon icon-lg hidden-print">
               <% if actividad.plantaciones.count > 0 %>
                 <%= link_to expediente_movimiento_actividad_map_path(@movimiento.expediente, @movimiento, actividad), target: '_blank', onclick: 'event.stopPropagation()' do %>
                   <span class="glyphicon glyphicon-globe"></span>

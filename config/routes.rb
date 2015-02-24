@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         resources :actividades do
           get 'map', path: 'mapa'
         end
+        get 'report', path: 'reporte'
       end
     end
 

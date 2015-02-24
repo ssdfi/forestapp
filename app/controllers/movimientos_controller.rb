@@ -1,6 +1,7 @@
 class MovimientosController < ApplicationController
   before_action :set_expediente
-  before_action :set_movimiento, only: [:show, :edit, :update, :destroy]
+  before_action :set_movimiento, only: [:show, :edit, :update, :destroy, :report]
+  layout 'print', :only => [:report]
 
   # GET /movimientos
   # GET /movimientos.json
@@ -63,6 +64,10 @@ class MovimientosController < ApplicationController
     end
   end
 
+  # Genera un reporte imprimible del Movimiento
+  def report
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_expediente
@@ -70,7 +75,7 @@ class MovimientosController < ApplicationController
     end
 
     def set_movimiento
-      @movimiento = Movimiento.find(params[:id])
+      @movimiento = Movimiento.find(params[:id] || params[:movimiento_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
