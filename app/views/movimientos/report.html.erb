@@ -110,40 +110,42 @@
   </div>
 </section>
 
-<section>
-  <h2>Detalles por Titular</h2>
-  <div class="row">
-    <div class="col-xs-12">
-      <table class="table table-grid">
-        <thead>
-          <tr>
-            <th>Actividad</th>
-            <th>Titular</th>
-            <th>Especie</th>
-            <th>Tipo</th>
-            <th>Presentado</th>
-            <th>Certificado</th>
-            <th>Inspeccionado</th>
-            <th>Observaciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @movimiento.actividades.each do |actividad| %>
-            <% actividad.actividades_titulares.each do |actividad_titular| %>
-              <tr>
-                <td><%= actividad.tipo_actividad.descripcion %></td>
-                <td><%= actividad_titular.titular.nombre if actividad_titular.titular %></td>
-                <td><%= actividad_titular.especie.codigo_sp if actividad_titular.especie %></td>
-                <td><%= actividad_titular.tipo_plantacion.codigo if actividad_titular.tipo_plantacion %></td>
-                <td><%= actividad_titular.superficie_presentada %></td>
-                <td><%= actividad_titular.superficie_certificada %></td>
-                <td><%= actividad_titular.superficie_inspeccionada %></td>
-                <td><%= actividad_titular.observaciones %></td>
-              </tr>
+<% if @movimiento.expediente.agrupado %>
+  <section>
+    <h2>Detalles por Titular</h2>
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-grid">
+          <thead>
+            <tr>
+              <th>Actividad</th>
+              <th>Titular</th>
+              <th>Especie</th>
+              <th>Tipo</th>
+              <th>Presentado</th>
+              <th>Certificado</th>
+              <th>Inspeccionado</th>
+              <th>Observaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @movimiento.actividades.each do |actividad| %>
+              <% actividad.actividades_titulares.each do |actividad_titular| %>
+                <tr>
+                  <td><%= actividad.tipo_actividad.descripcion %></td>
+                  <td><%= actividad_titular.titular.nombre if actividad_titular.titular %></td>
+                  <td><%= actividad_titular.especie.codigo_sp if actividad_titular.especie %></td>
+                  <td><%= actividad_titular.tipo_plantacion.codigo if actividad_titular.tipo_plantacion %></td>
+                  <td><%= actividad_titular.superficie_presentada %></td>
+                  <td><%= actividad_titular.superficie_certificada %></td>
+                  <td><%= actividad_titular.superficie_inspeccionada %></td>
+                  <td><%= actividad_titular.observaciones %></td>
+                </tr>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
