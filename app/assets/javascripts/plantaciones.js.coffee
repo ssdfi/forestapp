@@ -5,12 +5,14 @@ $(document).ready ->
    * con un radio button (La plantación sólo puede tener un titular)
    ###
   $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
-    $("#titulares-list").empty()
+    $("#titulares-list tbody").empty()
     for titular in $(data)
-      $("#titulares-list").append(
-        $('<li></li>').append(
-          $("<input type='radio' name=titulares-radios' value='" + titular.id + "' id='titular-" + titular.id + "'>")
-        ).append($('<span> ' + titular.nombre + '</span>'))
+      $("#titulares-list tbody").append(
+        $('<tr></tr>').append(
+          $("<td><input type='radio' name=titulares-radios' value='" + titular.id + "' id='titular-" + titular.id + "'></td>")
+        ).append($('<td>' + titular.nombre + '</td>')
+        ).append($('<td>' + (titular.dni ? '') + '</td>')
+        ).append($('<td>' + (titular.cuit ? '') + '</td>'))
       )
   )
 
@@ -19,9 +21,9 @@ $(document).ready ->
    * titular de la plantación el seleccionado mediante el radio button
    ###
   $("#titulares-modal-select").click ->
-    for titular in $("#titulares-list li input:checked")
+    for titular in $("#titulares-list input:checked")
       $("#plantacion_titular_id").val(titular.value)
-      $("#plantacion_titular").val($(titular).siblings('span').text())
+      $("#plantacion_titular").val($($(titular).parent().siblings()[0]).text())
     $("#titulares-modal").modal('hide')
 
   ### Elimina las especies seleccionadas ###
@@ -34,12 +36,14 @@ $(document).ready ->
    * con un checkbox
    ###
   $("#especies-modal form").on("ajax:success", (e, data, status, xhr) ->
-    $("#especies").empty()
+    $("#especies-list tbody").empty()
     for especie in $(data)
-      $("#especies").append(
-        $('<li></li>').append(
-          $("<input type='checkbox' value='" + especie.id + "' id='especie-" + especie.id + "'>")
-        ).append($('<span> ' + especie.codigo_sp + ' (' + especie.nombre_cientifico + ')</span>'))
+      $("#especies-list tbody").append(
+        $('<tr></tr>').append(
+          $("<td><input type='checkbox' value='" + especie.id + "' id='especie-" + especie.id + "'></td>")
+        ).append($('<td>' + especie.codigo_sp + '</td>')
+        ).append($('<td>' + especie.nombre_cientifico + '</td>')
+        ).append($('<td>' + especie.nombre_comun + '</td>'))
       )
   )
 
@@ -48,9 +52,9 @@ $(document).ready ->
    * todos las especies que han sido seleccionados mediante el checkbox
    ###
   $("#especies-modal-add").click ->
-    for especie in $("#especies li input:checked")
+    for especie in $("#especies-list input:checked")
       $("#plantacion_especie_ids").append(
-        $("<option value='" + especie.value + "'>" + $(especie).siblings('span').text() + "</option>")
+        $("<option value='" + especie.value + "'>" + $($(especie).parent().siblings()[1]).text() + "</option>")
       )
     $("#especies-modal").modal('hide')
 

@@ -20,12 +20,14 @@ $(document).ready ->
    * con un checkbox
    ###
   $("#titulares-modal form").on("ajax:success", (e, data, status, xhr) ->
-    $("#titulares").empty()
+    $("#titulares-list tbody").empty()
     for titular in $(data)
-      $("#titulares-list").append(
-        $('<li></li>').append(
-          $("<input type='checkbox' value='" + titular.id + "' id='titular-" + titular.id + "'>")
-        ).append($('<span> ' + titular.nombre + '</span>'))
+      $("#titulares-list tbody").append(
+        $('<tr></tr>').append(
+          $("<td><input type='checkbox' value='" + titular.id + "' id='titular-" + titular.id + "'></td>")
+        ).append($('<td>' + titular.nombre + '</td>')
+        ).append($('<td>' + (titular.dni ? '') + '</td>')
+        ).append($('<td>' + (titular.cuit ? '') + '</td>'))
       )
   )
 
@@ -34,9 +36,10 @@ $(document).ready ->
    * todos los titulares que han sido seleccionados mediante el checkbox
    ###
   $("#titulares-modal-add").click ->
-    for titular in $("#titulares-list li input:checked")
+    for titular in $("#titulares-list input:checked")
       $("#expediente_titular_ids").append(
-        $("<option value='" + titular.value + "'>" + $(titular).siblings('span').text() + "</option>")
+        debugger
+        $("<option value='" + titular.value + "'>" + $($(titular).parent().siblings()[0]).text() + "</option>")
       )
     $("#titulares-modal").modal('hide')
 
