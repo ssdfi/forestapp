@@ -16,7 +16,7 @@ feature "Plantaciones" do
     end
     within('#titulares-modal') do
       click_on 'titulares-modal-search'
-      page.has_selector?('#titulares-list li')
+      page.has_selector?('#titulares-list tboyd tr')
       choose "titular-#{titular.id}"
       click_on 'titulares-modal-select'
     end
@@ -25,7 +25,7 @@ feature "Plantaciones" do
     end
     within('#especies-modal') do
       click_on 'especies-modal-search'
-      page.has_selector?('#especies-list li')
+      page.has_selector?('#especies-list tbody tr')
       especies.each do |especie|
         check "especie-#{especie.id}"
       end
