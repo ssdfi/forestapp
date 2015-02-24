@@ -20,7 +20,7 @@ feature "Expedientes" do
     end
     within('#titulares-modal') do
       click_on 'titulares-modal-search'
-      page.has_selector?('#titulares-list li')
+      page.has_selector?('#titulares-list tbody tr')
       titulares.each do |titular|
         check "titular-#{titular.id}"
       end

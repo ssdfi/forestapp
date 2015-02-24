@@ -66,7 +66,7 @@
                 <th>Superficie Registrada</th>
                 <th>Superficie</th>
                 <th>Observaciones</th>
-                <th class="icon">Mapa</th>
+                <th class="icon hidden-print">Mapa</th>
               </tr>
             </thead>
             <tbody>
@@ -81,7 +81,7 @@
                   <td>
                     <abbr title="<%= actividad_plantacion.observaciones %>" data-length="20"></abbr>
                   </td>
-                  <td class="icon icon-lg">
+                  <td class="icon icon-lg hidden-print">
                     <%= link_to plantacion_map_path(actividad_plantacion.plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
                       <span class="glyphicon glyphicon-globe"></span>
                     <% end %>
