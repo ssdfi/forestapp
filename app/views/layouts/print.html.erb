@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ForestApp - Reporte de Movimiento</title>
+  <%= favicon_link_tag 'favicon.png' %>
+  <%= stylesheet_link_tag 'print/print', media: 'all' %>
+  <%= yield :head %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="row">
+        <div class="col-xs-6 image">
+          <%= image_tag 'magyp.png' %>
+        </div>
+        <div class="col-xs-6 title">
+          <p>Dirección de Producción Forestal</p>
+          <p>Área SIG - Inventario Forestal</p>
+        </div>
+      </div>
+    </div>
+    <%= yield %>
+  </div>
+</body>
+</html>

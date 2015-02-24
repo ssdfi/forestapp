@@ -76,9 +76,9 @@
           <div class="col-md-12">
             <%= bootstrap_form_tag url: especies_path + '.json', method: "get", remote: true, layout: :inline do |f| %>
               <%= f.collection_select "especie[genero_id]", Genero.all, :id, :descripcion, {hide_label: true, prompt: "Género"} %>
-              <%= f.text_field "especie[nombre_comun]", hide_label: true, placeholder: "Nombre Común" %>
-              <%= f.text_field "especie[nombre_cientifico]", hide_label: true, placeholder: "Nombre Científico" %>
               <%= f.text_field "especie[codigo_sp]", hide_label: true, placeholder: "Código" %>
+              <%= f.text_field "especie[nombre_cientifico]", hide_label: true, placeholder: "Nombre Científico" %>
+              <%= f.text_field "especie[nombre_comun]", hide_label: true, placeholder: "Nombre Común" %>
               <%= f.submit "Buscar", class: "btn btn-default", id: "especies-modal-search" %>
             <% end %>
           </div>
@@ -86,7 +86,18 @@
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <ul id="especies"></ul>
+            <table class="table" id="especies-list">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Código</th>
+                  <th>Nombre Científico</th>
+                  <th>Nombre Común</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -119,7 +130,18 @@
         <hr/>
         <div class="row">
           <div class="col-md-12">
-            <ul id="titulares-list"></ul>
+            <table class="table" id="titulares-list">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Nombre</th>
+                  <th>DNI</th>
+                  <th>CUIT</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -1,0 +1,73 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@page {
+  size: A4;
+  size: landscape;
+  margin: 50px;
+}
+
+body {
+  font-size: 14px;
+}
+
+table {
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 22px;
+  line-height: 40px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 35px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  background-color: #CCC !important;;
+  padding: 0px 10px 0px 10px;
+}
+
+h3 {
+  font-size: 14px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 30px;
+}
+
+.header {
+  padding-bottom: 20px;
+
+  .image {
+    @extend .text-left;
+    img {
+      height: 50px;
+    }
+  }
+
+  .title {
+    @extend .text-right;
+    p {
+      font-size: 18px;
+      line-height: 15px;
+      font-weight: bold;
+    }
+  }
+}
+
+.block {
+  padding: 10px 10px 0px 10px;
+}
+
+.block:not(:last-child) {
+  border-bottom: 1px #AAA dashed;
+}
+
+section {
+  display: block;
+  page-break-after: always;
+  border: 1px solid #CCC;
+}

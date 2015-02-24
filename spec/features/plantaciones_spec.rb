@@ -16,7 +16,7 @@ feature "Plantaciones" do
     end
     within('#titulares-modal') do
       click_on 'titulares-modal-search'
-      page.has_selector?('#titulares-list li')
+      page.has_selector?('#titulares-list tboyd tr')
       choose "titular-#{titular.id}"
       click_on 'titulares-modal-select'
     end
@@ -25,7 +25,7 @@ feature "Plantaciones" do
     end
     within('#especies-modal') do
       click_on 'especies-modal-search'
-      page.has_selector?('#especies-list li')
+      page.has_selector?('#especies-list tbody tr')
       especies.each do |especie|
         check "especie-#{especie.id}"
       end
@@ -104,9 +104,23 @@ feature "Plantaciones" do
     click_on 'nav-map-plantacion'
     page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
       expect(page).to have_selector('div.leaflet-overlay-pane svg g')
-      find('.leaflet-clickable').click
+      all('svg g')[0].click
       wait_for_ajax
       expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
     end
+  end
+
+  scenario "Reemplazar Plantación" do
+    plantacion_nueva = Plantacion.last
+    plantacion_anterior = Plantacion.first
+    visit plantacion_path(plantacion_anterior)
+    click_on 'nav-replace-plantacion'
+    within('#plantaciones-modal') do
+      fill_in 'plantaciones_nuevas_ids', with: plantacion_nueva.id
+      click_on 'plantaciones-modal-replace'
+    end
+    expect(page).to have_selector(:xpath, "//table[@id='plantaciones_nuevas']/tbody/tr/td[contains(., '#{plantacion_nueva.id}')]")
+    visit plantacion_path(plantacion_nueva)
+    expect(page).to have_selector(:xpath, "//table[@id='plantaciones_anteriores']/tbody/tr/td[contains(., '#{plantacion_anterior.id}')]")
   end
 end
