@@ -66,6 +66,10 @@ class MovimientosController < ApplicationController
 
   # Genera un reporte imprimible del Movimiento
   def report
+    @plantaciones = @movimiento.actividades_plantaciones.joins(:plantacion).joins(:actividad)
+      .joins("JOIN especies_plantaciones ON plantaciones.id = especies_plantaciones.plantacion_id")
+      .group(:actividad_id, :titular_id, :tipo_plantacion_id, :especie_id).order(actividad_id: :desc)
+      .sum(:superficie_registrada)
   end
 
   private

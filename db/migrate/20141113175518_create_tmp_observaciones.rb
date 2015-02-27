@@ -12,12 +12,13 @@ class CreateTmpObservaciones < ActiveRecord::Migration
       t.string :actividad
       t.string :tipo
       t.text :observaciones
-      t.string :nomenclatura_catastral
-      t.string :lote
-      t.string :otro
+      t.string :dni
+      t.string :cuit
       t.index :numero_interno
       t.index :numero_productor
       t.index :productor
+      t.index :dni
+      t.index :cuit
     end
   end
 end

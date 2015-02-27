@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150219000026) do
     t.spatial  "geom",                   limit: {:srid=>0, :type=>"geometry"}
   end
 
+  add_index "plantaciones", ["activo"], :name => "index_plantaciones_on_activo"
   add_index "plantaciones", ["departamento_id"], :name => "index_plantaciones_on_departamento_id"
   add_index "plantaciones", ["error_id"], :name => "index_plantaciones_on_error_id"
   add_index "plantaciones", ["estado_plantacion_id"], :name => "index_plantaciones_on_estado_plantacion_id"
@@ -328,6 +329,10 @@ ActiveRecord::Schema.define(version: 20150219000026) do
     t.datetime "updated_at"
   end
 
+  add_index "titulares", ["cuit"], :name => "index_titulares_on_cuit"
+  add_index "titulares", ["dni"], :name => "index_titulares_on_dni"
+  add_index "titulares", ["nombre"], :name => "index_titulares_on_nombre"
+
   create_table "tmp_observaciones", force: true do |t|
     t.string "numero_interno"
     t.string "numero_productor"
@@ -340,11 +345,12 @@ ActiveRecord::Schema.define(version: 20150219000026) do
     t.string "actividad"
     t.string "tipo"
     t.text   "observaciones"
-    t.string "nomenclatura_catastral"
-    t.string "lote"
-    t.string "otro"
+    t.string "dni"
+    t.string "cuit"
   end
 
+  add_index "tmp_observaciones", ["cuit"], :name => "index_tmp_observaciones_on_cuit"
+  add_index "tmp_observaciones", ["dni"], :name => "index_tmp_observaciones_on_dni"
   add_index "tmp_observaciones", ["numero_interno"], :name => "index_tmp_observaciones_on_numero_interno"
   add_index "tmp_observaciones", ["numero_productor"], :name => "index_tmp_observaciones_on_numero_productor"
   add_index "tmp_observaciones", ["productor"], :name => "index_tmp_observaciones_on_productor"

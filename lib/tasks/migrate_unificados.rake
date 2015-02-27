@@ -90,18 +90,14 @@ namespace :db do
         tmp_titular = tmp_titular.where(numero_productor: unificado.numero_productor) if unificado.numero_productor != '0'
         tmp_titular = tmp_titular.first
 
-        if tmp_titular
-          titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0'
-          titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0'
-          titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
-        end
-        titular = Titular.create!(nombre: unificado.titular) unless titular
+        titular = Titular.find_or_create(tmp_titular.titular, tmp_titular.dni, tmp_titular.cuit) if tmp_titular
+        titular = Titular.find_or_create(unificado.titular, nil, nil) unless titular
 
         plantacion.titular = titular
         plantacion.save!
 
         count += 1
-        puts "#{count} unificados migrados hasta el momento." if count % 10000 == 0
+        puts "#{count} unificados migrados hasta el momento. (#{ChronicDuration.output(Time.now - start_time)})" if count % 10000 == 0
       end
 
       ActiveRecord::Base.connection.execute(

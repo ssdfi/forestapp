@@ -22,7 +22,7 @@ namespace :db do
             subtotal += importer.data[:registros]
           end
         end
-        puts "Unificados importados de #{File.basename(dir)}: #{subtotal}"
+        puts "Unificados importados de #{File.basename(dir)}: #{subtotal} (#{ChronicDuration.output(Time.now - start_time)})"
         total += subtotal
         subtotal = 0
       end

@@ -6,6 +6,10 @@ class CreateTitulares < ActiveRecord::Migration
       t.string :cuit
 
       t.timestamps
+
+      t.index :nombre
+      t.index :dni
+      t.index :cuit
     end
   end
 end
