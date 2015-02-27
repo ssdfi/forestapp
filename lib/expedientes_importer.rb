@@ -5,6 +5,7 @@ class ExpedientesImporter
       movimientos: 0,
       actividades: 0
     }
+    @start_time = Time.now
   end
 
   def import
@@ -53,32 +54,17 @@ class ExpedientesImporter
       end
 
       @data[:expedientes] += 1
-      puts "#{@data[:expedientes]} expedientes importados hasta el momento." if @data[:expedientes] % 1000 == 0
+      puts "#{@data[:expedientes]} expedientes importados hasta el momento. (#{ChronicDuration.output(Time.now - @start_time)})" if @data[:expedientes] % 1000 == 0
     end
 
     def create_titulares(expediente, msexpediente)
       tmp_titulares = TmpTitular.where(numero_interno: expediente.numero_interno)
-      tmp_titulares = tmp_titulares.where(fuente: ['Entidad', 'Individual'])
       if tmp_titulares.count > 0
         tmp_titulares.each do |tmp_titular|
-          titular = Titular.find_by_dni(tmp_titular.dni) if tmp_titular.dni != '0'
-          titular = Titular.find_by_cuit(tmp_titular.cuit) if titular.nil? and tmp_titular.cuit != '0'
-          titular = Titular.find_by_nombre(tmp_titular.titular) if titular.nil?
-          unless titular
-            titular = Titular.create!(
-              nombre: tmp_titular.titular,
-              dni: tmp_titular.dni != '0' ? tmp_titular.dni : nil,
-              cuit: tmp_titular.cuit != '0' ? tmp_titular.cuit : nil
-            )
-          end
-          expediente.titulares << titular
+          expediente.titulares << Titular.find_or_create(tmp_titular.titular, tmp_titular.dni, tmp_titular.cuit)
         end
       else
-        titular = Titular.find_by_nombre(msexpediente.Titular)
-        if titular.nil? and !msexpediente.Titular.blank?
-          titular = Titular.create!(nombre: msexpediente.Titular)
-        end
-        expediente.titulares << titular
+        expediente.titulares << Titular.find_or_create(msexpediente.Titular, nil, nil)
       end
       expediente.save!
     end

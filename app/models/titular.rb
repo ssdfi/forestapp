@@ -2,7 +2,7 @@ class Titular < ActiveRecord::Base
   has_many :plantaciones
   has_and_belongs_to_many :expedientes_titular, class_name: 'Expediente', source: :expedientes
   has_many :expedientes_plantacion, -> { distinct }, class_name: 'Expediente', through: :plantaciones, source: :expedientes
-  has_many :activiades_titulares, class_name: 'ActividadTitular'
+  has_many :actividades_titulares, class_name: 'ActividadTitular'
 
   ##
   # Devuelve los expedientes relacionados con el titular, ya sea los expedientes directos como los expedientes agrupados
@@ -28,5 +28,48 @@ class Titular < ActiveRecord::Base
       titulares = titulares.where("cuit ILIKE ?", "%#{titular.cuit}%") unless titular.cuit.blank?
       titulares = titulares.distinct
     end
+  end
+
+  ##
+  # Normaliza el nombre según un criterio específico
+  # Elimina tildes, comas, apóstrofes y pone en mayúsculas la primer letra de cada palabra
+  def self.normalize_nombre(nombre)
+    I18n.transliterate(nombre, '').delete(',').titleize
+  end
+
+  ##
+  # Busca el titular y si no lo encuentra, lo crea
+  def self.find_or_create(nombre, dni, cuit)
+    nombre = normalize_nombre(nombre)
+    dni = dni != '0' ? dni : nil
+    cuit = cuit != '0' ? cuit : nil
+
+    if dni
+      titular = find_by_dni(dni)
+      if titular
+        titular.update(nombre: nombre)
+        titular.update(cuit: cuit) if cuit
+        return titular
+      end
+    end
+
+    if cuit
+      titular = find_by_cuit(cuit)
+      if titular
+        titular.update(nombre: nombre)
+        titular.update(dni: dni) if dni
+        return titular
+      end
+    end
+
+    titular = find_by_nombre(nombre)
+    if titular
+      titular.update(dni: dni) if dni
+      titular.update(cuit: cuit) if cuit
+      return titular
+    end
+
+    titular = create!(nombre: nombre, dni: dni, cuit: cuit)
+    return titular
   end
 end

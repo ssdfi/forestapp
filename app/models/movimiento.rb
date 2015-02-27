@@ -7,6 +7,7 @@ class Movimiento < ActiveRecord::Base
   belongs_to :validador, class_name: 'Responsable', foreign_key: 'validador_id'
 
   has_many :actividades
+  has_many :actividades_plantaciones, class_name: 'ActividadPlantacion', through: :actividades
 
 
   def validado

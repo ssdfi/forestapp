@@ -28,6 +28,8 @@ class CreatePlantaciones < ActiveRecord::Migration
       t.integer :unificado_id
 
       t.timestamps
+
+      t.index :activo
     end
     add_index :plantaciones, :geom, using: :gist
   end
