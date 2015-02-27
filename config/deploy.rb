@@ -69,3 +69,30 @@ namespace :deploy do
   end
 
 end
+
+desc 'Invoke a rake command on the remote server'
+task :invoke, [:command] => 'deploy:set_rails_env' do |task, args|
+  on primary(:app) do
+    within current_path do
+      with :rails_env => fetch(:rails_env) do
+        rake args[:command]
+      end
+    end
+  end
+end
+
+desc 'Reset DB'
+task :reset_db do
+  on primary(:app) do
+    within current_path do
+      with :rails_env => fetch(:rails_env) do
+        rake "db:drop"
+        rake "db:create"
+        rake "db:migrate"
+        rake "db:seed"
+        rake "db:import:all"
+      end
+    end
+  end
+end
+
