@@ -34,7 +34,7 @@ class Titular < ActiveRecord::Base
   # Normaliza el nombre según un criterio específico
   # Elimina tildes, comas, apóstrofes y pone en mayúsculas la primer letra de cada palabra
   def self.normalize_nombre(nombre)
-    I18n.transliterate(nombre, '').delete(',').titleize
+    I18n.transliterate(nombre).delete(',').titleize
   end
 
   ##
