@@ -57,7 +57,7 @@ class Plantacion < ActiveRecord::Base
   def to_feature
     geoutil = GeoUtil.instance
     geoutil.feature_to_geojson(
-      geoutil.cast(geom, '4326', true),
+      geoutil.cast(geom, 4326, true),
       id,
       {
         "ID" => id,
