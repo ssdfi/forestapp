@@ -4,7 +4,7 @@ namespace :db do
     task all: :environment do
       start_time = Time.now
       puts start_time
-      Rake::Task["db:import:migrate_titulares"].invoke
+      # Rake::Task["db:import:migrate_titulares"].invoke
       Rake::Task["db:import:expedientes"].invoke
       Rake::Task["db:import:unificados"].invoke
       Rake::Task["db:import:migrate_unificados"].invoke

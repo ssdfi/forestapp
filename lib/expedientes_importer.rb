@@ -59,6 +59,11 @@ class ExpedientesImporter
 
     def create_titulares(expediente, msexpediente)
       tmp_titulares = TmpTitular.where(numero_interno: expediente.numero_interno)
+      if expediente.agrupado
+        tmp_titulares = tmp_titulares.where(fuente: ['Entidad'])
+      else
+        tmp_titulares = tmp_titulares.where(fuente: ['Individual'])
+      end
       if tmp_titulares.count > 0
         tmp_titulares.each do |tmp_titular|
           expediente.titulares << Titular.find_or_create(tmp_titular.titular, tmp_titular.dni, tmp_titular.cuit)

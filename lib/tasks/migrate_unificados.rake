@@ -87,7 +87,10 @@ namespace :db do
         # Buscar/Crear titular
 
         tmp_titular = TmpTitular.where(numero_interno: expediente.numero_interno)
-        tmp_titular = tmp_titular.where(numero_productor: unificado.numero_productor) if unificado.numero_productor != '0'
+        if expediente.agrupado
+          tmp_titular - tmp_titular.where(fuente: 'agrupados')
+          tmp_titular = tmp_titular.where(numero_productor: unificado.numero_productor) if unificado.numero_productor != '0'
+        end
         tmp_titular = tmp_titular.first
 
         titular = Titular.find_or_create(tmp_titular.titular, tmp_titular.dni, tmp_titular.cuit) if tmp_titular
