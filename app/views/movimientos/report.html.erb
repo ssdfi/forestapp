@@ -40,7 +40,7 @@
   <div class="block">
     <div class="row">
       <div class="col-xs-12">
-        <table class="table table-bordered  ">
+        <table class="table table-bordered">
           <thead>
             <tr>
               <th>Actividad</th>
@@ -72,9 +72,7 @@
       </div>
     </div>
   </div>
-</section>
 
-<section>
   <h2>Plantaciones</h2>
   <div class="row">
     <div class="col-xs-12">
@@ -113,16 +111,16 @@
     <h2>Detalle por Titular</h2>
     <div class="row">
       <div class="col-xs-12">
-        <table class="table table-bordered table-condensed">
+        <table class="table table-bordered table-condensed table-compressed">
           <thead>
             <tr>
               <th>Actividad</th>
               <th>Titular</th>
               <th>Especie</th>
               <th>Tipo</th>
-              <th>Presentado</th>
-              <th>Certificado</th>
-              <th>Inspeccionado</th>
+              <th>Pres</th>
+              <th>Cert</th>
+              <th>Insp</th>
               <th>Observaciones</th>
             </tr>
           </thead>
@@ -132,8 +130,8 @@
                 <tr>
                   <td><%= actividad.tipo_actividad.descripcion %></td>
                   <td><%= actividad_titular.titular.nombre if actividad_titular.titular %></td>
-                  <td><%= actividad_titular.especie.codigo_sp if actividad_titular.especie %></td>
-                  <td><%= actividad_titular.tipo_plantacion.codigo if actividad_titular.tipo_plantacion %></td>
+                  <td><%= actividad_titular.especie.nombre_cientifico if actividad_titular.especie %></td>
+                  <td><%= actividad_titular.tipo_plantacion.descripcion if actividad_titular.tipo_plantacion %></td>
                   <td><%= actividad_titular.superficie_presentada %></td>
                   <td><%= actividad_titular.superficie_certificada %></td>
                   <td><%= actividad_titular.superficie_inspeccionada %></td>
