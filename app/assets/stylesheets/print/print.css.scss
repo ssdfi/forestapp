@@ -3,8 +3,8 @@
 
 @page {
   size: A4;
-  size: landscape;
-  margin: 50px;
+  // size: landscape;
+  margin: 1cm 1cm 1cm 3cm;
 }
 
 body {
@@ -51,7 +51,7 @@ h3 {
   .title {
     @extend .text-right;
     p {
-      font-size: 18px;
+      font-size: 16px;
       line-height: 15px;
       font-weight: bold;
     }
@@ -67,11 +67,15 @@ h3 {
 }
 
 section {
+  border: 1px solid #CCC;
   display: block;
   page-break-after: always;
-  border: 1px solid #CCC;
 }
 
 .table-condensed {
   margin-bottom: 0px;
+}
+
+.table-compressed {
+  font-size: 10px;
 }
