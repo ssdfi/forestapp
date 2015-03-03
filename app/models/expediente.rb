@@ -7,7 +7,8 @@ class Expediente < ActiveRecord::Base
 
   validates :numero_interno, presence: true
 
-  attr_reader :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal, :etapa, :responsable_id, :validado, :validador_id
+  attr_reader :incompleto, :fecha_entrada_desde, :fecha_entrada_hasta, :fecha_salida_desde, :fecha_salida_hasta, :pendiente,
+    :estabilidad_fiscal, :etapa, :responsable_id, :validado, :validador_id
 
   before_save :set_values
 
@@ -61,12 +62,20 @@ class Expediente < ActiveRecord::Base
     @responsable_id = value unless value.blank?
   end
 
-  def fecha_desde=(value)
-    @fecha_desde = value unless value.blank?
+  def fecha_entrada_desde=(value)
+    @fecha_entrada_desde = value unless value.blank?
   end
 
-  def fecha_hasta=(value)
-    @fecha_hasta = value unless value.blank?
+  def fecha_entrada_hasta=(value)
+    @fecha_entrada_hasta = value unless value.blank?
+  end
+
+  def fecha_salida_desde=(value)
+    @fecha_salida_desde = value unless value.blank?
+  end
+
+  def fecha_salida_hasta=(value)
+    @fecha_salida_hasta = value unless value.blank?
   end
 
   def validador_id=(value)
@@ -97,8 +106,10 @@ class Expediente < ActiveRecord::Base
       expedientes = expedientes.where("numero_expediente IS #{'NOT' unless expediente.incompleto} NULL") unless expediente.incompleto.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.responsable_id = ?", expediente.responsable_id) unless expediente.responsable_id.nil?
       expedientes = expedientes.joins(:movimientos).where("expedientes.anio = ? OR movimientos.etapa = ?", expediente.etapa.to_i, expediente.etapa.to_i) unless expediente.etapa.nil?
-      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", expediente.fecha_desde) unless expediente.fecha_desde.nil?
-      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", expediente.fecha_hasta) unless expediente.fecha_hasta.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada >= ?", expediente.fecha_entrada_desde) unless expediente.fecha_entrada_desde.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_entrada <= ?", expediente.fecha_entrada_hasta) unless expediente.fecha_entrada_hasta.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_salida >= ?", expediente.fecha_salida_desde) unless expediente.fecha_salida_desde.nil?
+      expedientes = expedientes.joins(:movimientos).where("movimientos.fecha_salida <= ?", expediente.fecha_salida_hasta) unless expediente.fecha_salida_hasta.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.estabilidad_fiscal = ?", expediente.estabilidad_fiscal) unless expediente.estabilidad_fiscal.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.validador_id IS #{'NOT' if expediente.validado} NULL") unless expediente.validado.nil?
       expedientes = expedientes.joins(:movimientos).where("movimientos.validador_id = ?", expediente.validador_id) unless expediente.validador_id.nil?
