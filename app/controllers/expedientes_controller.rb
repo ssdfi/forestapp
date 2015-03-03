@@ -87,7 +87,8 @@ class ExpedientesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def expediente_params
       params.require(:expediente).permit(:numero_interno, :numero_expediente, :tecnico_id, :zona_id,
-        :plurianual, :agrupado, :activo, :incompleto, :fecha_desde, :fecha_hasta, :pendiente, :estabilidad_fiscal,
+        :plurianual, :agrupado, :activo, :incompleto, :fecha_entrada_desde, :fecha_entrada_hasta,
+        :fecha_salida_desde, :fecha_salida_hasta, :pendiente, :estabilidad_fiscal,
         :etapa, :responsable_id, :validado, :validador_id, titular_ids: [])
     end
 end
