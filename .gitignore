@@ -18,3 +18,5 @@
 config/database.yml
 config/initializers/adauth.rb
 spec/config_helper.rb
+
+deploy.sh
