@@ -8,6 +8,7 @@ class EspeciesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to generos_path unless @genero
+        @especies = @genero.especies
       end
       format.json do
         @especie = params[:especie] ? Especie.new(especie_params) : Especie.new
