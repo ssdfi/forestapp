@@ -95,6 +95,12 @@ class Expediente < ActiveRecord::Base
   end
 
   ##
+  # Devuelve el último movimiento del expediente
+  def ultimo_movimiento
+    movimientos.order(:fecha_salida).last if movimientos.count > 0
+  end
+
+  ##
   # Busca los expedientes que coincidan con los atributos definidos en el objeto Expdiente pasado como parámetro
   def self.search(expediente)
     expedientes = all

@@ -9,5 +9,5 @@ csv.rows @expedientes do |csv, expediente|
   csv.cell :zona, expediente.zona.descripcion if expediente.zona
   csv.cell :departamento, expediente.departamento.descripcion if expediente.departamento
   csv.cell :tecnico, expediente.tecnico.nombre if expediente.tecnico
-  csv.cell :responsable, expediente.movimientos.last.responsable.nombre if expediente.movimientos.last and expediente.movimientos.last.responsable
+  csv.cell :responsable, expediente.ultimo_movimiento.responsable.nombre if expediente.ultimo_movimiento and expediente.ultimo_movimiento.responsable
 end
