@@ -97,6 +97,6 @@ class PlantacionesController < ApplicationController
     def plantacion_params
       params.require(:plantacion).permit(:titular_id, :anio_plantacion, :tipo_plantacion_id, :nomenclatura_catastral, :estado_plantacion_id,
         :distancia_plantas, :cantidad_filas, :distancia_filas, :densidad, :fuente_informacion_id, :fecha_informacion, :fuente_imagen_id,
-        :fecha_imagen, :zona_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id, :activo, especie_ids: [])
+        :fecha_imagen, :zona_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id, :activo, :comentarios, especie_ids: [])
     end
 end

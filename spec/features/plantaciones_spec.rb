@@ -51,6 +51,7 @@ feature "Plantaciones" do
       select_random_option find('#plantacion_uso_forestal_id')
       select_random_option find('#plantacion_uso_anterior_id')
       select_random_option find('#plantacion_objetivo_plantacion_id')
+      fill_in 'plantacion_comentarios', with: 'Comentarios'
       toggle_switch('plantacion_activo')
       click_on 'save-plantacion'
     end
@@ -98,18 +99,6 @@ feature "Plantaciones" do
     expect(current_path).to eq(plantaciones_path)
   end
 
-  scenario "Ver Mapa de Plantación" do
-    plantacion = Plantacion.where.not(geom: nil).where(tipo_plantacion_id: 1).first
-    visit plantacion_path(plantacion)
-    click_on 'nav-map-plantacion'
-    page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
-      expect(page).to have_selector('div.leaflet-overlay-pane svg g')
-      all('svg g')[0].click
-      wait_for_ajax
-      expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
-    end
-  end
-
   scenario "Reemplazar Plantación" do
     plantacion_nueva = Plantacion.last
     plantacion_anterior = Plantacion.first
@@ -122,5 +111,17 @@ feature "Plantaciones" do
     expect(page).to have_selector(:xpath, "//table[@id='plantaciones_nuevas']/tbody/tr/td[contains(., '#{plantacion_nueva.id}')]")
     visit plantacion_path(plantacion_nueva)
     expect(page).to have_selector(:xpath, "//table[@id='plantaciones_anteriores']/tbody/tr/td[contains(., '#{plantacion_anterior.id}')]")
+  end
+
+  scenario "Ver Mapa de Plantación" do
+    plantacion = Plantacion.where.not(geom: nil).where(tipo_plantacion_id: 1).first
+    visit plantacion_path(plantacion)
+    click_on 'nav-map-plantacion'
+    page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
+      expect(page).to have_selector('div.leaflet-overlay-pane svg g')
+      all('svg g')[0].click
+      wait_for_ajax
+      expect(page).to have_selector(:xpath, "//div[@class='leaflet-popup-content']/div/div[contains(., '#{plantacion.id}')]")
+    end
   end
 end
