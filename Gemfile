@@ -42,6 +42,7 @@ group :development do
   gem 'railroady'
   gem 'seed_dump'
   gem 'immigrant'
+  gem "awesome_print"
 end
 
 # Use debugger
