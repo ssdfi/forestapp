@@ -65,6 +65,7 @@
                 <th>Tipo</th>
                 <th>Superficie Registrada</th>
                 <th>Superficie</th>
+                <th>Estado</th>
                 <th>Observaciones</th>
                 <th class="icon hidden-print">Mapa</th>
               </tr>
@@ -78,6 +79,7 @@
                   <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>
                   <td><%= actividad_plantacion.superficie_registrada %></td>
                   <td><%= actividad_plantacion.plantacion.hectareas %></td>
+                  <td><%= actividad_plantacion.estado_aprobacion.descripcion if actividad_plantacion.estado_aprobacion %></td>
                   <td>
                     <abbr title="<%= actividad_plantacion.observaciones %>" data-length="20"></abbr>
                   </td>

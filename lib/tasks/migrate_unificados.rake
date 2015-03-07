@@ -37,45 +37,35 @@ namespace :db do
 
         if unificado.numero_interno.index('/')
           numero_interno = unificado.numero_interno
-          etapa = unificado.anio
         else
           numero_interno = "#{unificado.numero_interno}/#{unificado.anio.slice(-2,2)}"
         end
 
         expediente = Expediente.find_by_numero_interno(numero_interno)
 
+        etapa = unificado.anio if expediente and expediente.plurianual
+
         unless expediente
           expediente = Expediente.create!(
             numero_interno: numero_interno,
             zona: zona,
-            plurianual: !etapa.nil?,
             activo: true
           )
         end
 
         # Buscar/Crear movimiento
 
-        if etapa
-          movimiento = expediente.movimientos.where({etapa: etapa}).order(fecha_salida: :desc, fecha_entrada: :desc).first
-        else
-          movimiento = expediente.movimientos.order(fecha_salida: :desc, fecha_entrada: :desc).first
-        end
-
-        unless movimiento
-          movimiento = expediente.movimientos.create!(
-            etapa: etapa
-          )
-        end
+        movimientos = expediente.movimientos.where.not(fecha_salida: nil).order(fecha_salida: :desc, fecha_entrada: :desc)
+        movimientos = movimientos.where({etapa: etapa}) if etapa
+        movimiento = movimientos.first
+        movimiento = expediente.movimientos.create!(etapa: etapa) unless movimiento
 
         # Buscar/Crear actividad
 
         actividad = movimiento.actividades.where({tipo_actividad: tipo_actividad}).last
+        actividad = movimiento.actividades.create!(tipo_actividad: tipo_actividad) unless actividad
 
-        unless actividad
-          actividad = movimiento.actividades.create!(
-            tipo_actividad: tipo_actividad
-          )
-        end
+        # Crear ActividadPlantacion
 
         actividad_plantacion = plantacion.actividades_plantaciones.create!(
           actividad: actividad,
