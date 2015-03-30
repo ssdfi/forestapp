@@ -21,7 +21,7 @@
       </div>
       <div class="col-xs-6">
         <p><strong>Técnico: </strong><%= @expediente.tecnico.nombre if @expediente.tecnico %></p>
-        <p><strong>Fecha: </strong><%= l @movimiento.fecha_entrada if @movimiento.fecha_entrada %></p>
+        <p><strong>Fecha: </strong><%= l @movimiento.fecha_salida if @movimiento.fecha_salida %></p>
         <p><strong>Etapa: </strong><%= @movimiento.etapa if @expediente.plurianual %></p>
       </div>
     </div>
