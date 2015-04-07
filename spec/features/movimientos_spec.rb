@@ -63,4 +63,14 @@ feature "Movimientos" do
     wait_for_ajax
     expect(current_path).to eq(expediente_path(expediente))
   end
+
+  scenario "Generar Reporte" do
+    movimiento = Movimiento.last
+    visit expediente_movimiento_path(movimiento.expediente, movimiento)
+    click_on 'nav-report-movimiento'
+    page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
+      expect(current_path).to eq(expediente_movimiento_report_path(movimiento.expediente, movimiento))
+      expect(page).to have_selector(:xpath, "//p[.='#{movimiento.expediente.numero_expediente}']")
+    end
+  end
 end
