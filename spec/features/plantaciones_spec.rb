@@ -79,6 +79,8 @@ feature "Plantaciones" do
     especies = plantacion.especies.pluck(:nombre_cientifico)
     click_on 'nav-edit-plantacion'
     within("#edit_plantacion_#{plantacion.id}") do
+      click_on 'remove-titular'
+      expect(page).to have_field('plantacion_titular', with: '')
       fill_in 'plantacion_anio_plantacion', with: '2015'
       expect(page).to have_select('plantacion_especie_ids', options: especies)
       select(especies[0], from: 'plantacion_especie_ids')

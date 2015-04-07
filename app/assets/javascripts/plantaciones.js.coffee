@@ -26,6 +26,11 @@ $(document).ready ->
       $("#plantacion_titular").val($($(titular).parent().siblings()[0]).text())
     $("#titulares-modal").modal('hide')
 
+  ### Elimina el titular seleccionado ###
+  $("#remove-titular").click ->
+    $("#plantacion_titular_id").val('')
+    $("#plantacion_titular").val('')
+
   ### Elimina las especies seleccionadas ###
   $("#remove-especie").click ->
     for especie in $("#plantacion_especie_ids option:selected")
