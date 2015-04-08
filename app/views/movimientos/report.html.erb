@@ -91,12 +91,12 @@
         <tbody>
           <% @plantaciones.each do |index,value| %>
             <tr>
-              <td><%= Actividad.find(index[0]).tipo_actividad.descripcion %></td>
+              <td><%= Actividad.find(index[0]).tipo_actividad.descripcion  unless index[0].nil? %></td>
               <% if @movimiento.expediente.agrupado %>
-                <td><%= Titular.find(index[1]).nombre %></td>
+                <td><%= Titular.find(index[1]).nombre unless index[1].nil? %></td>
               <% end %>
-              <td><%= TipoPlantacion.find(index[2]).descripcion %></td>
-              <td><%= Especie.find(index[3]).nombre_cientifico %></td>
+              <td><%= TipoPlantacion.find(index[2]).descripcion unless index[2].nil? %></td>
+              <td><%= Especie.find(index[3]).nombre_cientifico unless index[3].nil? %></td>
               <td><%= value %></td>
             </tr>
           <% end %>
