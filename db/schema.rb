@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309115204) do
+ActiveRecord::Schema.define(version: 20150416195237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,9 +243,9 @@ ActiveRecord::Schema.define(version: 20150309115204) do
     t.decimal  "distancia_filas"
     t.string   "densidad"
     t.integer  "fuente_informacion_id"
-    t.integer  "fecha_informacion"
+    t.date     "fecha_informacion"
     t.integer  "fuente_imagen_id"
-    t.integer  "fecha_imagen"
+    t.date     "fecha_imagen"
     t.integer  "zona_id"
     t.integer  "departamento_id"
     t.integer  "estrato_desarrollo_id"

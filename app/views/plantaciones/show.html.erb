@@ -67,11 +67,11 @@
           <dt>Fuente de Información:</dt>
           <dd><%= @plantacion.fuente_informacion.descripcion if @plantacion.fuente_informacion %></dd>
           <dt>Fecha de Información:</dt>
-          <dd><%= @plantacion.fecha_informacion %></dd>
+          <dd><%= l @plantacion.fecha_informacion if @plantacion.fecha_informacion %></dd>
           <dt>Fuente de Imagen:</dt>
           <dd><%= @plantacion.fuente_imagen.descripcion if @plantacion.fuente_imagen %></dd>
           <dt>Fecha de Imagen:</dt>
-          <dd><%= @plantacion.fecha_imagen %></dd>
+          <dd><%= l @plantacion.fecha_imagen if @plantacion.fecha_imagen %></dd>
           <dt>Zona:</dt>
           <dd><%= @plantacion.zona.descripcion if @plantacion.zona %></dd>
           <dt>Departamento:</dt>
