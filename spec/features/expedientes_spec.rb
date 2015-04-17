@@ -82,8 +82,10 @@ feature "Expedientes" do
   scenario "Buscar Expedientes por fecha" do
     visit expedientes_path
     within("#new_expediente") do
-      fill_in 'expediente_fecha_desde', with: '01/01/2012'
-      fill_in 'expediente_fecha_hasta', with: '01/01/2013'
+      fill_in 'expediente_fecha_entrada_desde', with: '01/01/2012'
+      fill_in 'expediente_fecha_entrada_hasta', with: '01/01/2015'
+      fill_in 'expediente_fecha_salida_desde', with: '01/01/2012'
+      fill_in 'expediente_fecha_salida_hasta', with: '01/01/2015'
       click_on 'search'
     end
     expect(page).to have_selector('#expedientes tbody tr')

@@ -48,9 +48,9 @@
   <%= f.text_field :distancia_filas, label: "Distancia entre Filas" %>
   <%= f.number_field :densidad, label: "Densidad" %>
   <%= f.collection_select :fuente_informacion_id, FuenteInformacion.all, :id, :descripcion, {label: "Fuente de Información", include_blank: true} %>
-  <%= f.number_field :fecha_informacion, label: "Fecha de Información" %>
+  <%= f.date_field :fecha_informacion, label: "Fecha de Información" %>
   <%= f.collection_select :fuente_imagen_id, FuenteImagen.all, :id, :descripcion, {label: "Fuente de Imagen", include_blank: true} %>
-  <%= f.number_field :fecha_imagen, label: "Fecha de Imagen" %>
+  <%= f.date_field :fecha_imagen, label: "Fecha de Imagen" %>
   <%= f.collection_select :zona_id, Zona.all, :id, :descripcion, {label: "Zona", include_blank: true} %>
   <%= f.collection_select :departamento_id, (@plantacion.zona.departamentos if @plantacion.zona) || [], :id, :descripcion, {label: "Departamento", include_blank: true} %>
   <%= f.collection_select :estrato_desarrollo_id, EstratoDesarrollo.all, :id, :descripcion, {label: "Estrato de Desarrollo", include_blank: true} %>

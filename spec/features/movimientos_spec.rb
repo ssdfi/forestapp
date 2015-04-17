@@ -70,7 +70,7 @@ feature "Movimientos" do
     click_on 'nav-report-movimiento'
     page.driver.browser.switch_to.window page.driver.browser.window_handles.last do
       expect(current_path).to eq(expediente_movimiento_report_path(movimiento.expediente, movimiento))
-      expect(page).to have_selector(:xpath, "//p[.='#{movimiento.expediente.numero_expediente}']")
+      expect(page).to have_selector(:xpath, "//p[contains(., '#{movimiento.expediente.numero_interno}')]")
     end
   end
 end

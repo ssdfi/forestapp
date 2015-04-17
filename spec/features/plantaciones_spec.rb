@@ -41,9 +41,9 @@ feature "Plantaciones" do
       fill_in 'plantacion_distancia_filas', with: '8'
       fill_in 'plantacion_densidad', with: '8'
       select_random_option find('#plantacion_fuente_informacion_id')
-      fill_in 'plantacion_fecha_informacion', with: '2010'
+      fill_in 'plantacion_fecha_informacion', with: '01/01/2014'
       select_random_option find('#plantacion_fuente_imagen_id')
-      fill_in 'plantacion_fecha_imagen', with: '2010'
+      fill_in 'plantacion_fecha_imagen', with: '01/01/2014'
       select_random_option find('#plantacion_zona_id')
       page.has_selector?('#plantacion_departamento_id option')
       select_random_option find('#plantacion_departamento_id')
