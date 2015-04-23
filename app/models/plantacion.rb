@@ -5,6 +5,7 @@ class Plantacion < ActiveRecord::Base
   belongs_to :estado_plantacion
   belongs_to :fuente_informacion
   belongs_to :fuente_imagen
+  belongs_to :base_geometrica
   belongs_to :zona
   belongs_to :departamento
   belongs_to :estrato_desarrollo

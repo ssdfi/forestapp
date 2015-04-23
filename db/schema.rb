@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416195237) do
+ActiveRecord::Schema.define(version: 20150423213552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,11 @@ ActiveRecord::Schema.define(version: 20150416195237) do
   add_index "actividades_titulares", ["especie_id"], :name => "index_actividades_titulares_on_especie_id"
   add_index "actividades_titulares", ["tipo_plantacion_id"], :name => "index_actividades_titulares_on_tipo_plantacion_id"
   add_index "actividades_titulares", ["titular_id"], :name => "index_actividades_titulares_on_titular_id"
+
+  create_table "bases_geometricas", force: true do |t|
+    t.string "codigo"
+    t.string "descripcion"
+  end
 
   create_table "departamentos", force: true do |t|
     t.integer  "zona_id"
@@ -243,7 +248,7 @@ ActiveRecord::Schema.define(version: 20150416195237) do
     t.decimal  "distancia_filas"
     t.string   "densidad"
     t.integer  "fuente_informacion_id"
-    t.date     "fecha_informacion"
+    t.integer  "anio_informacion"
     t.integer  "fuente_imagen_id"
     t.date     "fecha_imagen"
     t.integer  "zona_id"
@@ -260,9 +265,11 @@ ActiveRecord::Schema.define(version: 20150416195237) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.spatial  "geom",                   limit: {:srid=>0, :type=>"geometry"}
+    t.integer  "base_geometrica_id"
   end
 
   add_index "plantaciones", ["activo"], :name => "index_plantaciones_on_activo"
+  add_index "plantaciones", ["base_geometrica_id"], :name => "index_plantaciones_on_base_geometrica_id"
   add_index "plantaciones", ["departamento_id"], :name => "index_plantaciones_on_departamento_id"
   add_index "plantaciones", ["error_id"], :name => "index_plantaciones_on_error_id"
   add_index "plantaciones", ["estado_plantacion_id"], :name => "index_plantaciones_on_estado_plantacion_id"

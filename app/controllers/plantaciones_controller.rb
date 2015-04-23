@@ -96,7 +96,8 @@ class PlantacionesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def plantacion_params
       params.require(:plantacion).permit(:titular_id, :anio_plantacion, :tipo_plantacion_id, :nomenclatura_catastral, :estado_plantacion_id,
-        :distancia_plantas, :cantidad_filas, :distancia_filas, :densidad, :fuente_informacion_id, :fecha_informacion, :fuente_imagen_id,
-        :fecha_imagen, :zona_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id, :activo, :comentarios, especie_ids: [])
+        :distancia_plantas, :cantidad_filas, :distancia_filas, :densidad, :fuente_informacion_id, :anio_informacion, :fuente_imagen_id,
+        :fecha_imagen, :base_geometrica_id, :zona_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id,
+        :activo, :comentarios, especie_ids: [])
     end
 end
