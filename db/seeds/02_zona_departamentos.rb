@@ -1,4 +1,4 @@
-Departamento.create!([
+ZonaDepartamento.create!([
   {zona_id: 1, codigo: "115", descripcion: "25 DE MAYO", codigo_indec: "06854"},
   {zona_id: 1, codigo: "080", descripcion: "9 DE JULIO", codigo_indec: "06588"},
   {zona_id: 1, codigo: "001", descripcion: "ADOLFO ALSINA", codigo_indec: "06007"},

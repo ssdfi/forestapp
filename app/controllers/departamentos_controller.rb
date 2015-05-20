@@ -1,11 +1,11 @@
 class DepartamentosController < ApplicationController
-  before_action :set_zona
+  before_action :set_provincia
   before_action :set_departamento, only: [:show, :edit, :update, :destroy]
 
   # GET /departamentos
   # GET /departamentos.json
   def index
-    @departamentos = @zona.departamentos.order(:codigo)
+    @departamentos = @provincia.departamentos.order(:nombre)
   end
 
   # GET /departamentos/1
@@ -15,7 +15,7 @@ class DepartamentosController < ApplicationController
 
   # GET /departamentos/new
   def new
-    @departamento = @zona.departamentos.new
+    @departamento = @provincia.departamentos.new
   end
 
   # GET /departamentos/1/edit
@@ -25,12 +25,12 @@ class DepartamentosController < ApplicationController
   # POST /departamentos
   # POST /departamentos.json
   def create
-    @departamento = @zona.departamentos.new(departamento_params)
+    @departamento = @provincia.departamentos.new(departamento_params)
 
     respond_to do |format|
       if @departamento.save
-        format.html { redirect_to [@zona, @departamento], notice: 'Departamento was successfully created.' }
-        format.json { render :show, status: :created, location: [@zona, @departamento] }
+        format.html { redirect_to [@provincia, @departamento], notice: 'Departamento was successfully created.' }
+        format.json { render :show, status: :created, location: [@provincia, @departamento] }
       else
         format.html { render :new }
         format.json { render json: @departamento.errors, status: :unprocessable_entity }
@@ -43,8 +43,8 @@ class DepartamentosController < ApplicationController
   def update
     respond_to do |format|
       if @departamento.update(departamento_params)
-        format.html { redirect_to [@zona, @departamento], notice: 'Departamento was successfully updated.' }
-        format.json { render :show, status: :ok, location: [@zona, @departamento] }
+        format.html { redirect_to [@provincia, @departamento], notice: 'Departamento was successfully updated.' }
+        format.json { render :show, status: :ok, location: [@provincia, @departamento] }
       else
         format.html { render :edit }
         format.json { render json: @departamento.errors, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class DepartamentosController < ApplicationController
   def destroy
     @departamento.destroy
     respond_to do |format|
-      format.html { redirect_to zona_departamentos_url(@zona), notice: 'Departamento was successfully destroyed.' }
+      format.html { redirect_to provincia_departamentos_url(@provincia), notice: 'Departamento was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,12 +68,12 @@ class DepartamentosController < ApplicationController
       @departamento = Departamento.find(params[:id])
     end
 
-    def set_zona
-      @zona = Zona.find(params[:zona_id])
+    def set_provincia
+      @provincia = Provincia.find(params[:provincia_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def departamento_params
-      params.require(:departamento).permit(:zona_id, :codigo, :descripcion, :codigo_indec)
+      params.require(:departamento).permit(:provincia_id, :nombre)
     end
 end

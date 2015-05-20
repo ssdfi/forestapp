@@ -214,7 +214,7 @@ feature "Expedientes" do
     expect(find('#nav_expediente')).to have_content(expediente.numero_interno)
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{expediente.id}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{expediente.zona.descripcion}']")
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{expediente.departamento.descripcion}']")
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{expediente.zona_departamento.descripcion}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{expediente.anio}']")
     expect(page).to have_selector('table#movimientos')
   end

@@ -1,0 +1,8 @@
+<h1>Editing zona_departamento</h1>
+
+<%= form_for [@zona, @zona_departamento], url: zona_zona_departamento_path(@zona, @zona_departamento) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
+
+<%= link_to 'Show', [@zona, @zona_departamento] %> |
+<%= link_to 'Back', zona_zona_departamentos_path(@zona) %>
