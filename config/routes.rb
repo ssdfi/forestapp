@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     end
 
     resources :zonas do
+      resources :zona_departamentos
+    end
+
+    resources :provincias do
       resources :departamentos
     end
 

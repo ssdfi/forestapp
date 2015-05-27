@@ -1,6 +1,6 @@
 class Expediente < ActiveRecord::Base
   belongs_to :zona
-  belongs_to :departamento
+  belongs_to :zona_departamento
   belongs_to :tecnico
   has_many :movimientos
   has_and_belongs_to_many :titulares
@@ -17,7 +17,7 @@ class Expediente < ActiveRecord::Base
   def set_values
     if numero_interno_changed?
       self.zona = Zona.find_by_codigo(numero_interno[0..1])
-      self.departamento = zona.departamentos.find_by_codigo(numero_interno[3..5]) if zona
+      self.zona_departamento = zona.zona_departamentos.find_by_codigo(numero_interno[3..5]) if zona
       self.anio = numero_interno[11..12].to_i < 80 ? numero_interno[11..12].to_i + 2000 : numero_interno[11..12].to_i + 1900
     end
   end

@@ -1,33 +1,30 @@
-<%= form_for [@zona, @departamento] do |f| %>
-  <% if @departamento.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@departamento.errors.count, "error") %> prohibited this departamento from being saved:</h2>
+<% if @departamento.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@departamento.errors.count, "error") %> prohibited this departamento from being saved:</h2>
 
-      <ul>
-      <% @departamento.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :zona_id %><br>
-    <%= f.collection_select :zona_id, Zona.all, :id, :descripcion %>
-  </div>
-  <div class="field">
-    <%= f.label :codigo %><br>
-    <%= f.text_field :codigo %>
-  </div>
-  <div class="field">
-    <%= f.label :descripcion %><br>
-    <%= f.text_field :descripcion %>
-  </div>
-  <div class="field">
-    <%= f.label :codigo_indec %><br>
-    <%= f.text_field :codigo_indec %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <ul>
+    <% @departamento.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
   </div>
 <% end %>
+
+<div class="field">
+  <%= f.label :provincia_id %><br>
+  <%= f.collection_select :provincia_id, Provincia.all, :id, :nombre %>
+</div>
+
+<div class="field">
+  <%= f.label :nombre %><br>
+  <%= f.text_field :nombre %>
+</div>
+
+<div class="field">
+  <%= f.label :codigo %><br>
+  <%= f.text_field :codigo %>
+</div>
+
+<div class="actions">
+  <%= f.submit %>
+</div>

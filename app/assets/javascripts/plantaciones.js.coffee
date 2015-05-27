@@ -63,16 +63,18 @@ $(document).ready ->
       )
     $("#especies-modal").modal('hide')
 
-  ### Busca y carga los departamentos pertenecientes a la zona seleccionada ###
-  $("#plantacion_zona_id").change ->
+  ### Busca y carga los departamentos pertenecientes a la provincia seleccionada ###
+  $("#plantacion_provincia_id").change ->
     $("#plantacion_departamento_id").prop('disabled', true);
     $("#plantacion_departamento_id").empty()
-    if $("#plantacion_zona_id").val()
-      $.ajax(url: "/zonas/" + $("#plantacion_zona_id").val() + "/departamentos.json").done (data) ->
-        $("#plantacion_departamento_id").append($("<option />"))
+    $("#plantacion_departamento_id").append($("<option />"))
+    if $("#plantacion_provincia_id").val()
+      $.ajax(url: "/provincias/" + $("#plantacion_provincia_id").val() + "/departamentos.json").done (data) ->
         for departamento in $(data)
-          $("#plantacion_departamento_id").append($("<option />").val(departamento.id).text(departamento.descripcion))
-        $("#plantacion_departamento_id").prop('disabled', false);
+          $("#plantacion_departamento_id").append($("<option />").val(departamento.id).text(departamento.nombre))
+        $("#plantacion_departamento_id").prop('disabled', false)
+    else
+      $("#plantacion_departamento_id").prop('disabled', false)
 
   ### Selecciona todos las especies del listado antes ejectuar el submit del formulario ###
   $("form").submit ->

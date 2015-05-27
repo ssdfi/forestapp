@@ -18,6 +18,8 @@ Rails.application.config.assets.precompile += %w(
   titulares.js
   tecnicos.js
   zonas.js
+  zona_departamentos.js
+  provincias.js
   departamentos.js
   generos.js
   especies.js

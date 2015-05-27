@@ -1,5 +1,4 @@
 class Departamento < ActiveRecord::Base
-  belongs_to :zona
+  belongs_to :provincia
   has_many :plantaciones
-  has_many :expedientes
 end

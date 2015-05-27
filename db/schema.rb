@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423213552) do
+ActiveRecord::Schema.define(version: 20150519175652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,16 +69,16 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   end
 
   create_table "departamentos", force: true do |t|
-    t.integer  "zona_id"
-    t.string   "codigo"
-    t.string   "descripcion"
-    t.string   "codigo_indec"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "provincia_id"
+    t.string  "nombre"
+    t.string  "codigo"
+    t.spatial "geom",         limit: {:srid=>0, :type=>"multi_polygon"}
   end
 
   add_index "departamentos", ["codigo"], :name => "index_departamentos_on_codigo"
-  add_index "departamentos", ["zona_id"], :name => "index_departamentos_on_zona_id"
+  add_index "departamentos", ["geom"], :name => "index_departamentos_on_geom", :spatial => true
+  add_index "departamentos", ["nombre"], :name => "index_departamentos_on_nombre"
+  add_index "departamentos", ["provincia_id"], :name => "index_departamentos_on_provincia_id"
 
   create_table "destinos", force: true do |t|
     t.string   "codigo"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20150423213552) do
     t.string   "numero_expediente"
     t.integer  "tecnico_id"
     t.integer  "zona_id"
-    t.integer  "departamento_id"
+    t.integer  "zona_departamento_id"
     t.boolean  "agrupado"
     t.boolean  "plurianual"
     t.boolean  "activo"
@@ -154,10 +154,10 @@ ActiveRecord::Schema.define(version: 20150423213552) do
     t.datetime "updated_at"
   end
 
-  add_index "expedientes", ["departamento_id"], :name => "index_expedientes_on_departamento_id"
   add_index "expedientes", ["numero_expediente"], :name => "index_expedientes_on_numero_expediente"
   add_index "expedientes", ["numero_interno"], :name => "index_expedientes_on_numero_interno"
   add_index "expedientes", ["tecnico_id"], :name => "index_expedientes_on_tecnico_id"
+  add_index "expedientes", ["zona_departamento_id"], :name => "index_expedientes_on_zona_departamento_id"
   add_index "expedientes", ["zona_id"], :name => "index_expedientes_on_zona_id"
 
   create_table "expedientes_titulares", id: false, force: true do |t|
@@ -191,6 +191,20 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   end
 
   add_index "generos", ["codigo"], :name => "index_generos_on_codigo"
+
+  create_table "ign_departamentos", primary_key: "gid", force: true do |t|
+    t.string  "nombre",     limit: 254
+    t.string  "provincia_", limit: 254
+    t.string  "cod_depto_", limit: 254
+    t.string  "cabecera",   limit: 254
+    t.string  "fuente_",    limit: 254
+    t.spatial "geom",       limit: {:srid=>4326, :type=>"multi_polygon"}
+  end
+
+  create_table "ign_provincias", primary_key: "gid", force: true do |t|
+    t.string  "nprov", limit: 100
+    t.spatial "geom",  limit: {:srid=>4326, :type=>"multi_polygon", :has_z=>true}
+  end
 
   create_table "inspectores", force: true do |t|
     t.string   "codigo"
@@ -251,8 +265,6 @@ ActiveRecord::Schema.define(version: 20150423213552) do
     t.integer  "anio_informacion"
     t.integer  "fuente_imagen_id"
     t.date     "fecha_imagen"
-    t.integer  "zona_id"
-    t.integer  "departamento_id"
     t.integer  "estrato_desarrollo_id"
     t.integer  "uso_forestal_id"
     t.integer  "uso_anterior_id"
@@ -266,6 +278,8 @@ ActiveRecord::Schema.define(version: 20150423213552) do
     t.datetime "updated_at"
     t.spatial  "geom",                   limit: {:srid=>0, :type=>"geometry"}
     t.integer  "base_geometrica_id"
+    t.integer  "provincia_id"
+    t.integer  "departamento_id"
   end
 
   add_index "plantaciones", ["activo"], :name => "index_plantaciones_on_activo"
@@ -278,11 +292,11 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   add_index "plantaciones", ["fuente_informacion_id"], :name => "index_plantaciones_on_fuente_informacion_id"
   add_index "plantaciones", ["geom"], :name => "index_plantaciones_on_geom", :spatial => true
   add_index "plantaciones", ["objetivo_plantacion_id"], :name => "index_plantaciones_on_objetivo_plantacion_id"
+  add_index "plantaciones", ["provincia_id"], :name => "index_plantaciones_on_provincia_id"
   add_index "plantaciones", ["tipo_plantacion_id"], :name => "index_plantaciones_on_tipo_plantacion_id"
   add_index "plantaciones", ["titular_id"], :name => "index_plantaciones_on_titular_id"
   add_index "plantaciones", ["uso_anterior_id"], :name => "index_plantaciones_on_uso_anterior_id"
   add_index "plantaciones", ["uso_forestal_id"], :name => "index_plantaciones_on_uso_forestal_id"
-  add_index "plantaciones", ["zona_id"], :name => "index_plantaciones_on_zona_id"
 
   create_table "plantaciones_historico", id: false, force: true do |t|
     t.integer "plantacion_nueva_id"
@@ -291,6 +305,16 @@ ActiveRecord::Schema.define(version: 20150423213552) do
 
   add_index "plantaciones_historico", ["plantacion_anterior_id"], :name => "index_plantaciones_historico_on_plantacion_anterior_id"
   add_index "plantaciones_historico", ["plantacion_nueva_id"], :name => "index_plantaciones_historico_on_plantacion_nueva_id"
+
+  create_table "provincias", force: true do |t|
+    t.string  "nombre"
+    t.string  "codigo"
+    t.spatial "geom",   limit: {:srid=>4326, :type=>"multi_polygon"}
+  end
+
+  add_index "provincias", ["codigo"], :name => "index_provincias_on_codigo"
+  add_index "provincias", ["geom"], :name => "index_provincias_on_geom", :spatial => true
+  add_index "provincias", ["nombre"], :name => "index_provincias_on_nombre"
 
   create_table "responsables", force: true do |t|
     t.string   "codigo"
@@ -309,6 +333,18 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   end
 
   add_index "tecnicos", ["nombre"], :name => "index_tecnicos_on_nombre"
+
+  create_table "test", id: false, force: true do |t|
+    t.integer "id"
+    t.spatial "geom", limit: {:srid=>0, :type=>"geometry"}
+  end
+
+  create_table "test_plantaciones", id: false, force: true do |t|
+    t.integer "id"
+    t.integer "provincia_id"
+    t.integer "departamento_id"
+    t.spatial "geom",            limit: {:srid=>0, :type=>"geometry"}
+  end
 
   create_table "tipos_actividad", force: true do |t|
     t.string   "codigo"
@@ -420,6 +456,18 @@ ActiveRecord::Schema.define(version: 20150423213552) do
 
   add_index "usos_forestales", ["codigo"], :name => "index_usos_forestales_on_codigo"
 
+  create_table "zona_departamentos", force: true do |t|
+    t.integer  "zona_id"
+    t.string   "codigo"
+    t.string   "descripcion"
+    t.string   "codigo_indec"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "zona_departamentos", ["codigo"], :name => "index_zona_departamentos_on_codigo"
+  add_index "zona_departamentos", ["zona_id"], :name => "index_zona_departamentos_on_zona_id"
+
   create_table "zonas", force: true do |t|
     t.string   "codigo"
     t.string   "descripcion"
@@ -444,15 +492,15 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   add_foreign_key "actividades_titulares", "tipos_plantacion", name: "actividades_titulares_tipo_plantacion_id_fk", dependent: :nullify
   add_foreign_key "actividades_titulares", "titulares", name: "actividades_titulares_titular_id_fk", dependent: :delete
 
-  add_foreign_key "departamentos", "zonas", name: "departamentos_zona_id_fk", dependent: :delete
+  add_foreign_key "departamentos", "provincias", name: "departamentos_provincia_id_fk"
 
   add_foreign_key "especies", "generos", name: "especies_genero_id_fk", dependent: :delete
 
   add_foreign_key "especies_plantaciones", "especies", name: "especies_plantaciones_especie_id_fk", dependent: :delete
   add_foreign_key "especies_plantaciones", "plantaciones", name: "especies_plantaciones_plantacion_id_fk", dependent: :delete
 
-  add_foreign_key "expedientes", "departamentos", name: "expedientes_departamento_id_fk", dependent: :nullify
   add_foreign_key "expedientes", "tecnicos", name: "expedientes_tecnico_id_fk", dependent: :nullify
+  add_foreign_key "expedientes", "zona_departamentos", name: "expedientes_departamento_id_fk", dependent: :nullify
   add_foreign_key "expedientes", "zonas", name: "expedientes_zona_id_fk", dependent: :nullify
 
   add_foreign_key "expedientes_titulares", "expedientes", name: "expedientes_titulares_expediente_id_fk", dependent: :delete
@@ -465,20 +513,22 @@ ActiveRecord::Schema.define(version: 20150423213552) do
   add_foreign_key "movimientos", "responsables", name: "movimientos_responsable_id_fk", column: "responsable_id", dependent: :nullify
   add_foreign_key "movimientos", "responsables", name: "movimientos_validador_id_fk", column: "validador_id", dependent: :nullify
 
-  add_foreign_key "plantaciones", "departamentos", name: "plantaciones_departamento_id_fk", dependent: :nullify
+  add_foreign_key "plantaciones", "departamentos", name: "plantaciones_departamento_id_fk"
   add_foreign_key "plantaciones", "errores", name: "plantaciones_error_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "estados_plantacion", name: "plantaciones_estado_plantacion_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "estratos_desarrollo", name: "plantaciones_estrato_desarrollo_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "fuentes_imagen", name: "plantaciones_fuente_imagen_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "fuentes_informacion", name: "plantaciones_fuente_informacion_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "objetivos_plantacion", name: "plantaciones_objetivo_plantacion_id_fk", dependent: :nullify
+  add_foreign_key "plantaciones", "provincias", name: "plantaciones_provincia_id_fk"
   add_foreign_key "plantaciones", "tipos_plantacion", name: "plantaciones_tipo_plantacion_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "titulares", name: "plantaciones_titular_id_fk", dependent: :nullify
   add_foreign_key "plantaciones", "usos_anteriores", name: "plantaciones_uso_anterior_id_fk", column: "uso_anterior_id", dependent: :nullify
   add_foreign_key "plantaciones", "usos_forestales", name: "plantaciones_uso_forestal_id_fk", column: "uso_forestal_id", dependent: :nullify
-  add_foreign_key "plantaciones", "zonas", name: "plantaciones_zona_id_fk", dependent: :nullify
 
   add_foreign_key "plantaciones_historico", "plantaciones", name: "plantaciones_historico_plantacion_anterior_id_fk", column: "plantacion_anterior_id", dependent: :delete
   add_foreign_key "plantaciones_historico", "plantaciones", name: "plantaciones_historico_plantacion_nueva_id_fk", column: "plantacion_nueva_id", dependent: :delete
+
+  add_foreign_key "zona_departamentos", "zonas", name: "departamentos_zona_id_fk"
 
 end

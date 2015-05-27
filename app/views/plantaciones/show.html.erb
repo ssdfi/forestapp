@@ -74,10 +74,10 @@
           <dd><%= l @plantacion.fecha_imagen if @plantacion.fecha_imagen %></dd>
           <dt>Base Geométrica:</dt>
           <dd><%= @plantacion.base_geometrica.descripcion if @plantacion.base_geometrica %></dd>
-          <dt>Zona:</dt>
-          <dd><%= @plantacion.zona.descripcion if @plantacion.zona %></dd>
+          <dt>Provincia:</dt>
+          <dd><%= @plantacion.provincia.nombre if @plantacion.provincia %></dd>
           <dt>Departamento:</dt>
-          <dd><%= @plantacion.departamento.descripcion if @plantacion.departamento %></dd>
+          <dd><%= @plantacion.departamento.nombre if @plantacion.departamento %></dd>
           <dt>Estrato de Desarrollo:</dt>
           <dd><%= @plantacion.estrato_desarrollo.descripcion if @plantacion.estrato_desarrollo %></dd>
           <dt>Uso Forestal:</dt>

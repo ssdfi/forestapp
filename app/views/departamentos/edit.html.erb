@@ -1,6 +1,8 @@
 <h1>Editing departamento</h1>
 
-<%= render 'form' %>
+<%= form_for [@provincia, @departamento], url: provincia_departamento_path(@provincia, @departamento) do |f| %>
+  <%= render 'form', f: f %>
+<% end %>
 
-<%= link_to 'Show', [@zona, @departamento] %> |
-<%= link_to 'Back', zona_departamentos_path(@zona) %>
+<%= link_to 'Show', [@provincia, @departamento] %> |
+<%= link_to 'Back', provincia_departamentos_path(@provincia) %>

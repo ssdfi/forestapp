@@ -6,7 +6,7 @@ class Plantacion < ActiveRecord::Base
   belongs_to :fuente_informacion
   belongs_to :fuente_imagen
   belongs_to :base_geometrica
-  belongs_to :zona
+  belongs_to :provincia
   belongs_to :departamento
   belongs_to :estrato_desarrollo
   belongs_to :uso_forestal
@@ -49,7 +49,7 @@ class Plantacion < ActiveRecord::Base
   end
 
   ##
-  # Devuelve la plantación en formato GeoJSON
+  # Devuelve la plantación con algunos datos en formato GeoJSON
   def to_geojson
     geoutil = GeoUtil.instance
     geoutil.encode_json(to_feature)
@@ -60,7 +60,7 @@ class Plantacion < ActiveRecord::Base
   def to_feature
     geoutil = GeoUtil.instance
     geoutil.feature_to_geojson(
-      geoutil.cast(geom, 4326, true),
+      to_wgs84,
       id,
       {
         "ID" => id,
@@ -69,6 +69,23 @@ class Plantacion < ActiveRecord::Base
         "Superficie" => hectareas || ''
       }
     )
+  end
+
+  ##
+  # Devuelve la plantación transformada en WGS84 Lat/Lng
+  def to_wgs84
+    geoutil = GeoUtil.instance
+    sql = "SELECT ST_AsText(ST_Transform(geom, 4326)) geom FROM plantaciones where id = #{self.id};"
+    cursor = Plantacion.connection.execute(sql)
+    geoutil.factory(4326).parse_wkt(cursor.first["geom"])
+  end
+
+  ##
+  # Devuelve la geometría de la plantación en formato GeoJSON usando PostGIS directamente
+  def as_geojson
+    sql = "SELECT ST_AsGeoJson(ST_Transform(geom, 4326)) geojson FROM plantaciones where id = #{self.id};"
+    cursor = Plantacion.connection.execute(sql)
+    cursor.first["geojson"]
   end
 
   ##
