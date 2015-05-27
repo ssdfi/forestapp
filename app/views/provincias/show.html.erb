@@ -5,6 +5,11 @@
   <%= @provincia.nombre %>
 </p>
 
+<p>
+  <strong>Código:</strong>
+  <%= @provincia.codigo %>
+</p>
+
 <%= link_to 'Edit', edit_provincia_path(@provincia) %> |
 <%= link_to 'Back', provincias_path %> |
 <%= link_to 'Departamentos', provincia_departamentos_path(@provincia) %>

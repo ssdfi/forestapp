@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Nombre</th>
+      <th>Código</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,6 +13,7 @@
     <% @provincias.each do |provincia| %>
       <tr>
         <td><%= provincia.nombre %></td>
+        <td><%= provincia.codigo %></td>
         <td><%= link_to 'Show', provincia %></td>
         <td><%= link_to 'Edit', edit_provincia_path(provincia) %></td>
         <td><%= link_to 'Destroy', provincia, method: :delete, data: { confirm: 'Are you sure?' } %></td>

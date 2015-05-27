@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150519175652) do
     t.spatial "geom",         limit: {:srid=>0, :type=>"multi_polygon"}
   end
 
+  add_index "departamentos", ["codigo"], :name => "index_departamentos_on_codigo"
   add_index "departamentos", ["geom"], :name => "index_departamentos_on_geom", :spatial => true
   add_index "departamentos", ["nombre"], :name => "index_departamentos_on_nombre"
   add_index "departamentos", ["provincia_id"], :name => "index_departamentos_on_provincia_id"
@@ -307,9 +308,11 @@ ActiveRecord::Schema.define(version: 20150519175652) do
 
   create_table "provincias", force: true do |t|
     t.string  "nombre"
+    t.string  "codigo"
     t.spatial "geom",   limit: {:srid=>4326, :type=>"multi_polygon"}
   end
 
+  add_index "provincias", ["codigo"], :name => "index_provincias_on_codigo"
   add_index "provincias", ["geom"], :name => "index_provincias_on_geom", :spatial => true
   add_index "provincias", ["nombre"], :name => "index_provincias_on_nombre"
 
@@ -330,6 +333,18 @@ ActiveRecord::Schema.define(version: 20150519175652) do
   end
 
   add_index "tecnicos", ["nombre"], :name => "index_tecnicos_on_nombre"
+
+  create_table "test", id: false, force: true do |t|
+    t.integer "id"
+    t.spatial "geom", limit: {:srid=>0, :type=>"geometry"}
+  end
+
+  create_table "test_plantaciones", id: false, force: true do |t|
+    t.integer "id"
+    t.integer "provincia_id"
+    t.integer "departamento_id"
+    t.spatial "geom",            limit: {:srid=>0, :type=>"geometry"}
+  end
 
   create_table "tipos_actividad", force: true do |t|
     t.string   "codigo"

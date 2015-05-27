@@ -8,6 +8,7 @@ class RecreateDepartamentos < ActiveRecord::Migration
     end
     add_index :departamentos, :geom, using: :gist
     add_index :departamentos, :nombre
+    add_index :departamentos, :codigo
     add_foreign_key :departamentos, :provincias
 
     change_table :plantaciones do |t|

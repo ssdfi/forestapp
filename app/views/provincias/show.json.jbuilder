@@ -1,1 +1,1 @@
-json.extract! @zona, :id, :nombre
+json.extract! @zona, :id, :nombre, :codigo

@@ -10,5 +10,11 @@
   <%= @departamento.nombre %>
 </p>
 
+
+<p>
+  <strong>Código:</strong>
+  <%= @departamento.codigo %>
+</p>
+
 <%= link_to 'Edit', edit_provincia_departamento_path(@provincia, @departamento) %> |
 <%= link_to 'Back', provincia_departamentos_path(@provincia) %>
