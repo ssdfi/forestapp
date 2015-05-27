@@ -1,0 +1,35 @@
+<h1>Listing zona_departamentos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Zona</th>
+      <th>Codigo</th>
+      <th>Descripcion</th>
+      <th>Codigo indec</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @zona_departamentos.each do |zona_departamento| %>
+      <tr>
+        <td><%= zona_departamento.zona_id %></td>
+        <td><%= zona_departamento.codigo %></td>
+        <td><%= zona_departamento.descripcion %></td>
+        <td><%= zona_departamento.codigo_indec %></td>
+        <td><%= link_to 'Show', [@zona, zona_departamento] %></td>
+        <td><%= link_to 'Edit', edit_zona_zona_departamento_path(@zona, zona_departamento) %></td>
+        <td><%= link_to 'Destroy', [@zona, zona_departamento], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Departamento', new_zona_zona_departamento_path(@zona) %>
+
+<br>
+
+<%= link_to 'Zona', zona_path(@zona) %>

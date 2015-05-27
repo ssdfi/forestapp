@@ -2,23 +2,19 @@
 
 <p>
   <strong>Zona:</strong>
-  <%= @departamento.zona_id %>
+  <%= @departamento.provincia_id %>
 </p>
 
 <p>
-  <strong>Codigo:</strong>
+  <strong>Nombre:</strong>
+  <%= @departamento.nombre %>
+</p>
+
+
+<p>
+  <strong>Código:</strong>
   <%= @departamento.codigo %>
 </p>
 
-<p>
-  <strong>Descripcion:</strong>
-  <%= @departamento.descripcion %>
-</p>
-
-<p>
-  <strong>Codigo indec:</strong>
-  <%= @departamento.codigo_indec %>
-</p>
-
-<%= link_to 'Edit', edit_zona_departamento_path(@zona, @departamento) %> |
-<%= link_to 'Back', zona_departamentos_path(@zona) %>
+<%= link_to 'Edit', edit_provincia_departamento_path(@provincia, @departamento) %> |
+<%= link_to 'Back', provincia_departamentos_path(@provincia) %>

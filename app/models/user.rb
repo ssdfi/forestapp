@@ -19,6 +19,15 @@ class User
     )
   end
 
+  ##
+  # Genera un usuario admin (Sólo para usar en desarrollo)
+  def self.admin_user
+    return User.new(
+      name: 'Admin User',
+      groups: [ADMIN_GROUP, EDITOR_GROUP]
+    )
+  end
+
   def admin?
     groups.include? ADMIN_GROUP
   end

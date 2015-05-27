@@ -44,8 +44,8 @@ feature "Plantaciones" do
       fill_in 'plantacion_anio_informacion', with: '2014'
       select_random_option find('#plantacion_fuente_imagen_id')
       fill_in 'plantacion_fecha_imagen', with: '01/01/2014'
-      select_random_option find('#plantacion_zona_id')
       select_random_option find('#plantacion_base_geometrica_id')
+      select_random_option find('#plantacion_provincia_id')
       page.has_selector?('#plantacion_departamento_id option')
       select_random_option find('#plantacion_departamento_id')
       select_random_option find('#plantacion_estrato_desarrollo_id')
@@ -68,7 +68,7 @@ feature "Plantaciones" do
     plantacion = Plantacion.joins(:expedientes).last
     visit plantacion_path(plantacion)
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.id}']")
-    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.zona.descripcion}']")
+    expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.provincia.nombre}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd[.='#{plantacion.tipo_plantacion.descripcion}']")
     expect(page).to have_selector(:xpath, "//div[@class='panel-body']/dl/dd/ul/li[.='#{plantacion.especies.last.nombre_cientifico}']")
     expect(page).to have_selector('table#expedientes')

@@ -16,7 +16,7 @@
     <div class="row">
       <div class="col-xs-6">
         <p><strong>Zona: </strong><%= @expediente.zona.descripcion if @expediente.zona %></p>
-        <p><strong>Departamento: </strong><%= @expediente.departamento.descripcion if @expediente.departamento %></p>
+        <p><strong>Departamento: </strong><%= @expediente.zona_departamento.descripcion if @expediente.zona_departamento %></p>
         <p><strong>Titular: </strong><%= @expediente.titulares.map{ |e| e.nombre }.join(' - ') %></p>
       </div>
       <div class="col-xs-6">
