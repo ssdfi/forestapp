@@ -75,7 +75,9 @@
                 <tr data-link="<%= plantacion_path(actividad_plantacion.plantacion) %>">
                   <td><%= actividad_plantacion.plantacion.id %></td>
                   <td><%= link_to actividad_plantacion.plantacion.titular.nombre, actividad_plantacion.plantacion.titular if actividad_plantacion.plantacion.titular %></td>
-                  <td><%= actividad_plantacion.plantacion.especies.first.nombre_comun if actividad_plantacion.plantacion.especies.count > 0 %></td>
+                  <td>
+                    <abbr title="<%= actividad_plantacion.plantacion.especies.map{ |e| e.nombre_cientifico }.join(' - ') %>" data-length="20"></abbr>
+                  </td>
                   <td><%= actividad_plantacion.plantacion.tipo_plantacion.descripcion if actividad_plantacion.plantacion.tipo_plantacion %></td>
                   <td><%= actividad_plantacion.superficie_registrada %></td>
                   <td><%= actividad_plantacion.plantacion.hectareas %></td>
