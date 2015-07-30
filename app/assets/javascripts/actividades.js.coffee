@@ -1,3 +1,5 @@
+#= require jquery_nested_form
+
 $(document).ready ->
 
   ###*
@@ -40,3 +42,7 @@ $(document).ready ->
         .always () ->
           input.prop('disabled', false)
           button.prop('disabled', false)
+
+
+  $(document).on 'nested:fieldRemoved', (event) ->
+    $('[required]', event.field).removeAttr('required')
