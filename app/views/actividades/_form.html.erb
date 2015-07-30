@@ -46,8 +46,10 @@
               <td>
                 <%= apf.number_field :numero_plantas, hide_label: true %>
               </td>
-              <td>
-                <%= apf.text_field :superficie_registrada, hide_label: true %>
+              <td width="200px">
+                <%= apf.text_field :superficie_registrada, hide_label: true,
+                  append: button_tag("<span class='glyphicon glyphicon-circle-arrow-down'></span>".html_safe,
+                    {type: "button", class: "btn btn-default hectareas"}) %>
               </td>
               <td>
                 <%= apf.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, hide_label: true %>
@@ -87,12 +89,14 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
-            <%= bootstrap_form_tag layout: :horizontal do |f| %>
+            <%= bootstrap_form_tag layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
               <%= f.text_area "plantaciones-ids", label: "Plantaciones", rows: "10" %>
+              <%= f.date_field :fecha, label: "Fecha" %>
+              <%= f.number_field :numero_plantas, label: "Número de Plantas" %>
+              <%= f.text_field :superficie_registrada, label: "Superficie Registrada" %>
+              <%= f.collection_select :estado_aprobacion_id, EstadoAprobacion.all, :id, :descripcion, label: "Estado de Aprobación" %>
+              <%= f.text_area :observaciones, label: "Observaciones" %>
             <% end %>
-            <div class="alert alert-info" role="alert">
-              <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>Agregue un ID por línea.
-            </div>
           </div>
         </div>
       </div>

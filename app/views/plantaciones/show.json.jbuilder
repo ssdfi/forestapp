@@ -1,1 +1,1 @@
-json.extract! @plantacion, :id, :created_at, :updated_at
+json.extract! @plantacion, :id, :hectareas
