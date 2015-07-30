@@ -8,7 +8,17 @@ $(document).ready ->
     for plantacion_id in $('#plantaciones-ids').val().split('\n')
       if $.isNumeric($.trim(plantacion_id))
         $("#add-plantacion").click()
-        $("[id$=plantacion_id]").last().val($.trim(plantacion_id))
+        tr = $('#plantaciones').find('tr').last()
+        tr.find('[id$=plantacion_id]').val($.trim(plantacion_id))
+        tr.find('[id$=fecha]').val($('#fecha').val())
+        tr.find('[id$=numero_plantas]').val($('#numero_plantas').val())
+        if $('#superficie_registrada').val()
+          tr.find('[id$=superficie_registrada]').val($('#superficie_registrada').val())
+        else
+          tr.find('button.hectareas').click()
+        tr.find('[id$=estado_aprobacion_id]').val($('#_estado_aprobacion_id').val())
+        tr.find('[id$=observaciones]').val($('#observaciones').val())
+
     $('#plantaciones-ids').val('')
     $("#plantaciones-modal").modal('hide')
 
