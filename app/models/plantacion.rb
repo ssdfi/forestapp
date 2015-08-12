@@ -26,6 +26,33 @@ class Plantacion < ActiveRecord::Base
   has_and_belongs_to_many :plantaciones_anteriores, class_name: 'Plantacion', join_table: 'plantaciones_historico',
     foreign_key: 'plantacion_nueva_id', association_foreign_key: 'plantacion_anterior_id'
 
+  attr_reader :ids
+
+  ##
+  # Busca las plantaciones que coincidan con los atributos definidos en el objeto Plantacion pasado como parámetro
+  def self.search(plantacion)
+    plantaciones = all
+    if plantacion
+      plantaciones = where(id: plantacion.ids.split("\r\n")) if plantacion.ids
+      plantaciones = plantaciones.distinct
+    end
+    plantaciones.order(:id)
+  end
+
+  def ids=(value)
+    @ids = value unless value.blank?
+  end
+
+  ##
+  # Actualiza masivamente las plantaciones del parámetro ids
+  def self.mass_update(params)
+    params.delete_if {|k,v| v.blank?}
+    params.delete "especie_ids" if params["especie_ids"].count == 1 and params["especie_ids"][0].empty?
+    Plantacion.where(id: params[:ids].split("\r\n")).each do |plantacion|
+      plantacion.update(params)
+    end
+  end
+
   ##
   # Devuelve el atributo geom con el SRID correspondiente
   def geom

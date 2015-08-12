@@ -5,7 +5,12 @@
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Actividad
       <% end %>
     </li>
-  <% end %>
+    <li>
+      <%= link_to mass_edit_plantaciones_path({actividad_id: @actividad.id}), id: 'nav-edit-plantaciones' do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Plantaciones
+      <% end %>
+    </li>
+    <% end %>
   <% if current_user.admin? %>
     <li>
       <%= link_to expediente_movimiento_actividad_path(@expediente, @movimiento, @actividad), method: :delete,
