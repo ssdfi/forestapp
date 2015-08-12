@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     resources :plantaciones do
       put 'replace', path: 'reemplazar'
       get 'map', path: 'mapa'
+      collection do
+        get 'mass_edit', path: 'editar'
+        put 'mass_update', path: 'actualizar'
+      end
     end
 
     resources :zonas do

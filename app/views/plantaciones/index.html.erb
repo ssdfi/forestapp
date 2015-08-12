@@ -9,7 +9,17 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Buscador</h3>
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'search_form', locals: {plantacion: @plantacion_filter} %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
     <%= render partial: 'plantaciones', locals: {plantaciones: @plantaciones} %>
     <div class="well well-sm clearfix">
       <div class="pagination-info pull-left">
