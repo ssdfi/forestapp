@@ -28,7 +28,7 @@ $.fn.bootstrapSwitch.defaults.labelWidth = '150';
 $(function() {
   $("input[data-label]").each(function () {
     $(this).bootstrapSwitch({labelText: this.dataset.label});
-  })
+  });
 });
 
 /**
@@ -37,8 +37,8 @@ $(function() {
  */
 $(function() {
   $("tr[data-link]").click(function () {
-    window.location = this.dataset.link
-  })
+    window.location = this.dataset.link;
+  });
 });
 
 /**
@@ -48,15 +48,15 @@ $(function() {
  */
 $(function() {
   $("abbr").each(function () {
-    text = $(this).prop("title")
-    length = parseInt(this.dataset.length) || 8
+    text = $(this).prop("title");
+    length = parseInt(this.dataset.length) || 8;
     if (text.length > length) {
-      text = text.substring(0, length)
-      $(this).text(text)
+      text = text.substring(0, length);
+      $(this).text(text);
     } else {
       $(this).parent().text(text);
     }
-  })
+  });
 });
 
 /**
@@ -65,5 +65,5 @@ $(function() {
 setTimeout(function() {
   $(".alert.alert-info").slideUp(1500, 0, function() {
     $(this).remove();
-  }
-)}, 4000)
+  });
+}, 4000);
