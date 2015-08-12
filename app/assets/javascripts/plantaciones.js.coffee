@@ -1,5 +1,9 @@
 $(document).ready ->
 
+  ### Define el destino del formulario dependiendo del botón apretado: Buscar o Editar ###
+  $('#new_plantacion').children('input[data-url]').on 'click', ->
+    $(this).parent().prop('action', this.dataset.url)
+
   ###*
    * Ejecuta la llamada AJAX para hacer la búsqueda de titulares y lista los resultados
    * con un radio button (La plantación sólo puede tener un titular)

@@ -1,0 +1,9 @@
+<%= bootstrap_form_for plantacion, url: plantaciones_path, method: "get", layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
+  <%= f.text_area :ids, label: "IDs", rows: "10" %>
+  <hr/>
+  <%= f.submit "Buscar", class: "btn btn-primary pull-right", id: "search", "data-url" => plantaciones_path %>
+  <% if current_user.editor? %>
+    <%= f.submit "Editar", class: "btn btn-primary", id: "edit", "data-url" => mass_edit_plantaciones_path %>
+  <% end %>
+
+<% end %>

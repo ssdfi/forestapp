@@ -1,0 +1,168 @@
+<div class="row">
+  <div class="col-md-5">
+    <h2>Editar Plantaciones</h2>
+    <%= bootstrap_form_for @plantacion, url: mass_update_plantaciones_path, method: 'put', layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
+      <% if @plantacion.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@plantacion.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
+          <ul>
+          <% @plantacion.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= f.static_control :ids, label: "Plantaciones" %>
+      <%= f.hidden_field :ids %>
+      <%= hidden_field_tag :actividad_id, @actividad %>
+      <div class="form-group">
+        <label class="control-label col-sm-4" for="plantacion_titular">Titular</label>
+        <div class="col-sm-8">
+          <div class="input-group">
+            <input id="plantacion_titular" type="text" class="form-control" value="<%= @plantacion.titular.nombre if @plantacion.titular %>" readonly>
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" data-toggle="modal" data-target="#titulares-modal" id="add-titular">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-default" type="button" id="remove-titular">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <%= f.hidden_field :titular_id, label: "" %>
+      <%= f.collection_select :especie_ids, @plantacion.especies, :id, :nombre_cientifico, {label: "Especie/s", selected: nil}, {multiple: true, size: 5}%>
+      <div class="form-group" style="margin-top: -10px;">
+        <div class="col-sm-9 col-sm-offset-3">
+          <div class="pull-right">
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#especies-modal" id="add-especie">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
+            </button>
+            <button id="remove-especie" type="button" class="btn btn-default btn-xs">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      <%= f.number_field :anio_plantacion, label: "Año de Plantación" %>
+      <%= f.collection_select :tipo_plantacion_id, TipoPlantacion.all, :id, :descripcion, {label: "Tipo de Plantación", include_blank: true} %>
+      <%= f.text_field :nomenclatura_catastral, label: "Nomenclatura Catastral" %>
+      <%= f.collection_select :estado_plantacion_id, EstadoPlantacion.all, :id, :descripcion, {label: "Estado de Plantación", include_blank: true} %>
+      <%= f.text_field :distancia_plantas, label: "Distancia entre Plantas" %>
+      <%= f.number_field :cantidad_filas, label: "Cantidad de Filas" %>
+      <%= f.text_field :distancia_filas, label: "Distancia entre Filas" %>
+      <%= f.number_field :densidad, label: "Densidad" %>
+      <%= f.collection_select :fuente_informacion_id, FuenteInformacion.all, :id, :descripcion, {label: "Fuente de Información", include_blank: true} %>
+      <%= f.number_field :anio_informacion, label: "Año de Información" %>
+      <%= f.collection_select :fuente_imagen_id, FuenteImagen.all, :id, :descripcion, {label: "Fuente de Imagen", include_blank: true} %>
+      <%= f.date_field :fecha_imagen, label: "Fecha de Imagen" %>
+      <%= f.collection_select :base_geometrica_id, BaseGeometrica.all, :id, :descripcion, {label: "Base Geométrica", include_blank: true} %>
+      <%= f.collection_select :provincia_id, Provincia.all, :id, :nombre, {label: "Provincia", include_blank: true} %>
+      <%= f.collection_select :departamento_id, (@plantacion.provincia.departamentos if @plantacion.provincia) || [], :id, :nombre, {label: "Departamento", include_blank: true} %>
+      <%= f.collection_select :estrato_desarrollo_id, EstratoDesarrollo.all, :id, :descripcion, {label: "Estrato de Desarrollo", include_blank: true} %>
+      <%= f.collection_select :uso_forestal_id, UsoForestal.all, :id, :descripcion, {label: "Uso Forestal", include_blank: true} %>
+      <%= f.collection_select :uso_anterior_id, UsoAnterior.all, :id, :descripcion, {label: "Uso Anterior", include_blank: true} %>
+      <%= f.collection_select :objetivo_plantacion_id, ObjetivoPlantacion.all, :id, :descripcion, {label: "Objetivo de Plantación", include_blank: true} %>
+      <div class="form-group">
+        <label class="control-label col-sm-4" for="plantacion_activo">Estado</label>
+        <div class="col-sm-8">
+          <%= f.check_box :activo, label: "", "data-label" => "Activo" %>
+        </div>
+      </div>
+      <%= f.text_area :comentarios, label: "Comentarios" %>
+      <hr/>
+      <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-plantacion" %>
+      <%= link_to "Cancelar", :back, class: "btn btn-default" %>
+    <% end %>
+
+    <div class="modal fade" id="especies-modal" tabindex="-1" role="dialog" aria-labelledby="especies-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <h4 class="modal-title" id="especies-modal-label">Agregar Especie</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <%= bootstrap_form_tag url: especies_path + '.json', method: "get", remote: true, layout: :inline do |f| %>
+                  <%= f.collection_select "especie[genero_id]", Genero.all, :id, :descripcion, {hide_label: true, prompt: "Género"} %>
+                  <%= f.text_field "especie[codigo_sp]", hide_label: true, placeholder: "Código" %>
+                  <%= f.text_field "especie[nombre_cientifico]", hide_label: true, placeholder: "Nombre Científico" %>
+                  <%= f.text_field "especie[nombre_comun]", hide_label: true, placeholder: "Nombre Común" %>
+                  <%= f.submit "Buscar", class: "btn btn-default", id: "especies-modal-search" %>
+                <% end %>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table" id="especies-list">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Código</th>
+                      <th>Nombre Científico</th>
+                      <th>Nombre Común</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="especies-modal-add" type="button" class="btn btn-primary">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="titulares-modal" tabindex="-1" role="dialog" aria-labelledby="titulares-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+            <h4 class="modal-title" id="titulares-modal-label">Seleccionar Titular</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <%= bootstrap_form_tag url: titulares_path + '.json', method: "get", remote: true, layout: :inline do |f| %>
+                  <%= f.text_field "titular[nombre]", hide_label: true, placeholder: "Nombre" %>
+                  <%= f.text_field "titular[dni]", hide_label: true, placeholder: "DNI" %>
+                  <%= f.text_field "titular[cuit]", hide_label: true, placeholder: "CUIT" %>
+                  <%= f.submit "Buscar", class: "btn btn-default", id: "titulares-modal-search" %>
+                <% end %>
+              </div>
+            </div>
+            <hr/>
+            <div class="row">
+              <div class="col-md-12">
+                <table class="table" id="titulares-list">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Nombre</th>
+                      <th>DNI</th>
+                      <th>CUIT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="titulares-modal-select" type="button" class="btn btn-primary">Seleccionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

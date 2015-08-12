@@ -5,7 +5,11 @@ class PlantacionesController < ApplicationController
   # GET /plantaciones
   # GET /plantaciones.json
   def index
-    @plantaciones = Plantacion.all.page params[:page]
+    @plantacion_filter = params[:plantacion] ? Plantacion.new(plantacion_params) : Plantacion.new
+
+    @plantaciones = Plantacion.search(@plantacion_filter)
+    @plantaciones = @plantaciones.order(updated_at: :desc)
+    @plantaciones = @plantaciones.page(params[:page])
   end
 
   # GET /plantaciones/1
@@ -58,6 +62,32 @@ class PlantacionesController < ApplicationController
     end
   end
 
+  # GET /plantaciones/mass_edit
+  def mass_edit
+    if params[:plantacion] and params[:plantacion][:ids]
+      @plantacion = Plantacion.new(plantacion_params)
+    elsif params[:actividad_id]
+      @plantacion = Plantacion.new({ids: Actividad.find(params[:actividad_id]).plantaciones.pluck(:id).join("\r\n")})
+      @actividad_id = params[:actividad_id]
+    else
+      redirect_to :back
+    end
+  end
+
+  # PATCH/PUT /plantaciones/mass_update
+  def mass_update
+    if Plantacion.mass_update(plantacion_params)
+      if params[:actividad_id].empty?
+        redirect_to plantaciones_path(plantacion: plantacion_params.slice(:ids)), notice: 'Plantaciones actualizadas satisfactoriamente.'
+      else
+        actividad = Actividad.find(params[:actividad_id])
+        redirect_to expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad), notice: 'Plantaciones actualizadas satisfactoriamente.'
+      end
+    else
+      render :mass_edit
+    end
+  end
+
   # DELETE /plantaciones/1
   # DELETE /plantaciones/1.json
   def destroy
@@ -86,6 +116,8 @@ class PlantacionesController < ApplicationController
     end
   end
 
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
 
@@ -98,6 +130,6 @@ class PlantacionesController < ApplicationController
       params.require(:plantacion).permit(:titular_id, :anio_plantacion, :tipo_plantacion_id, :nomenclatura_catastral, :estado_plantacion_id,
         :distancia_plantas, :cantidad_filas, :distancia_filas, :densidad, :fuente_informacion_id, :anio_informacion, :fuente_imagen_id,
         :fecha_imagen, :base_geometrica_id, :provincia_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id,
-        :activo, :comentarios, :objetivo_plantacion_id, especie_ids: [])
+        :activo, :comentarios, :objetivo_plantacion_id, :ids, especie_ids: [])
     end
 end
