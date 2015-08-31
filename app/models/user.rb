@@ -28,6 +28,24 @@ class User
     )
   end
 
+  ##
+  # Genera un usuario editor (Sólo para usar en desarrollo)
+  def self.editor_user
+    return User.new(
+      name: 'Editor User',
+      groups: [EDITOR_GROUP]
+    )
+  end
+
+  ##
+  # Genera un usuario básico (Sólo para usar en desarrollo)
+  def self.basic_user
+    return User.new(
+      name: 'Basic User',
+      groups: []
+    )
+  end
+
   def admin?
     groups.include? ADMIN_GROUP
   end

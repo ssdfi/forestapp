@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def current_user
-    @current_user = User.admin_user if Rails.env.development?
+    @current_user = User.basic_user if Rails.env.development?
     unless @current_user or session[:current_user].nil?
       @current_user = User.new(session[:current_user])
     end

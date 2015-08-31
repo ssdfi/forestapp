@@ -11,7 +11,7 @@ class ApplicationPolicy
   end
 
   def show?
-    user.editor?
+    true
   end
 
   def create?
@@ -35,7 +35,7 @@ class ApplicationPolicy
   end
 
   def map?
-    user.editor?
+    true
   end
 
   def scope

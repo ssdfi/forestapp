@@ -83,3 +83,13 @@ $(document).ready ->
   ### Selecciona todos las especies del listado antes ejectuar el submit del formulario ###
   $("form").submit ->
     $("#plantacion_especie_ids option").prop('selected', true)
+
+  ### Activa/Descativa el campo asociado al label ###
+  $('.form-group[data-disabler] label').css('cursor', 'pointer')
+  $('.form-group[data-disabler] label').css('text-decoration', 'underline')
+  $('.form-group[data-disabler] label').click (event) ->
+    $("##{$(this).prop('for')}").bootstrapSwitch('toggleDisabled')
+    $("##{$(this).prop('for')}").prop('disabled', (i, value) ->
+      !value
+    )
+    event.stopPropagation()
