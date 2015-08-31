@@ -7,7 +7,7 @@ class ExpedientesController < ApplicationController
   def index
     @expediente_filter = params[:expediente] ? Expediente.new(expediente_params) : Expediente.new({incompleto: false})
 
-    @expedientes = Expediente.search(@expediente_filter)
+    @expedientes = policy_scope(Expediente).search(@expediente_filter)
     @expedientes = @expedientes.order(updated_at: :desc)
 
     respond_to do |format|

@@ -15,7 +15,7 @@ class Titular < ActiveRecord::Base
       "((#{query1.to_sql}) UNION (#{query2.to_sql})) AS expedientes"
     }
 
-    Expediente.from(sql)
+    Expediente.from(sql).distinct
   end
 
   ##

@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   ##
   # Genera una nueva sesión a partir de los datos del formulario de login
   #
-  # Lo autenticación se hace contra el ActiveDirectory del MAGyP
+  # La autenticación se hace contra el ActiveDirectory de MAGyP
 	def create
 		adauth = Adauth.authenticate(params[:username], params[:password])
     if adauth

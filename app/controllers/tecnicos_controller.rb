@@ -15,7 +15,7 @@ class TecnicosController < ApplicationController
   # GET /tecnicos/1
   # GET /tecnicos/1.json
   def show
-    @expedientes = @tecnico.expedientes.page params[:page]
+    @expedientes = policy_scope(@tecnico.expedientes).distinct.page params[:page]
   end
 
   # GET /tecnicos/new

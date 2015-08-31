@@ -3,22 +3,30 @@
   <%= f.text_field :numero_expediente, label: "Número expediente" %>
   <%= f.collection_select :zona_id, Zona.all.order(:descripcion), :id, :descripcion, {label: "Zona", include_blank: true} %>
   <%= f.number_field :etapa, label: "Año/Etapa", value: expediente.etapa %>
-  <%= f.date_field :fecha_entrada_desde, label: "Fecha entrada desde", value: expediente.fecha_entrada_desde %>
-  <%= f.date_field :fecha_entrada_hasta, label: "Fecha entrada hasta", value: expediente.fecha_entrada_hasta %>
-  <%= f.date_field :fecha_salida_desde, label: "Fecha salida desde", value: expediente.fecha_salida_desde %>
-  <%= f.date_field :fecha_salida_hasta, label: "Fecha salida hasta", value: expediente.fecha_salida_hasta %>
-  <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Responsable", include_blank: true} %>
-  <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
-  <%= f.collection_select :validador_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Validador", include_blank: true} %>
-  <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
-  <%= render partial: 'common/boolean_field', locals: {form: f, field: :plurianual, label: "Plurianual"} %>
+  <% if current_user.editor? %>
+    <%= f.date_field :fecha_entrada_desde, label: "Fecha entrada desde", value: expediente.fecha_entrada_desde %>
+    <%= f.date_field :fecha_entrada_hasta, label: "Fecha entrada hasta", value: expediente.fecha_entrada_hasta %>
+    <%= f.date_field :fecha_salida_desde, label: "Fecha salida desde", value: expediente.fecha_salida_desde %>
+    <%= f.date_field :fecha_salida_hasta, label: "Fecha salida hasta", value: expediente.fecha_salida_hasta %>
+    <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Responsable", include_blank: true} %>
+    <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
+    <%= f.collection_select :validador_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Validador", include_blank: true} %>
+    <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
+    <%= render partial: 'common/boolean_field', locals: {form: f, field: :plurianual, label: "Plurianual"} %>
+  <% end %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :agrupado, label: "Agrupado"} %>
-  <%= render partial: 'common/boolean_field', locals: {form: f, field: :pendiente, label: "Para Analizar"} %>
-  <%= render partial: 'common/boolean_field', locals: {form: f, field: :validado, label: "Validado"} %>
+  <% if current_user.editor? %>
+    <%= render partial: 'common/boolean_field', locals: {form: f, field: :pendiente, label: "Para Analizar"} %>
+    <%= render partial: 'common/boolean_field', locals: {form: f, field: :validado, label: "Validado"} %>
+  <% end %>
   <%= render partial: 'common/boolean_field', locals: {form: f, field: :estabilidad_fiscal, label: "Estabilidad Fiscal"} %>
-  <%= render partial: 'common/boolean_field', locals: {form: f, field: :incompleto, label: "Incompleto"} %>
+  <% if current_user.editor? %>
+    <%= render partial: 'common/boolean_field', locals: {form: f, field: :incompleto, label: "Incompleto"} %>
+  <% end %>
   <hr/>
   <%= f.submit "Buscar", class: "btn btn-primary pull-right", id: "search", "data-url" => expedientes_path %>
-  <%= f.submit "Exportar a CSV", class: "btn btn-default #{'disabled' unless params[:expediente]}", id: "exporta",
-    "data-url" => expedientes_path(format: 'csv'), "data-count" => @count %>
+  <% if current_user.editor? %>
+    <%= f.submit "Exportar a CSV", class: "btn btn-default #{'disabled' unless params[:expediente]}", id: "exporta",
+      "data-url" => expedientes_path(format: 'csv'), "data-count" => @count %>
+  <% end %>
 <% end %>

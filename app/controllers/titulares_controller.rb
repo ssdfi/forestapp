@@ -14,7 +14,7 @@ class TitularesController < ApplicationController
   # GET /titulares/1
   # GET /titulares/1.json
   def show
-    @expedientes = @titular.expedientes.page params[:page]
+    @expedientes = policy_scope(@titular.expedientes).page params[:page]
   end
 
   # GET /titulares/new
