@@ -2,14 +2,14 @@
 lock '3.2.1'
 
 set :application, 'forestapp'
-set :repo_url, 'git@github.com:maurimiranda/forestapp.git'
+set :repo_url, 'https://github.com/maurimiranda/forestapp.git'
 
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.2'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-ask :branch, proc { `git tag`.split("\n").last }
+ask :branch, proc { `git for-each-ref --format="%(tag)" --sort=-taggerdate refs/tags`.split("\n").first }
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/forestapp'
@@ -95,4 +95,3 @@ task :reset_db do
     end
   end
 end
-
