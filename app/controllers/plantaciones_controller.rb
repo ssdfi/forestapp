@@ -103,7 +103,23 @@ class PlantacionesController < ApplicationController
   def replace
     @plantacion.activo = false
     params[:plantaciones_nuevas_ids].split("\n").each do |plantacion_id|
-      @plantacion.plantaciones_nuevas << Plantacion.find(plantacion_id) unless plantacion_id.to_i == 0
+      next if plantacion_id.to_i == 0
+      nueva_plantacion = Plantacion.where(id: plantacion_id).first
+      if nueva_plantacion && params[:copiar_datos] == '1'
+        nueva_plantacion.titular = @plantacion.titular
+        nueva_plantacion.especies = @plantacion.especies
+        nueva_plantacion.anio_plantacion = @plantacion.anio_plantacion
+        nueva_plantacion.tipo_plantacion = @plantacion.tipo_plantacion
+        nueva_plantacion.nomenclatura_catastral = @plantacion.nomenclatura_catastral
+        nueva_plantacion.provincia = @plantacion.provincia
+        nueva_plantacion.departamento = @plantacion.departamento
+        nueva_plantacion.estrato_desarrollo = @plantacion.estrato_desarrollo
+        nueva_plantacion.uso_forestal = @plantacion.uso_forestal
+        nueva_plantacion.uso_anterior = @plantacion.uso_anterior
+        nueva_plantacion.objetivo_plantacion = @plantacion.objetivo_plantacion
+        nueva_plantacion.save!
+      end
+      @plantacion.plantaciones_nuevas << nueva_plantacion unless @plantacion.plantaciones_nuevas.include?(nueva_plantacion)
     end
     respond_to do |format|
       if @plantacion.save
@@ -115,8 +131,6 @@ class PlantacionesController < ApplicationController
       end
     end
   end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
