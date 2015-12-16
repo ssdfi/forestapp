@@ -12,10 +12,10 @@
   <%= f.text_field :numero_ficha, label: "Número de ficha" %>
   <%= f.collection_select :inspector_id, Inspector.all, :id, :descripcion %>
   <%= f.collection_select :reinspector_id, Inspector.all, :id, :descripcion %>
-  <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre %>
+  <%= f.collection_select :responsable_id, Responsable.where(activo: true).order(:nombre), :id, :nombre %>
   <%= f.number_field :anio_inspeccion, label: "Año inspección" %>
   <%= f.collection_select :destino_id, Destino.all, :id, :descripcion %>
-  <%= f.collection_select :validador_id, Responsable.all.order(:nombre), :id, :nombre, include_blank: true %>
+  <%= f.collection_select :validador_id, Responsable.where(activo: true).order(:nombre), :id, :nombre, include_blank: true %>
   <%= f.date_field :fecha_entrada %>
   <%= f.date_field :fecha_salida %>
   <%= f.number_field :etapa %>
