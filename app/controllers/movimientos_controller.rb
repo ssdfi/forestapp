@@ -18,10 +18,16 @@ class MovimientosController < ApplicationController
   # GET /movimientos/new
   def new
     @movimiento = @expediente.movimientos.new
+    @inspectores = Inspector.all
+    @responsables = Responsable.grouped
+    @destinos = Destino.all
   end
 
   # GET /movimientos/1/edit
   def edit
+    @inspectores = Inspector.all
+    @responsables = Responsable.grouped
+    @destinos = Destino.all
   end
 
   # POST /movimientos
