@@ -8,9 +8,9 @@
     <%= f.date_field :fecha_entrada_hasta, label: "Fecha entrada hasta", value: expediente.fecha_entrada_hasta %>
     <%= f.date_field :fecha_salida_desde, label: "Fecha salida desde", value: expediente.fecha_salida_desde %>
     <%= f.date_field :fecha_salida_hasta, label: "Fecha salida hasta", value: expediente.fecha_salida_hasta %>
-    <%= f.collection_select :responsable_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Responsable", include_blank: true} %>
+    <%= f.select :responsable_id, grouped_options_for_select(@responsables, expediente.responsable_id), {label: "Responsable", include_blank: true} %>
     <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
-    <%= f.collection_select :validador_id, Responsable.all.order(:nombre), :id, :nombre, {label: "Validador", include_blank: true} %>
+    <%= f.select :validador_id, grouped_options_for_select(@responsables, expediente.validador_id), label: "Validador", include_blank: true %>
     <%= render partial: 'common/boolean_field', locals: {form: f, field: :activo, label: "Activo"} %>
     <%= render partial: 'common/boolean_field', locals: {form: f, field: :plurianual, label: "Plurianual"} %>
   <% end %>

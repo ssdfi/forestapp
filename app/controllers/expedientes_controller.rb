@@ -9,6 +9,7 @@ class ExpedientesController < ApplicationController
 
     @expedientes = policy_scope(Expediente).search(@expediente_filter)
     @expedientes = @expedientes.order(updated_at: :desc)
+    @responsables = Responsable.grouped
 
     respond_to do |format|
       format.html do
