@@ -1,14 +1,5 @@
 <%= bootstrap_form_for @titular, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
-  <% if @titular.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@titular.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
-      <ul>
-      <% @titular.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: "common/error_messages", locals: { errors: @titular.errors } %>
   <%= f.text_field :nombre, label: "Nombre" %>
   <%= f.text_field :dni, label: "DNI" %>
   <%= f.text_field :cuit, label: "CUIT" %>
