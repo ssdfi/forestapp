@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519175652) do
+ActiveRecord::Schema.define(version: 20160211202600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,20 @@ ActiveRecord::Schema.define(version: 20150519175652) do
   create_table "bases_geometricas", force: true do |t|
     t.string "codigo"
     t.string "descripcion"
+  end
+
+  create_table "conae_spot_4_5", force: true do |t|
+    t.spatial "geom",       limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string  "path",       limit: 250
+    t.string  "proj4",      limit: 70
+    t.string  "resspatial", limit: 50
+  end
+
+  create_table "conae_spot_6_7", force: true do |t|
+    t.spatial "geom",       limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string  "image",      limit: 250
+    t.string  "proj4",      limit: 70
+    t.string  "resspatial", limit: 50
   end
 
   create_table "departamentos", force: true do |t|
@@ -192,18 +206,28 @@ ActiveRecord::Schema.define(version: 20150519175652) do
 
   add_index "generos", ["codigo"], :name => "index_generos_on_codigo"
 
-  create_table "ign_departamentos", primary_key: "gid", force: true do |t|
-    t.string  "nombre",     limit: 254
-    t.string  "provincia_", limit: 254
-    t.string  "cod_depto_", limit: 254
-    t.string  "cabecera",   limit: 254
-    t.string  "fuente_",    limit: 254
-    t.spatial "geom",       limit: {:srid=>4326, :type=>"multi_polygon"}
+  create_table "ign_fajas", primary_key: "id_0", force: true do |t|
+    t.spatial "geom",  limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.integer "id"
+    t.decimal "coord"
   end
 
-  create_table "ign_provincias", primary_key: "gid", force: true do |t|
-    t.string  "nprov", limit: 100
-    t.spatial "geom",  limit: {:srid=>4326, :type=>"multi_polygon", :has_z=>true}
+  create_table "indec_deptos", force: true do |t|
+    t.spatial "geom",    limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string  "prov",    limit: 2
+    t.string  "nomprov", limit: 80
+    t.string  "depto",   limit: 3
+    t.string  "nomdep",  limit: 34
+    t.string  "pais",    limit: 15
+    t.string  "link",    limit: 5
+  end
+
+  create_table "indec_provincias", force: true do |t|
+    t.spatial "geom",    limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string  "prov",    limit: 2
+    t.string  "nomprov", limit: 80
+    t.string  "pais",    limit: 80
+    t.string  "fuente",  limit: 40
   end
 
   create_table "inspectores", force: true do |t|
@@ -214,6 +238,21 @@ ActiveRecord::Schema.define(version: 20150519175652) do
   end
 
   add_index "inspectores", ["codigo"], :name => "index_inspectores_on_codigo"
+
+  create_table "layer_styles", force: true do |t|
+    t.string   "f_table_catalog",   limit: 256
+    t.string   "f_table_schema",    limit: 256
+    t.string   "f_table_name",      limit: 256
+    t.string   "f_geometry_column", limit: 256
+    t.string   "stylename",         limit: 30
+    t.xml      "styleqml"
+    t.xml      "stylesld"
+    t.boolean  "useasdefault"
+    t.text     "description"
+    t.string   "owner",             limit: 30
+    t.xml      "ui"
+    t.datetime "update_time",                   default: "now()"
+  end
 
   create_table "movimientos", force: true do |t|
     t.integer  "expediente_id"
@@ -330,21 +369,13 @@ ActiveRecord::Schema.define(version: 20150519175652) do
     t.boolean  "activo",     default: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "dni"
+    t.string   "cuit"
   end
 
+  add_index "tecnicos", ["cuit"], :name => "index_tecnicos_on_cuit"
+  add_index "tecnicos", ["dni"], :name => "index_tecnicos_on_dni"
   add_index "tecnicos", ["nombre"], :name => "index_tecnicos_on_nombre"
-
-  create_table "test", id: false, force: true do |t|
-    t.integer "id"
-    t.spatial "geom", limit: {:srid=>0, :type=>"geometry"}
-  end
-
-  create_table "test_plantaciones", id: false, force: true do |t|
-    t.integer "id"
-    t.integer "provincia_id"
-    t.integer "departamento_id"
-    t.spatial "geom",            limit: {:srid=>0, :type=>"geometry"}
-  end
 
   create_table "tipos_actividad", force: true do |t|
     t.string   "codigo"
@@ -529,6 +560,6 @@ ActiveRecord::Schema.define(version: 20150519175652) do
   add_foreign_key "plantaciones_historico", "plantaciones", name: "plantaciones_historico_plantacion_anterior_id_fk", column: "plantacion_anterior_id", dependent: :delete
   add_foreign_key "plantaciones_historico", "plantaciones", name: "plantaciones_historico_plantacion_nueva_id_fk", column: "plantacion_nueva_id", dependent: :delete
 
-  add_foreign_key "zona_departamentos", "zonas", name: "departamentos_zona_id_fk"
+  add_foreign_key "zona_departamentos", "zonas", name: "departamentos_zona_id_fk", dependent: :delete
 
 end
