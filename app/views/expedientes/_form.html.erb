@@ -1,29 +1,20 @@
-<%= bootstrap_form_for @expediente, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
-  <% if @expediente.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expediente.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
-      <ul>
-      <% @expediente.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= f.text_field :numero_interno, label: "Número interno", pattern: "[0-9]{2}-[0-9]{3}-[0-9]{3}\/[0-9]{2}", title: "##-###-###/##", required: true %>
+<%= bootstrap_form_for @expediente, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
+  <%= render partial: "common/error_messages", locals: { errors: @expediente.errors } %>
+  <%= f.text_field :numero_interno, label: "Número interno" %>
   <%= f.text_field :numero_expediente, label: "Número expediente" %>
   <%= f.collection_select :tecnico_id, Tecnico.all.order(:nombre), :id, :nombre, {label: "Técnico", include_blank: true} %>
   <div class="form-group">
-    <div class="col-sm-9 col-sm-offset-3">
+    <div class="col-sm-8 col-sm-offset-4">
       <%= f.check_box :plurianual, label: "", "data-label" => "Plurianual" %>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-9 col-sm-offset-3">
+    <div class="col-sm-8 col-sm-offset-4">
       <%= f.check_box :agrupado, label: "", "data-label" => "Agrupado" %>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-9 col-sm-offset-3">
+    <div class="col-sm-8 col-sm-offset-4">
       <%= f.check_box :activo, label: "", "data-label" => "Activo" %>
     </div>
   </div>
