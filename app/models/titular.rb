@@ -4,6 +4,11 @@ class Titular < ActiveRecord::Base
   has_many :expedientes_plantacion, -> { distinct }, class_name: 'Expediente', through: :plantaciones, source: :expedientes
   has_many :actividades_titulares, class_name: 'ActividadTitular'
 
+  validates :nombre, presence: true
+  validates :cuit, :dni, uniqueness: true, numericality: { only_integer: true }, allow_blank: true
+  validates :cuit, length: { is: 11 }, allow_blank: true
+  validates :dni, length: { is: 8 }, allow_blank: true
+
   ##
   # Devuelve los expedientes relacionados con el titular, ya sea los expedientes directos como los expedientes agrupados
   # que incluyan una plantación perteneciente al titular

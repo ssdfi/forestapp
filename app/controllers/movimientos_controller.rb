@@ -1,6 +1,7 @@
 class MovimientosController < ApplicationController
   before_action :set_expediente
   before_action :set_movimiento, only: [:show, :edit, :update, :destroy, :report]
+  before_action :set_variables, only: [:new, :create, :edit, :update]
   layout 'print', :only => [:report]
 
   # GET /movimientos
@@ -18,16 +19,10 @@ class MovimientosController < ApplicationController
   # GET /movimientos/new
   def new
     @movimiento = @expediente.movimientos.new
-    @inspectores = Inspector.all
-    @responsables = Responsable.grouped
-    @destinos = Destino.all
   end
 
   # GET /movimientos/1/edit
   def edit
-    @inspectores = Inspector.all
-    @responsables = Responsable.grouped
-    @destinos = Destino.all
   end
 
   # POST /movimientos
@@ -86,6 +81,12 @@ class MovimientosController < ApplicationController
 
     def set_movimiento
       @movimiento = Movimiento.find(params[:id] || params[:movimiento_id])
+    end
+
+    def set_variables
+      @inspectores = Inspector.all
+      @responsables = Responsable.grouped
+      @destinos = Destino.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

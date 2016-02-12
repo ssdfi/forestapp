@@ -3,6 +3,8 @@
     <tr>
       <th>ID</th>
       <th>Nombre</th>
+      <th>DNI</th>
+      <th>CUIT</th>
       <th class="icon">Activo</th>
     </tr>
   </thead>
@@ -11,6 +13,8 @@
       <tr data-link="<%= tecnico_path(tecnico) %>">
         <td><%= tecnico.id %></td>
         <td><%= tecnico.nombre %></td>
+        <td><%= tecnico.dni %></td>
+        <td><%= tecnico.cuit %></td>
         <td class="icon">
            <%= render partial: 'common/boolean_value', locals: {value: tecnico.activo} %>
         </td>
