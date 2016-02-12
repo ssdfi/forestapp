@@ -9,6 +9,19 @@ class Movimiento < ActiveRecord::Base
   has_many :actividades
   has_many :actividades_plantaciones, class_name: 'ActividadPlantacion', through: :actividades
 
+  validates :fecha_entrada, presence: true
+  validates :fecha_entrada, date: {
+    after_or_equal_to: Date.new(1990, 1, 1),
+    message: "no puede ser anterior a 01/01/1990"
+  }
+  validates :fecha_entrada, :fecha_salida, date: {
+    before_or_equal_to: Date.today,
+    message: "no puede ser posterior al día actual",
+    allow_blank: true }
+  validates :fecha_salida, date: {
+    after_or_equal_to: :fecha_entrada,
+    message: "no puede ser anterior a la fecha de entrada",
+    allow_blank: true }
 
   def validado
     !validador.nil?

@@ -75,6 +75,6 @@ class TecnicosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tecnico_params
-      params.require(:tecnico).permit(:nombre, :activo)
+      params.require(:tecnico).permit(:nombre, :dni, :cuit, :activo)
     end
 end

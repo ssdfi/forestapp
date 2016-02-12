@@ -115,7 +115,7 @@ es-AR:
       not_an_integer: debe ser un entero
       odd: debe ser un número non
       record_invalid: ! 'La validación falló: %{errors}'
-      taken: ya ha sido tomado
+      taken: este valor ya existe y no puede repetirse
       too_long:
         one: es demasiado largo (máximo 1 caracter)
         other: es demasiado largo (máximo %{count} caracteres)
@@ -213,4 +213,3 @@ es-AR:
     pm: pm
   "true": 'sí'
   "false": 'no'
-  

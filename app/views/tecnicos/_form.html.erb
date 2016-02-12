@@ -1,15 +1,8 @@
 <%= bootstrap_form_for @tecnico, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9" do |f| %>
-  <% if @tecnico.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@tecnico.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
-      <ul>
-      <% @tecnico.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: "common/error_messages", locals: { errors: @tecnico.errors } %>
   <%= f.text_field :nombre, label: "Nombre" %>
+  <%= f.text_field :dni, label: "DNI" %>
+  <%= f.text_field :cuit, label: "CUIT" %>
   <div class="form-group">
     <div class="col-sm-9 col-sm-offset-3">
       <%= f.check_box :activo, label: "", "data-label" => "Activo" %>
