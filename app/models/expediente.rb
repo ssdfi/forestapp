@@ -7,7 +7,7 @@ class Expediente < ActiveRecord::Base
 
   validates :numero_interno, :numero_expediente, presence: true, uniqueness: true
   validates :numero_interno, format: { with: /[0-9]{2}-[0-9]{3}-[0-9]{3}\/[0-9]{2}/, message: "el formato debe ser ##-###-###/##" }
-  validates :numero_expediente, format: { with: /EXP-S05:[0-9]{6}\/[0-9]{4}/, message: "el formato debe ser EXP-S05:######/####" }, on: :create
+  validates :numero_expediente, format: { with: /EXP-S05:[0-9]{7}\/[0-9]{4}/, message: "el formato debe ser EXP-S05:#######/####" }, on: :create
 
   attr_reader :incompleto, :fecha_entrada_desde, :fecha_entrada_hasta, :fecha_salida_desde, :fecha_salida_hasta, :pendiente,
     :estabilidad_fiscal, :etapa, :responsable_id, :validado, :validador_id
