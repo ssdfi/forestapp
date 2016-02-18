@@ -117,8 +117,11 @@ class PlantacionesController < ApplicationController
         nueva_plantacion.uso_forestal = @plantacion.uso_forestal
         nueva_plantacion.uso_anterior = @plantacion.uso_anterior
         nueva_plantacion.objetivo_plantacion = @plantacion.objetivo_plantacion
-        nueva_plantacion.save!
+        nueva_plantacion.fuente_informacion = @plantacion.fuente_informacion
+        nueva_plantacion.base_geometrica = @plantacion.base_geometrica
       end
+      nueva_plantacion.activo = true
+      nueva_plantacion.save!
       @plantacion.plantaciones_nuevas << nueva_plantacion unless @plantacion.plantaciones_nuevas.include?(nueva_plantacion)
     end
     respond_to do |format|
