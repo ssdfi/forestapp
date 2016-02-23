@@ -1,0 +1,30 @@
+<%= bootstrap_form_for [@plantacion, @validacion], layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
+  <%= render partial: "common/error_messages", locals: { errors: @validacion.errors } %>
+  <%= f.number_field :plantacion_id, label: "Plantación", readonly: true %>
+  <%= f.select :responsable_id, grouped_options_for_select(Responsable.grouped, @validacion.responsable_id) %>
+  <%= render partial: "common/especie_field", locals: {
+    especie: @validacion.especie_1, label: 'Especie 1',
+    f: f, hidden_field: :especie_1_id } %>
+  <%= render partial: "common/especie_field", locals: {
+    especie: @validacion.especie_2, label: 'Especie 2',
+    f: f, hidden_field: :especie_2_id } %>
+  <%= render partial: "common/especie_field", locals: {
+    especie: @validacion.especie_3, label: 'Especie 3',
+    f: f, hidden_field: :especie_3_id } %>
+  <%= f.number_field :edad_estimada, label: "Edad estimada" %>
+  <%= f.number_field :densidad_estimada, label: "Densidad estimada" %>
+  <%= f.number_field :dap_promedio, label: "DAP promedio" %>
+  <%= f.number_field :altura_media_dominante, label: "Altura media dominante" %>
+  <%= f.number_field :numero_poda, label: "Número de poda" %>
+  <%= f.number_field :numero_raleo, label: "Número de raleo" %>
+  <%= f.number_field :cantidad_poda, label: "Cantidad de podas" %>
+  <%= f.number_field :cantidad_raleo, label: "Cantidad de raleos" %>
+  <%= f.collection_select :sistematizacion_id, Sistematizacion.all, :id, :descripcion, { include_blank: true } %>
+  <%= f.number_field :distancia_filas, label: "Distancia entre filas" %>
+  <%= f.number_field :distancia_plantas, label: "Distance entre plantas" %>
+  <hr/>
+  <%= link_to "Cancelar", :back, class: "btn btn-default" %>
+  <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-tecnico" %>
+<% end %>
+
+<%= render partial: "common/especies_modal" %>

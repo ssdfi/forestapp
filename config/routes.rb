@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         get 'mass_edit', path: 'editar'
         put 'mass_update', path: 'actualizar'
       end
+      resources :validaciones
     end
 
     resources :zonas do

@@ -1,0 +1,15 @@
+<% content_for :actions do %>
+  <% if current_user.admin? %>
+    <li>
+      <%= link_to new_validacion_path, id: "nav-new-validacion" do %>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Nueva Validación
+      <% end %>
+    </li>
+  <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'validaciones', locals: {validaciones: @validaciones} %>
+  </div>
+</div>

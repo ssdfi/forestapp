@@ -1,0 +1,44 @@
+<div class="modal fade" id="especies-modal" tabindex="-1" role="dialog" aria-labelledby="especies-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        <h4 class="modal-title" id="especies-modal-label">Agregar Especie</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <%= bootstrap_form_tag url: especies_path + '.json', method: "get", remote: true, layout: :inline do |f| %>
+              <%= f.collection_select "especie[genero_id]", Genero.all, :id, :descripcion, {hide_label: true, prompt: "Género"} %>
+              <%= f.text_field "especie[codigo_sp]", hide_label: true, placeholder: "Código" %>
+              <%= f.text_field "especie[nombre_cientifico]", hide_label: true, placeholder: "Nombre Científico" %>
+              <%= f.text_field "especie[nombre_comun]", hide_label: true, placeholder: "Nombre Común" %>
+              <%= f.submit "Buscar", class: "btn btn-default", id: "especies-modal-search" %>
+            <% end %>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table" id="especies-list">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Código</th>
+                  <th>Nombre Científico</th>
+                  <th>Nombre Común</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="especies-modal-select" type="button" class="btn btn-primary">Seleccionar</button>
+      </div>
+    </div>
+  </div>
+</div>

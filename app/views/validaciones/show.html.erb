@@ -1,37 +1,68 @@
 <% content_for :actions do %>
   <% if current_user.editor? %>
     <li>
-      <%= link_to edit_plantacion_path(@plantacion), id: "nav-edit-plantacion" do %>
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
+      <%= link_to plantacion_path(@plantacion), id: "nav-view-plantacion" do %>
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver Plantación
       <% end %>
     </li>
     <li>
-      <%= link_to new_plantacion_validacion_path(@plantacion), id: "nav-validate-plantacion" do %>
-        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Validar
+      <%= link_to edit_plantacion_validacion_path(@plantacion, @validacion), id: "nav-edit-validacion" do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Validación
       <% end %>
     </li>
     <li>
-      <a href="#" data-toggle="modal" data-target="#plantaciones-modal" id="nav-replace-plantacion">
-        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar
-      </a>
-    </li>
-    <li>
-      <%= link_to plantacion_map_path(@plantacion), id: "nav-map-plantacion", target: '_blank' do %>
-        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Mapa
-      <% end %>
-    </li>
-  <% end %>
-  <% if current_user.admin? %>
-    <li>
-      <%= link_to plantacion_path(@plantacion), id: "nav-delete-plantacion", method: :delete,
-        data: { confirm: '¿Está seguro que desea eliminar la Plantación?' } do %>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+      <%= link_to plantacion_validacion_path(@plantacion, @validacion), id: "nav-delete-validacion", method: :delete,
+        data: { confirm: '¿Está seguro que desea eliminar la Validación?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Validación
       <% end %>
     </li>
   <% end %>
 <% end %>
 
 <div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Validación</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Plantación:</dt>
+          <dd><%= @validacion.plantacion.id if @validacion.plantacion %></dd>
+          <dt>Responsable:</dt>
+          <dd><%= @validacion.responsable.nombre if @validacion.responsable %></dd>
+          <dt>Especie 1:</dt>
+          <dd><%= @validacion.especie_1.nombre_cientifico if @validacion.especie_1 %></dd>
+          <dt>Especie 2:</dt>
+          <dd><%= @validacion.especie_2.nombre_cientifico if @validacion.especie_2 %></dd>
+          <dt>Especie 3:</dt>
+          <dd><%= @validacion.especie_3.nombre_cientifico if @validacion.especie_3 %></dd>
+          <dt>Edad estimada:</dt>
+          <dd><%= @validacion.edad_estimada %></dd>
+          <dt>Densidad estimada:</dt>
+          <dd><%= @validacion.densidad_estimada %></dd>
+          <dt>DAP promedio:</dt>
+          <dd><%= @validacion.dap_promedio %></dd>
+          <dt>Altura media dominante:</dt>
+          <dd><%= @validacion.altura_media_dominante %></dd>
+          <dt>Número de poda:</dt>
+          <dd><%= @validacion.numero_poda %></dd>
+          <dt>Número de raleo:</dt>
+          <dd><%= @validacion.numero_raleo %></dd>
+          <dt>Cantidad de podas:</dt>
+          <dd><%= @validacion.cantidad_poda %></dd>
+          <dt>Cantidad de raleos:</dt>
+          <dd><%= @validacion.cantidad_raleo %></dd>
+          <dt>Sistematización:</dt>
+          <dd><%= @validacion.sistematizacion.descripcion if @validacion.sistematizacion %></dd>
+          <dt>Distancia entre filas:</dt>
+          <dd><%= @validacion.distancia_filas %></dd>
+          <dt>Distancia entre plantas:</dt>
+          <dd><%= @validacion.distancia_plantas %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
   <div class="col-md-3">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -98,54 +129,6 @@
       <div class="panel-footer">
         <%= render partial: 'common/boolean_label', locals: {value: @plantacion.activo, true_label: "Activo", false_label: "Inactivo"} %>
       </div>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <% if @plantacion.expedientes.count > 0 %>
-      <h4>Expedientes</h4>
-      <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
-    <% end %>
-    <% if @plantacion.plantaciones_nuevas.count > 0 %>
-      <h4>Histórico (Nuevas)</h4>
-      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas, id: "plantaciones_nuevas"} %>
-    <% end %>
-    <% if @plantacion.plantaciones_anteriores.count > 0 %>
-      <h4>Histórico (Anteriores)</h4>
-      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores, id: "plantaciones_anteriores"} %>
-    <% end %>
-    <% if @plantacion.validaciones.count > 0 %>
-      <h4>Validaciones</h4>
-      <%= render partial: 'validaciones/validaciones', locals: {validaciones: @plantacion.validaciones} %>
-    <% end %>
-  </div>
-</div>
-
-<div class="modal fade" id="plantaciones-modal" tabindex="-1" role="dialog" aria-labelledby="plantaciones-modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="plantaciones-modal-label">Nuevas Plantaciones</h4>
-      </div>
-      <%= bootstrap_form_tag url: plantacion_replace_path(@plantacion), method: :put, layout: :vertical do |f| %>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_area "plantaciones_nuevas_ids", label: "Plantaciones", rows: "10", required: true %>
-              <%= f.form_group do %>
-                <%= f.check_box "copiar_datos", label: "Copiar datos", inline: true %>
-              <% end %>
-              <div class="alert alert-info" role="alert">
-                <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>Agregue un ID por línea.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <%= f.submit "Reemplazar", class: "btn btn-primary", id: "plantaciones-modal-replace" %>
-        </div>
-      <% end %>
     </div>
   </div>
 </div>
