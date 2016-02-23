@@ -26,4 +26,9 @@ class Movimiento < ActiveRecord::Base
   def validado
     !validador.nil?
   end
+
+  def informe
+    file = File.join(Rails.application.config.path_informes_rf, id.to_s + '.pdf')
+    return File.exist?(file) ? file : nil
+  end
 end
