@@ -17,7 +17,7 @@
     </li>
     <% if @movimiento.estabilidad_fiscal and @movimiento.informe %>
       <li>
-        <%= link_to expediente_movimiento_ef_report_path(@expediente, @movimiento), id: "nav-ef-report-movimiento" do %>
+        <%= link_to expediente_movimiento_ef_report_path(@expediente, @movimiento), id: "nav-ef-report-movimiento", target: '_blank' do %>
           <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Bajar Informe
         <% end %>
       </li>

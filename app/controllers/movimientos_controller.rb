@@ -76,7 +76,7 @@ class MovimientosController < ApplicationController
   # Devuelve el informe de Estabilidad Fiscal
   def ef_report
     if @movimiento.estabilidad_fiscal and @movimiento.informe
-      send_file @movimiento.informe
+      send_file @movimiento.informe, :disposition => 'inline'
     end
   end
 
