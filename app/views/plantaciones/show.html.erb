@@ -11,11 +11,6 @@
       <% end %>
     </li>
     <li>
-      <a href="#" data-toggle="modal" data-target="#plantaciones-modal" id="nav-replace-plantacion">
-        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar
-      </a>
-    </li>
-    <li>
       <%= link_to plantacion_map_path(@plantacion), id: "nav-map-plantacion", target: '_blank' do %>
         <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Mapa
       <% end %>
@@ -117,35 +112,5 @@
       <h4>Validaciones</h4>
       <%= render partial: 'validaciones/validaciones', locals: {validaciones: @plantacion.validaciones} %>
     <% end %>
-  </div>
-</div>
-
-<div class="modal fade" id="plantaciones-modal" tabindex="-1" role="dialog" aria-labelledby="plantaciones-modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-        <h4 class="modal-title" id="plantaciones-modal-label">Nuevas Plantaciones</h4>
-      </div>
-      <%= bootstrap_form_tag url: plantacion_replace_path(@plantacion), method: :put, layout: :vertical do |f| %>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-12">
-              <%= f.text_area "plantaciones_nuevas_ids", label: "Plantaciones", rows: "10", required: true %>
-              <%= f.form_group do %>
-                <%= f.check_box "copiar_datos", label: "Copiar datos", inline: true %>
-              <% end %>
-              <div class="alert alert-info" role="alert">
-                <i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i>Agregue un ID por línea.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <%= f.submit "Reemplazar", class: "btn btn-primary", id: "plantaciones-modal-replace" %>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>

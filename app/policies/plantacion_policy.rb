@@ -1,9 +1,5 @@
 class PlantacionPolicy < ApplicationPolicy
 
-  def replace?
-    user.editor?
-  end
-
   def mass_edit?
     user.editor?
   end
