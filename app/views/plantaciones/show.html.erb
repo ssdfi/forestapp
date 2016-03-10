@@ -5,11 +5,11 @@
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
       <% end %>
     </li>
-    <li>
+    <!-- <li>
       <%= link_to new_plantacion_validacion_path(@plantacion), id: "nav-validate-plantacion" do %>
         <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Validar
       <% end %>
-    </li>
+    </li> -->
     <li>
       <a href="#" data-toggle="modal" data-target="#plantaciones-modal" id="nav-replace-plantacion">
         <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Reemplazar
@@ -101,22 +101,53 @@
     </div>
   </div>
   <div class="col-md-9">
-    <% if @plantacion.expedientes.count > 0 %>
-      <h4>Expedientes</h4>
-      <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
-    <% end %>
-    <% if @plantacion.plantaciones_nuevas.count > 0 %>
-      <h4>Histórico (Nuevas)</h4>
-      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas, id: "plantaciones_nuevas"} %>
-    <% end %>
-    <% if @plantacion.plantaciones_anteriores.count > 0 %>
-      <h4>Histórico (Anteriores)</h4>
-      <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores, id: "plantaciones_anteriores"} %>
-    <% end %>
-    <% if @plantacion.validaciones.count > 0 %>
-      <h4>Validaciones</h4>
-      <%= render partial: 'validaciones/validaciones', locals: {validaciones: @plantacion.validaciones} %>
-    <% end %>
+    <ul class="nav nav-tabs" role="tablist">
+      <% if @plantacion.expedientes.count > 0 %>
+        <li role="presentation" class="active">
+          <a href="#expedientes-tab" aria-controls="expedientes-tab" role="tab" data-toggle="tab">Expedientes</a>
+        </li>
+      <% end %>
+      <% if @plantacion.plantaciones_nuevas.count > 0 or @plantacion.plantaciones_anteriores.count > 0 %>
+        <li role="presentation">
+          <a href="#historial-tab" aria-controls="historial-tab" role="tab" data-toggle="tab">Historial</a>
+        </li>
+      <% end %>
+      <!-- <% if @plantacion.validaciones.count > 0 %>
+        <li role="presentation">
+          <a href="#validaciones-tab" aria-controls="validaciones-tab" role="tab" data-toggle="tab">Validaciones</a>
+        </li>
+      <% end %> -->
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="expedientes-tab">
+        <% if @plantacion.expedientes.count > 0 %>
+          <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
+        <% end %>
+        <% if @plantacion.movimientos.count > 0 %>
+          <h4>Movimientos</h4>
+          <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos} %>
+        <% end %>
+        <% if @plantacion.actividades.count > 0 %>
+          <h4>Actividades</h4>
+          <%= render partial: 'actividades/actividades', locals: {actividades: @actividades} %>
+        <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="historial-tab">
+        <% if @plantacion.plantaciones_nuevas.count > 0 %>
+          <h4>Nuevas Plantaciones</h4>
+          <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas, id: "plantaciones_nuevas"} %>
+        <% end %>
+        <% if @plantacion.plantaciones_anteriores.count > 0 %>
+          <h4>Plantaciones Anteriores</h4>
+          <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores, id: "plantaciones_anteriores"} %>
+        <% end %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="validaciones-tab">
+        <% if @plantacion.validaciones.count > 0 %>
+          <%= render partial: 'validaciones/validaciones', locals: {validaciones: @plantacion.validaciones} %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
