@@ -125,11 +125,11 @@
         <% end %>
         <% if @plantacion.movimientos.count > 0 %>
           <h4>Movimientos</h4>
-          <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos} %>
+          <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos, include_parent_ids: true} %>
         <% end %>
         <% if @plantacion.actividades.count > 0 %>
           <h4>Actividades</h4>
-          <%= render partial: 'actividades/actividades', locals: {actividades: @actividades} %>
+          <%= render partial: 'actividades/actividades', locals: {actividades: @actividades, include_parent_ids: true} %>
         <% end %>
       </div>
       <div role="tabpanel" class="tab-pane" id="historial-tab">

@@ -2,6 +2,10 @@
   <thead>
     <tr>
       <th>ID</th>
+      <% if defined?(include_parent_ids) and include_parent_ids %>
+        <th>Expediente</th>
+        <th>Movimiento</th>
+      <% end %>
       <th>Tipo actividad</th>
       <th>Presentado</th>
       <th>Certificado</th>
@@ -14,6 +18,10 @@
     <% actividades.each do |actividad| %>
       <tr data-link="<%= expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad) %>">
         <td><%= actividad.id %></td>
+        <% if defined?(include_parent_ids) and include_parent_ids %>
+          <td><%= actividad.movimiento.id %></td>
+          <td><%= actividad.movimiento.expediente.id %></td>
+        <% end %>
         <td><%= actividad.tipo_actividad.descripcion %></td>
         <td><%= actividad.superficie_presentada %></td>
         <td><%= actividad.superficie_certificada %></td>

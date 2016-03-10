@@ -2,6 +2,9 @@
   <thead>
     <tr>
       <th>ID</th>
+      <% if defined?(include_parent_ids) and include_parent_ids %>
+        <th>Expediente</th>
+      <% end %>
       <th>Ficha</th>
       <th>Etapa</th>
       <th>Entrada</th>
@@ -16,6 +19,9 @@
       <% movimientos.each do |movimiento| %>
         <tr data-link="<%= expediente_movimiento_path(movimiento.expediente, movimiento) %>">
           <td><%= movimiento.id %></td>
+          <% if defined?(include_parent_ids) and include_parent_ids %>
+            <td><%= movimiento.expediente.id %></td>
+          <% end %>
           <td><%= movimiento.numero_ficha %></td>
           <td><%= movimiento.etapa %></td>
           <td><%= l movimiento.fecha_entrada if movimiento.fecha_entrada%></td>
