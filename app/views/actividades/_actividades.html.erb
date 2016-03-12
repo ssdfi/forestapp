@@ -1,0 +1,41 @@
+<table class="table table-hover table-grid" id="actividades">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <% if defined?(include_parent_ids) and include_parent_ids %>
+        <th>Movimiento</th>
+        <th>Expediente</th>
+      <% end %>
+      <th>Tipo actividad</th>
+      <th>Presentado</th>
+      <th>Certificado</th>
+      <th>Inspeccionado</th>
+      <th>Registrado</th>
+      <th class="icon hidden-print">Mapa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% actividades.each do |actividad| %>
+      <tr data-link="<%= expediente_movimiento_actividad_path(actividad.movimiento.expediente, actividad.movimiento, actividad) %>">
+        <td><%= actividad.id %></td>
+        <% if defined?(include_parent_ids) and include_parent_ids %>
+          <td><%= actividad.movimiento.id %></td>
+          <td><%= actividad.movimiento.expediente.id %></td>
+        <% end %>
+        <td><%= actividad.tipo_actividad.descripcion %></td>
+        <td><%= actividad.superficie_presentada %></td>
+        <td><%= actividad.superficie_certificada %></td>
+        <td><%= actividad.superficie_inspeccionada %></td>
+        <td><%= actividad.superficie_registrada %></td>
+        <td class="icon icon-lg hidden-print">
+          <% if actividad.plantaciones.count > 0 %>
+            <%= link_to expediente_movimiento_actividad_map_path(actividad.movimiento.expediente, actividad.movimiento, actividad),
+              target: '_blank', onclick: 'event.stopPropagation()' do %>
+              <span class="glyphicon glyphicon-globe"></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
