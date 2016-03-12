@@ -4,6 +4,10 @@ class MovimientoPolicy < ApplicationPolicy
     user.editor?
   end
 
+  def ef_report?
+    user.editor?
+  end
+
   class Scope < Scope
     def resolve
       scope

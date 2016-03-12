@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160211202600) do
+ActiveRecord::Schema.define(version: 20160218193955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -364,6 +364,12 @@ ActiveRecord::Schema.define(version: 20160211202600) do
     t.datetime "updated_at"
   end
 
+  create_table "sistematizaciones", force: true do |t|
+    t.string   "descripcion"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tecnicos", force: true do |t|
     t.string   "nombre"
     t.boolean  "activo",     default: true
@@ -486,6 +492,34 @@ ActiveRecord::Schema.define(version: 20160211202600) do
   end
 
   add_index "usos_forestales", ["codigo"], :name => "index_usos_forestales_on_codigo"
+
+  create_table "validaciones", force: true do |t|
+    t.integer  "plantacion_id"
+    t.integer  "responsable_id"
+    t.integer  "especie_1_id"
+    t.integer  "especie_2_id"
+    t.integer  "especie_3_id"
+    t.integer  "edad_estimada"
+    t.decimal  "densidad_estimada"
+    t.integer  "dap_promedio"
+    t.integer  "altura_media_dominante"
+    t.integer  "numero_poda"
+    t.integer  "numero_raleo"
+    t.integer  "cantidad_poda"
+    t.integer  "cantidad_raleo"
+    t.integer  "sistematizacion_id"
+    t.decimal  "distancia_filas"
+    t.decimal  "distancia_plantas"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "validaciones", ["especie_1_id"], :name => "index_validaciones_on_especie_1_id"
+  add_index "validaciones", ["especie_2_id"], :name => "index_validaciones_on_especie_2_id"
+  add_index "validaciones", ["especie_3_id"], :name => "index_validaciones_on_especie_3_id"
+  add_index "validaciones", ["plantacion_id"], :name => "index_validaciones_on_plantacion_id"
+  add_index "validaciones", ["responsable_id"], :name => "index_validaciones_on_responsable_id"
+  add_index "validaciones", ["sistematizacion_id"], :name => "index_validaciones_on_sistematizacion_id"
 
   create_table "zona_departamentos", force: true do |t|
     t.integer  "zona_id"

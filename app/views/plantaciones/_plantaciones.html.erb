@@ -6,6 +6,7 @@
       <th>Especie</th>
       <th>Tipo</th>
       <th>Superficie</th>
+      <th>Activo</th>
       <th class="icon">Mapa</th>
     </tr>
   </thead>
@@ -19,6 +20,9 @@
         </td>
         <td><%= plantacion.tipo_plantacion.descripcion if plantacion.tipo_plantacion %></td>
         <td><%= plantacion.hectareas %></td>
+        <td class="icon">
+          <%= render partial: 'common/boolean_value', locals: {value: plantacion.activo} %>
+        </td>
         <td class="icon icon-lg">
           <%= link_to plantacion_map_path(plantacion), target: '_blank', onclick: 'event.stopPropagation()' do %>
             <span class="glyphicon glyphicon-globe"></span>

@@ -79,4 +79,7 @@ Rails.application.configure do
   # Configuraciones para migración de datos
   config.path_plantaciones = "/media/mpf/BDE_Postgres/Coberturas_MPF"
   config.path_unificados = "/media/mpf/BDE_Postgres/Unificados"
+
+  # Configuraciones de carpetas
+  config.path_informes_rf = "/media/promocion/Informes_EF/"
 end

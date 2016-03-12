@@ -12,16 +12,17 @@ Rails.application.routes.draw do
           get 'map', path: 'mapa'
         end
         get 'report', path: 'reporte'
+        get 'ef_report', path: 'informe'
       end
     end
 
     resources :plantaciones do
-      put 'replace', path: 'reemplazar'
       get 'map', path: 'mapa'
       collection do
         get 'mass_edit', path: 'editar'
         put 'mass_update', path: 'actualizar'
       end
+      resources :validaciones
     end
 
     resources :zonas do

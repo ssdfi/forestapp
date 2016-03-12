@@ -23,4 +23,5 @@ Rails.application.config.assets.precompile += %w(
   departamentos.js
   generos.js
   especies.js
+  validaciones.js
 )

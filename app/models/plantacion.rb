@@ -19,14 +19,17 @@ class Plantacion < ActiveRecord::Base
   has_many :actividades, through: :actividades_plantaciones
   has_many :movimientos, through: :actividades
   has_many :expedientes, through: :movimientos
-  # has_and_belongs_to_many :plantaciones_nuevas, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_anterior_id'
-  # has_and_belongs_to_many :plantaciones_anteriores, class_name: 'PlantacionHistorico', foreign_key: 'plantacion_nueva_id'
-  has_and_belongs_to_many :plantaciones_nuevas, class_name: 'Plantacion', join_table: 'plantaciones_historico',
-    foreign_key: 'plantacion_anterior_id', association_foreign_key: 'plantacion_nueva_id'
-  has_and_belongs_to_many :plantaciones_anteriores, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+  has_and_belongs_to_many :plantaciones_nuevas, -> { uniq }, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+    foreign_key: 'plantacion_anterior_id', association_foreign_key: 'plantacion_nueva_id', autosave: true
+  has_and_belongs_to_many :plantaciones_anteriores, -> { uniq }, class_name: 'Plantacion', join_table: 'plantaciones_historico',
     foreign_key: 'plantacion_nueva_id', association_foreign_key: 'plantacion_anterior_id'
+  has_many :validaciones
 
-  attr_reader :ids
+  validate :plantaciones_nuevas_cannot_contain_itself
+
+  before_save :process_nuevas_plantaciones
+
+  attr_reader :ids, :copiar_datos, :activar_nuevas
 
   ##
   # Busca las plantaciones que coincidan con los atributos definidos en el objeto Plantacion pasado como parámetro
@@ -41,6 +44,14 @@ class Plantacion < ActiveRecord::Base
 
   def ids=(value)
     @ids = value unless value.blank?
+  end
+
+  def copiar_datos=(value)
+    @copiar_datos = value === "1" ? true : false
+  end
+
+  def activar_nuevas=(value)
+    @activar_nuevas = value === "1" ? true : false
   end
 
   ##
@@ -126,4 +137,36 @@ class Plantacion < ActiveRecord::Base
     geoutil.encode_json(features)
   end
 
+  private
+
+    ### Validar que la plantación no sea reemplazada por sí misma
+    def plantaciones_nuevas_cannot_contain_itself
+      if plantaciones_nuevas.include? self
+        errors.add(:plantacion_nuevas_ids, 'La plantación no puede se reemplazada por sí misma')
+      end
+    end
+
+    ##
+    # Copiar datos a las nuevas plantaciones en caso que corresponda
+    # Desactivar la plantación si fue reemplazada
+    # Activar nuevas plantaciones según corresponda
+    def process_nuevas_plantaciones
+      self.activo = false if plantaciones_nuevas.count > 0
+      plantaciones_nuevas.each do |nueva_plantacion|
+        nueva_plantacion.activo = activar_nuevas
+        if copiar_datos
+          nueva_plantacion.titular = titular
+          nueva_plantacion.especies = especies
+          nueva_plantacion.anio_plantacion = anio_plantacion
+          nueva_plantacion.tipo_plantacion = tipo_plantacion
+          nueva_plantacion.nomenclatura_catastral = nomenclatura_catastral
+          nueva_plantacion.provincia = provincia
+          nueva_plantacion.departamento = departamento
+          nueva_plantacion.estrato_desarrollo = estrato_desarrollo
+          nueva_plantacion.uso_forestal = uso_forestal
+          nueva_plantacion.uso_anterior = uso_anterior
+          nueva_plantacion.objetivo_plantacion = objetivo_plantacion
+        end
+      end
+    end
 end

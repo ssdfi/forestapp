@@ -1,14 +1,5 @@
 <%= bootstrap_form_for @plantacion, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8" do |f| %>
-  <% if @plantacion.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@plantacion.errors.count, "error") %> ha evitado que los cambios sean guardados:</h2>
-      <ul>
-      <% @plantacion.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render partial: "common/error_messages", locals: { errors: @plantacion.errors } %>
   <div class="form-group">
     <label class="control-label col-sm-4" for="plantacion_titular">Titular</label>
     <div class="col-sm-8">
@@ -58,12 +49,26 @@
   <%= f.collection_select :uso_forestal_id, UsoForestal.all, :id, :descripcion, {label: "Uso Forestal", include_blank: true} %>
   <%= f.collection_select :uso_anterior_id, UsoAnterior.all, :id, :descripcion, {label: "Uso Anterior", include_blank: true} %>
   <%= f.collection_select :objetivo_plantacion_id, ObjetivoPlantacion.all, :id, :descripcion, {label: "Objetivo de Plantación", include_blank: true} %>
-  <div class="form-group">
-    <div class="col-sm-8 col-sm-offset-4">
-      <%= f.check_box :activo, label: "", "data-label" => "Activo" %>
+  <%= render partial: "common/switch_field", locals: { f: f, field: :activo, label: "Activo" } %>
+  <%= f.text_area :comentarios, label: "Comentarios" %>
+  <hr/>
+  <h3>Histórico</h3>
+  <%= f.collection_select :plantacion_nuevas_ids, @plantacion.plantaciones_nuevas, :id, :id,
+    { label: "Nuevas Plantaciones", selected: nil }, { multiple: true, size: 10 } %>
+  <div class="form-group" style="margin-top: -10px;">
+    <div class="col-sm-9 col-sm-offset-3">
+      <div class="pull-right">
+        <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#nuevas-plantaciones-modal" id="add-nueva-plantacion">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar
+        </button>
+        <button id="remove-nueva-plantacion" type="button" class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+        </button>
+      </div>
     </div>
   </div>
-  <%= f.text_area :comentarios, label: "Comentarios" %>
+  <%= render partial: "common/switch_field", locals: { f: f, field: :copiar_datos, label: "Copiar datos" } %>
+  <%= render partial: "common/switch_field", locals: { f: f, field: :activar_nuevas, label: "Activar nuevas" } %>
   <hr/>
   <%= f.submit "Guardar", class: "btn btn-primary pull-right", id: "save-plantacion" %>
   <%= link_to "Cancelar", :back, class: "btn btn-default" %>
@@ -153,6 +158,24 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <button id="titulares-modal-select" type="button" class="btn btn-primary">Seleccionar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="nuevas-plantaciones-modal" tabindex="-1" role="dialog" aria-labelledby="plantaciones-modal-label" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+        <h4 class="modal-title" id="plantaciones-modal-label">Nuevas Plantaciones</h4>
+      </div>
+      <div class="modal-body">
+        <%= text_area_tag :plantaciones_nuevas_ids, nil, { rows: "10", placeholder: 'Agregue un ID por línea', class: 'form-control' } %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button id="plantaciones-modal-add" type="button" class="btn btn-primary">Agregar</button>
       </div>
     </div>
   </div>

@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label class="control-label col-sm-4"><%= label %></label>
+  <div class="col-sm-8">
+    <div class="input-group">
+      <input type="text" class="form-control" value="<%= especie.nombre_cientifico if especie %>" readonly>
+      <span class="input-group-btn">
+        <button class="btn btn-default select-especie" type="button">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+        <button class="btn btn-default remove-especie" type="button">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </span>
+    </div>
+  </div>
+  <%= f.hidden_field hidden_field, label: "" %>
+</div>

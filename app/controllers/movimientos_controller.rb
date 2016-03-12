@@ -1,6 +1,6 @@
 class MovimientosController < ApplicationController
   before_action :set_expediente
-  before_action :set_movimiento, only: [:show, :edit, :update, :destroy, :report]
+  before_action :set_movimiento, only: [:show, :edit, :update, :destroy, :report, :ef_report]
   before_action :set_variables, only: [:new, :create, :edit, :update]
   layout 'print', :only => [:report]
 
@@ -71,6 +71,13 @@ class MovimientosController < ApplicationController
       .joins("JOIN especies_plantaciones ON plantaciones.id = especies_plantaciones.plantacion_id")
       .group(:actividad_id, :titular_id, :tipo_plantacion_id, :especie_id).order(actividad_id: :desc)
       .sum(:superficie_registrada)
+  end
+
+  # Devuelve el informe de Estabilidad Fiscal
+  def ef_report
+    if @movimiento.estabilidad_fiscal and @movimiento.informe
+      send_file @movimiento.informe, :disposition => 'inline'
+    end
   end
 
   private

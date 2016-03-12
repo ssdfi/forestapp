@@ -1,0 +1,26 @@
+<table class="table table-hover table-grid" id="validaciones">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Responsable</th>
+      <th>Especie 1</th>
+      <th>Especie 2</th>
+      <th>Especie 3</th>
+      <th>Creación</th>
+      <th>Actualización</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% validaciones.each do |validacion| %>
+      <tr data-link="<%= plantacion_validacion_path(@plantacion, validacion) %>">
+        <td><%= validacion.id %></td>
+        <td><%= validacion.responsable.nombre if validacion.responsable %></td>
+        <td><%= validacion.especie_1.nombre_cientifico if validacion.especie_1 %></td>
+        <td><%= validacion.especie_2.nombre_cientifico if validacion.especie_2 %></td>
+        <td><%= validacion.especie_3.nombre_cientifico if validacion.especie_3 %></td>
+        <td><%= l validacion.created_at.to_date %></td>
+        <td><%= l validacion.updated_at.to_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

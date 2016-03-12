@@ -33,25 +33,17 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li>
-            <%= link_to expedientes_path do %>
-              Expedientes <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <% end %>
+            <%= link_to expedientes_path do %>Expedientes<% end %>
           </li>
           <li>
-            <%= link_to titulares_path do %>
-              Titulares <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <% end %>
+            <%= link_to titulares_path do %>Titulares<% end %>
           </li>
           <li>
-            <%= link_to tecnicos_path do %>
-              Técnicos <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <% end %>
+            <%= link_to tecnicos_path do %>Técnicos<% end %>
           </li>
           <% if current_user.editor? %>
             <li>
-              <%= link_to plantaciones_path do %>
-                Plantaciones <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <% end %>
+              <%= link_to plantaciones_path do %>Plantaciones<% end %>
             </li>
           <% end %>
         </ul>

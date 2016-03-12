@@ -1,32 +1,68 @@
 <% content_for :actions do %>
   <% if current_user.editor? %>
     <li>
-      <%= link_to edit_plantacion_path(@plantacion), id: "nav-edit-plantacion" do %>
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
+      <%= link_to plantacion_path(@plantacion), id: "nav-view-plantacion" do %>
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Ver Plantación
       <% end %>
     </li>
-    <!-- <li>
-      <%= link_to new_plantacion_validacion_path(@plantacion), id: "nav-validate-plantacion" do %>
-        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Validar
-      <% end %>
-    </li> -->
     <li>
-      <%= link_to plantacion_map_path(@plantacion), id: "nav-map-plantacion", target: '_blank' do %>
-        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Mapa
+      <%= link_to edit_plantacion_validacion_path(@plantacion, @validacion), id: "nav-edit-validacion" do %>
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Validación
       <% end %>
     </li>
-  <% end %>
-  <% if current_user.admin? %>
     <li>
-      <%= link_to plantacion_path(@plantacion), id: "nav-delete-plantacion", method: :delete,
-        data: { confirm: '¿Está seguro que desea eliminar la Plantación?' } do %>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
+      <%= link_to plantacion_validacion_path(@plantacion, @validacion), id: "nav-delete-validacion", method: :delete,
+        data: { confirm: '¿Está seguro que desea eliminar la Validación?' } do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Validación
       <% end %>
     </li>
   <% end %>
 <% end %>
 
 <div class="row">
+  <div class="col-md-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Validación</h3>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Plantación:</dt>
+          <dd><%= @validacion.plantacion.id if @validacion.plantacion %></dd>
+          <dt>Responsable:</dt>
+          <dd><%= @validacion.responsable.nombre if @validacion.responsable %></dd>
+          <dt>Especie 1:</dt>
+          <dd><%= @validacion.especie_1.nombre_cientifico if @validacion.especie_1 %></dd>
+          <dt>Especie 2:</dt>
+          <dd><%= @validacion.especie_2.nombre_cientifico if @validacion.especie_2 %></dd>
+          <dt>Especie 3:</dt>
+          <dd><%= @validacion.especie_3.nombre_cientifico if @validacion.especie_3 %></dd>
+          <dt>Edad estimada:</dt>
+          <dd><%= @validacion.edad_estimada %></dd>
+          <dt>Densidad estimada:</dt>
+          <dd><%= @validacion.densidad_estimada %></dd>
+          <dt>DAP promedio:</dt>
+          <dd><%= @validacion.dap_promedio %></dd>
+          <dt>Altura media dominante:</dt>
+          <dd><%= @validacion.altura_media_dominante %></dd>
+          <dt>Número de poda:</dt>
+          <dd><%= @validacion.numero_poda %></dd>
+          <dt>Número de raleo:</dt>
+          <dd><%= @validacion.numero_raleo %></dd>
+          <dt>Cantidad de podas:</dt>
+          <dd><%= @validacion.cantidad_poda %></dd>
+          <dt>Cantidad de raleos:</dt>
+          <dd><%= @validacion.cantidad_raleo %></dd>
+          <dt>Sistematización:</dt>
+          <dd><%= @validacion.sistematizacion.descripcion if @validacion.sistematizacion %></dd>
+          <dt>Distancia entre filas:</dt>
+          <dd><%= @validacion.distancia_filas %></dd>
+          <dt>Distancia entre plantas:</dt>
+          <dd><%= @validacion.distancia_plantas %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
   <div class="col-md-3">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -92,55 +128,6 @@
       </div>
       <div class="panel-footer">
         <%= render partial: 'common/boolean_label', locals: {value: @plantacion.activo, true_label: "Activo", false_label: "Inactivo"} %>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-9">
-    <ul class="nav nav-tabs" role="tablist">
-      <% if @plantacion.expedientes.count > 0 %>
-        <li role="presentation" class="active">
-          <a href="#expedientes-tab" aria-controls="expedientes-tab" role="tab" data-toggle="tab">Expedientes</a>
-        </li>
-      <% end %>
-      <% if @plantacion.plantaciones_nuevas.count > 0 or @plantacion.plantaciones_anteriores.count > 0 %>
-        <li role="presentation">
-          <a href="#historial-tab" aria-controls="historial-tab" role="tab" data-toggle="tab">Historial</a>
-        </li>
-      <% end %>
-      <!-- <% if @plantacion.validaciones.count > 0 %>
-        <li role="presentation">
-          <a href="#validaciones-tab" aria-controls="validaciones-tab" role="tab" data-toggle="tab">Validaciones</a>
-        </li>
-      <% end %> -->
-    </ul>
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="expedientes-tab">
-        <% if @plantacion.expedientes.count > 0 %>
-          <%= render partial: 'expedientes/expedientes', locals: {expedientes: @expedientes} %>
-        <% end %>
-        <% if @plantacion.movimientos.count > 0 %>
-          <h4>Movimientos</h4>
-          <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos, include_parent_ids: true} %>
-        <% end %>
-        <% if @plantacion.actividades.count > 0 %>
-          <h4>Actividades</h4>
-          <%= render partial: 'actividades/actividades', locals: {actividades: @actividades, include_parent_ids: true} %>
-        <% end %>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="historial-tab">
-        <% if @plantacion.plantaciones_nuevas.count > 0 %>
-          <h4>Nuevas Plantaciones</h4>
-          <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_nuevas, id: "plantaciones_nuevas"} %>
-        <% end %>
-        <% if @plantacion.plantaciones_anteriores.count > 0 %>
-          <h4>Plantaciones Anteriores</h4>
-          <%= render partial: 'plantaciones', locals: {plantaciones: @plantacion.plantaciones_anteriores, id: "plantaciones_anteriores"} %>
-        <% end %>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="validaciones-tab">
-        <% if @plantacion.validaciones.count > 0 %>
-          <%= render partial: 'validaciones/validaciones', locals: {validaciones: @plantacion.validaciones} %>
-        <% end %>
       </div>
     </div>
   </div>
