@@ -1,5 +1,5 @@
 class PlantacionesController < ApplicationController
-  before_action :set_plantacion, only: [:show, :edit, :update, :destroy, :map, :replace]
+  before_action :set_plantacion, only: [:show, :edit, :update, :destroy, :map]
   layout 'map', :only => [:map]
 
   # GET /plantaciones
@@ -100,40 +100,6 @@ class PlantacionesController < ApplicationController
     end
   end
 
-  # PUT /plantaciones/1/replace
-  # PUT /plantaciones/1/replace.json
-  def replace
-    @plantacion.activo = false
-    params[:plantaciones_nuevas_ids].split("\n").each do |plantacion_id|
-      next if plantacion_id.to_i == 0
-      nueva_plantacion = Plantacion.where(id: plantacion_id).first
-      if nueva_plantacion && params[:copiar_datos] == '1'
-        nueva_plantacion.titular = @plantacion.titular
-        nueva_plantacion.especies = @plantacion.especies
-        nueva_plantacion.anio_plantacion = @plantacion.anio_plantacion
-        nueva_plantacion.tipo_plantacion = @plantacion.tipo_plantacion
-        nueva_plantacion.nomenclatura_catastral = @plantacion.nomenclatura_catastral
-        nueva_plantacion.provincia = @plantacion.provincia
-        nueva_plantacion.departamento = @plantacion.departamento
-        nueva_plantacion.estrato_desarrollo = @plantacion.estrato_desarrollo
-        nueva_plantacion.uso_forestal = @plantacion.uso_forestal
-        nueva_plantacion.uso_anterior = @plantacion.uso_anterior
-        nueva_plantacion.objetivo_plantacion = @plantacion.objetivo_plantacion
-        nueva_plantacion.save!
-      end
-      @plantacion.plantaciones_nuevas << nueva_plantacion unless @plantacion.plantaciones_nuevas.include?(nueva_plantacion)
-    end
-    respond_to do |format|
-      if @plantacion.save
-        format.html { redirect_to @plantacion, notice: 'Plantación reemplazada satisfactoriamente.' }
-        format.json { render :show, status: :ok, location: @plantacion }
-      else
-        format.html { render :show }
-        format.json { render json: @plantacion.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
 
@@ -146,6 +112,6 @@ class PlantacionesController < ApplicationController
       params.require(:plantacion).permit(:titular_id, :anio_plantacion, :tipo_plantacion_id, :nomenclatura_catastral, :estado_plantacion_id,
         :distancia_plantas, :cantidad_filas, :distancia_filas, :densidad, :fuente_informacion_id, :anio_informacion, :fuente_imagen_id,
         :fecha_imagen, :base_geometrica_id, :provincia_id, :departamento_id, :estrato_desarrollo_id, :uso_forestal_id, :uso_anterior_id,
-        :activo, :comentarios, :objetivo_plantacion_id, :ids, especie_ids: [])
+        :activo, :comentarios, :objetivo_plantacion_id, :ids, :copiar_datos, :activar_nuevas, especie_ids: [], plantacion_nuevas_ids: [])
     end
 end

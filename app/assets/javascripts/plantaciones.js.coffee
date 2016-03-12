@@ -81,8 +81,10 @@ $(document).ready ->
       $("#plantacion_departamento_id").prop('disabled', false)
 
   ### Selecciona todos las especies del listado antes ejectuar el submit del formulario ###
-  $("form").submit ->
+  ### Convertir el listado de IDs del textarea de plantaciones en un array antes de ejectuar el submit del formulario ###
+  $("form").submit (e) ->
     $("#plantacion_especie_ids option").prop('selected', true)
+    $("#plantacion_plantacion_nuevas_ids option").prop('selected', true)
 
   ### Activa/Descativa el campo asociado al label ###
   $('.form-group[data-disabler] label').css('cursor', 'pointer')
@@ -93,3 +95,23 @@ $(document).ready ->
       !value
     )
     event.stopPropagation()
+
+  ###*
+   * Al hacer click en el botón de agregar plantaciones en la ventanda modal, se agregan al listado
+   * todos las plantaciones cuyos IDs han sido colocados en el campo de texto
+   ###
+  $("#plantaciones-modal-add").click ->
+    $.each($('#plantaciones_nuevas_ids').val().split('\n'), (key, value) ->
+      if(value != '')
+        $('#plantacion_plantacion_nuevas_ids').append("<option value='" + value + "'>" + value + "</option>")
+    )
+    $("#nuevas-plantaciones-modal").modal('hide')
+
+  ### Elimina las plantaciones seleccionadas ###
+  $("#remove-nueva-plantacion").click ->
+    for nuevaPlantacion in $("#plantacion_plantacion_nuevas_ids option:selected")
+      nuevaPlantacion.remove()
+
+  ### Hacer foco en el textarea cuando se abre el modal ###
+  $('#nuevas-plantaciones-modal').on 'shown.bs.modal', ->
+    $('#plantaciones_nuevas_ids').focus()
