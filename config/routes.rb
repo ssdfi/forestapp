@@ -12,6 +12,7 @@ Rails.application.routes.draw do
           get 'map', path: 'mapa'
         end
         get 'report', path: 'reporte'
+        get 'ef_report', path: 'informe'
       end
     end
 

@@ -38,4 +38,7 @@ Rails.application.configure do
   # Configuraciones para migración de datos
   config.path_plantaciones = "/Users/mmiranda/Projects/dpf/mpf/BDE_Postgres/Coberturas_MPF"
   config.path_unificados = "/Users/mmiranda/Projects/dpf/mpf/BDE_Postgres/Unificados"
+
+  # Configuraciones de carpetas
+  config.path_informes_rf = "/Users/mmiranda/Downloads/informes_ef"
 end

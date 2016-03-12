@@ -2,7 +2,7 @@
   <% if current_user.editor? %>
     <li>
       <%= link_to edit_expediente_movimiento_path(@expediente, @movimiento), id: "nav-edit-movimiento" do %>
-        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar Movimiento
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
       <% end %>
     </li>
     <li>
@@ -15,12 +15,19 @@
         <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Generar Reporte
       <% end %>
     </li>
+    <% if @movimiento.estabilidad_fiscal and @movimiento.informe %>
+      <li>
+        <%= link_to expediente_movimiento_ef_report_path(@expediente, @movimiento), id: "nav-ef-report-movimiento", target: '_blank' do %>
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Bajar Informe
+        <% end %>
+      </li>
+    <% end %>
   <% end %>
   <% if current_user.admin? %>
     <li>
       <%= link_to expediente_movimiento_path(@expediente, @movimiento), method: :delete,
         data: { confirm: '¿Está seguro que desea eliminar el Movimiento?' }, id: "nav-delete-movimiento" do %>
-        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar Movimiento
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Eliminar
       <% end %>
     </li>
   <% end %>
