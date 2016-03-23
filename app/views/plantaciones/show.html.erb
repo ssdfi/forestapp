@@ -5,11 +5,11 @@
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar
       <% end %>
     </li>
-    <!-- <li>
+    <li>
       <%= link_to new_plantacion_validacion_path(@plantacion), id: "nav-validate-plantacion" do %>
         <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Validar
       <% end %>
-    </li> -->
+    </li>
     <li>
       <%= link_to plantacion_map_path(@plantacion), id: "nav-map-plantacion", target: '_blank' do %>
         <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Mapa
@@ -107,11 +107,11 @@
           <a href="#historial-tab" aria-controls="historial-tab" role="tab" data-toggle="tab">Historial</a>
         </li>
       <% end %>
-      <!-- <% if @plantacion.validaciones.count > 0 %>
+      <% if @plantacion.validaciones.count > 0 %>
         <li role="presentation">
           <a href="#validaciones-tab" aria-controls="validaciones-tab" role="tab" data-toggle="tab">Validaciones</a>
         </li>
-      <% end %> -->
+      <% end %>
     </ul>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="expedientes-tab">
