@@ -4,6 +4,7 @@ class Expediente < ActiveRecord::Base
   belongs_to :tecnico
   has_many :movimientos
   has_and_belongs_to_many :titulares
+  has_many :anticipos
 
   validates :numero_interno, :numero_expediente, presence: true, uniqueness: true
   validates :numero_interno, format: { with: /[0-9]{2}-[0-9]{3}-[0-9]{3}\/[0-9]{2}/, message: "el formato debe ser ##-###-###/##" }

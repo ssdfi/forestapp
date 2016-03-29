@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317200653) do
+ActiveRecord::Schema.define(version: 20160329161942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(version: 20160317200653) do
   add_index "actividades_titulares", ["especie_id"], :name => "index_actividades_titulares_on_especie_id"
   add_index "actividades_titulares", ["tipo_plantacion_id"], :name => "index_actividades_titulares_on_tipo_plantacion_id"
   add_index "actividades_titulares", ["titular_id"], :name => "index_actividades_titulares_on_titular_id"
+
+  create_table "anticipos", force: true do |t|
+    t.string   "resolucion"
+    t.date     "fecha"
+    t.string   "listado"
+    t.integer  "expediente_id"
+    t.decimal  "monto"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bases_geometricas", force: true do |t|
     t.string "codigo"
@@ -289,6 +299,19 @@ ActiveRecord::Schema.define(version: 20160317200653) do
   end
 
   add_index "objetivos_plantacion", ["codigo"], :name => "index_objetivos_plantacion_on_codigo"
+
+  create_table "pagos", force: true do |t|
+    t.string   "resolucion"
+    t.date     "fecha"
+    t.string   "listado"
+    t.integer  "actividad_id"
+    t.decimal  "monto"
+    t.decimal  "superficie"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pagos", ["actividad_id"], :name => "index_pagos_on_actividad_id"
 
   create_table "plantaciones", force: true do |t|
     t.integer  "titular_id"

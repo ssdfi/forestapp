@@ -50,17 +50,22 @@
   <div class="col-md-9">
     <div role="tabpanel">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="<%= 'active' if params[:tab].nil? or params[:tab] == 'plantaciones-tab' %>">
+        <li role="presentation" class="active">
           <a href="#plantaciones-tab" aria-controls="plantaciones-tab" role="tab" data-toggle="tab">Plantaciones</a>
         </li>
         <% if @expediente.agrupado %>
-          <li role="presentation" class="<%= 'active' if params[:tab] == 'titulares-tab' %>">
+          <li role="presentation">
             <a href="#titulares-tab" aria-controls="titulares-tab" role="tab" data-toggle="tab">Detalle de Titulares</a>
+          </li>
+        <% end %>
+        <% if @actividad.pagos.count > 0 %>
+          <li role="presentation">
+            <a href="#pagos-tab" aria-controls="pagos-tab" role="tab" data-toggle="tab">Pagos</a>
           </li>
         <% end %>
       </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane <%= 'active' if params[:tab].nil? or params[:tab] == 'plantaciones-tab' %>" id="plantaciones-tab">
+        <div role="tabpanel" class="tab-pane active" id="plantaciones-tab">
           <table class="table table-hover table-grid" id="plantaciones">
             <thead>
               <tr>
@@ -108,8 +113,8 @@
             </div>
           <% end %>
         </div>
-        <% if @expediente.agrupado %>
-          <div role="tabpanel" class="tab-pane <%= 'active' if params[:tab] == 'titulares-tab' %>" id="titulares-tab">
+        <div role="tabpanel" class="tab-pane" id="titulares-tab">
+          <% if @expediente.agrupado %>
             <table class="table table-hover table-grid" id="titulares">
               <thead>
                 <tr>
@@ -146,8 +151,13 @@
                 <%= paginate @actividades_titulares, param_name: :titulares_page, params: {tab: "titulares-tab"}  %>
               </div>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="pagos-tab">
+          <% if @actividad.pagos.count > 0 %>
+            <%= render partial: 'pagos/pagos', locals: {pagos: @actividad.pagos} %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

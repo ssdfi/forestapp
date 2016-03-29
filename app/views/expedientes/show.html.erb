@@ -70,7 +70,25 @@
     </div>
   </div>
   <div class="col-md-9">
-    <h4>Movimientos</h4>
-    <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos} %>
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active">
+        <a href="#movimientos-tab" aria-controls="movimientos-tab" role="tab" data-toggle="tab">Movimientos</a>
+      </li>
+      <% if @expediente.anticipos.count > 0 %>
+        <li role="presentation">
+          <a href="#anticipos-tab" aria-controls="anticipos-tab" role="tab" data-toggle="tab">Anticipos</a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="movimientos-tab">
+        <%= render partial: 'movimientos/movimientos', locals: {movimientos: @movimientos} %>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="anticipos-tab">
+        <% if @expediente.anticipos.count > 0 %>
+          <%= render partial: 'anticipos/anticipos', locals: {anticipos: @expediente.anticipos} %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

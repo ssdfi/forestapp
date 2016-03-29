@@ -10,10 +10,12 @@ Rails.application.routes.draw do
       resources :movimientos do
         resources :actividades do
           get 'map', path: 'mapa'
+          resources :pagos
         end
         get 'report', path: 'reporte'
         get 'ef_report', path: 'informe'
       end
+      resources :anticipos
     end
 
     resources :plantaciones do

@@ -1,0 +1,22 @@
+<table class="table table-hover table-grid" id="anticipos">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Resolución</th>
+      <th>Fecha</th>
+      <th>Listado</th>
+      <th>Monto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% anticipos.each do |anticipo| %>
+      <tr data-link="<%= expediente_anticipo_path(anticipo.expediente, anticipo) %>">
+        <td><%= anticipo.id %></td>
+        <td><%= anticipo.resolucion %></td>
+        <td><%= l anticipo.fecha %></td>
+        <td><%= anticipo.listado %></td>
+        <td><%= anticipo.monto %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

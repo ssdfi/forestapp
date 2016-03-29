@@ -1,0 +1,24 @@
+<table class="table table-hover table-grid" id="pagos">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Resolución</th>
+      <th>Fecha</th>
+      <th>Listado</th>
+      <th>Monto</th>
+      <th>Superficie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% pagos.each do |pago| %>
+      <tr data-link="<%= expediente_movimiento_actividad_pago_path(pago.actividad.movimiento.expediente, pago.actividad.movimiento, pago.actividad, pago) %>">
+        <td><%= pago.id %></td>
+        <td><%= pago.resolucion %></td>
+        <td><%= l pago.fecha %></td>
+        <td><%= pago.listado %></td>
+        <td><%= pago.monto %></td>
+        <td><%= pago.superficie %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
