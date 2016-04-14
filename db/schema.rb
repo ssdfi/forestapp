@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329161942) do
+ActiveRecord::Schema.define(version: 20160413211546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,6 +312,14 @@ ActiveRecord::Schema.define(version: 20160329161942) do
   end
 
   add_index "pagos", ["actividad_id"], :name => "index_pagos_on_actividad_id"
+
+  create_table "pagos_titulares", force: true do |t|
+    t.integer "pago_id"
+    t.integer "actividad_titular_id"
+  end
+
+  add_index "pagos_titulares", ["actividad_titular_id"], :name => "index_pagos_titulares_on_actividad_titular_id"
+  add_index "pagos_titulares", ["pago_id"], :name => "index_pagos_titulares_on_pago_id"
 
   create_table "plantaciones", force: true do |t|
     t.integer  "titular_id"

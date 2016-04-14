@@ -15,6 +15,7 @@ class ActividadesController < ApplicationController
   def show
     @actividades_plantaciones = @actividad.actividades_plantaciones.page params[:plantaciones_page]
     @actividades_titulares = @actividad.actividades_titulares.page params[:titulares_page]
+    @pagos = @actividad.pagos.page params[:pagos_page]
   end
 
   # GET /actividades/1/map

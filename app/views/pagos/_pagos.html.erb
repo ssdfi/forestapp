@@ -2,6 +2,9 @@
   <thead>
     <tr>
       <th>ID</th>
+      <% if include_titulares %>
+        <th>Titular</th>
+      <% end %>
       <th>Resolución</th>
       <th>Fecha</th>
       <th>Listado</th>
@@ -11,8 +14,12 @@
   </thead>
   <tbody>
     <% pagos.each do |pago| %>
-      <tr data-link="<%= expediente_movimiento_actividad_pago_path(pago.actividad.movimiento.expediente, pago.actividad.movimiento, pago.actividad, pago) %>">
+      <!-- <tr data-link="<%= expediente_movimiento_actividad_pago_path(pago.actividad.movimiento.expediente, pago.actividad.movimiento, pago.actividad, pago) %>"> -->
+      <tr>
         <td><%= pago.id %></td>
+        <% if include_titulares %>
+          <td><%= link_to pago.titulares.first.actividad_titular.titular.nombre, pago.titulares.first.actividad_titular.titular if pago.titulares.count > 0 and pago.titulares.first.actividad_titular %></td>
+        <% end %>
         <td><%= pago.resolucion %></td>
         <td><%= l pago.fecha %></td>
         <td><%= pago.listado %></td>
@@ -22,3 +29,11 @@
     <% end %>
   </tbody>
 </table>
+<% if pagos.num_pages > 1 %>
+  <div class="well well-sm clearfix">
+    <div class="pagination-info pull-left">
+      <%= page_entries_info pagos %>
+    </div>
+    <%= paginate pagos, param_name: :pagos_page, params: {tab: "pagos-tab"}  %>
+  </div>
+<% end %>

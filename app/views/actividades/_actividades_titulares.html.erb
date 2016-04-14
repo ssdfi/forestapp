@@ -1,0 +1,36 @@
+<table class="table table-hover table-grid" id="titulares">
+  <thead>
+    <tr>
+      <th>Titular</th>
+      <th>Especie</th>
+      <th>Tipo de Plantación</th>
+      <th>Presentado</th>
+      <th>Certificado</th>
+      <th>Inspeccionado</th>
+      <th>Observaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% actividades_titulares.each do |actividad_titular| %>
+      <tr>
+        <td><%= link_to actividad_titular.titular.nombre, actividad_titular.titular if actividad_titular.titular %></td>
+        <td><%= actividad_titular.especie.codigo_sp if actividad_titular.especie %></td>
+        <td><%= actividad_titular.tipo_plantacion.codigo if actividad_titular.tipo_plantacion %></td>
+        <td><%= actividad_titular.superficie_presentada %></td>
+        <td><%= actividad_titular.superficie_certificada %></td>
+        <td><%= actividad_titular.superficie_inspeccionada %></td>
+        <td>
+          <abbr title="<%= actividad_titular.observaciones %>" data-length="20"></abbr>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% if actividades_titulares.num_pages > 1 %>
+  <div class="well well-sm clearfix">
+    <div class="pagination-info pull-left">
+      <%= page_entries_info actividades_titulares %>
+    </div>
+    <%= paginate actividades_titulares, param_name: :titulares_page, params: {tab: "titulares-tab"}  %>
+  </div>
+<% end %>

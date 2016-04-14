@@ -5,6 +5,7 @@ class ActividadTitular < ActiveRecord::Base
   belongs_to :titular
   belongs_to :especie
   belongs_to :tipo_plantacion
+  has_many :pagos, class_name: 'PagoTitular'
 
   def superficie_registrada
     @superficie_registrada ||= ActividadPlantacion
