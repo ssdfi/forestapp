@@ -75,7 +75,7 @@ namespace :db do
             )
 
             if tmp_pago.tipo == 'Agrupado'
-              pago.pagos_titulares.create!(
+              pago.titulares.create!(
                 actividad_titular: get_actividad_titular(tmp_pago, actividad[:actividad])
               )
             end
