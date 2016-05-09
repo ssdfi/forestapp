@@ -19,9 +19,9 @@ class Plantacion < ActiveRecord::Base
   has_many :actividades, through: :actividades_plantaciones
   has_many :movimientos, through: :actividades
   has_many :expedientes, through: :movimientos
-  has_and_belongs_to_many :plantaciones_nuevas, -> { uniq }, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+  has_and_belongs_to_many :plantaciones_nuevas, class_name: 'Plantacion', join_table: 'plantaciones_historico',
     foreign_key: 'plantacion_anterior_id', association_foreign_key: 'plantacion_nueva_id', autosave: true
-  has_and_belongs_to_many :plantaciones_anteriores, -> { uniq }, class_name: 'Plantacion', join_table: 'plantaciones_historico',
+  has_and_belongs_to_many :plantaciones_anteriores, class_name: 'Plantacion', join_table: 'plantaciones_historico',
     foreign_key: 'plantacion_nueva_id', association_foreign_key: 'plantacion_anterior_id'
   has_many :validaciones
 
