@@ -34,3 +34,27 @@ RAKE es una herramienta para correr tareas. RAILS genera algunas tareas para adm
 	rake db:migrate
 8. Ahora importo el dump que realicé.
 	psql -h localhost -U martin -f elarchivitodedump.dump.sql -d forestal
+
+
+
+### ANEXOS ###
+Problemas con los cálculos geoespaciales? Problemas? A los problemas digale NO ME IMPORTA;
+#Seguramente tendrán algún problema con la instalación de RGEO, bueno primero vemos en la consola de RAILS
+(Nos paramos en el proyecto y tiramos "rails c" o "rails console")
+Y una vez dentro de la consola, consultamos: RGeo::Geos.supported? , si les da False, esta puede ser una solución:
+#Eliminamos la instalación previa de RGEO
+gem uninstall rgeo
+
+#Instalamos los GEOS paquetes
+sudo apt-get install libgeos-dev
+sudo apt-get install libgeos-3.3.8
+
+#Esto ya tendrían que tener instalado, es muy probable que no tengan que instalarlo.
+sudo apt-get install proj
+
+#Creamos un link simbólico llamado libgeos.so
+cd /usr/lib
+ln -s libgeos-3.3.8.so libgeos.so
+
+#Y luego reinstalar los bundles que faltan
+bundle install
