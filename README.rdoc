@@ -1,3 +1,60 @@
 == ForestApp
 
 Aplicación de administración de expedientes de la Dirección de Producción Forestal del Ministerio de Agricultura, Ganadería y Pesca de la República Argentina
+
+RVM es un manejador de versiones de ruby que te permite tener instalada más de una versión de la misma máquina. Si se usaría un ruby de sistema sólo, podrías tener un ruby a la vez; pero como en general cada proyecto utiliza distintas versiones de cada cosa, el objetivo de rvm es que puedas tener más de una y usar la que corresponda en cada caso.
+
+GEMSETS son grupos de GEMS. Los GEMS son paquetes (librerías de RUBY). La idea es crear un GEMSET por proyecto para tener las depedencias de cada proyecto por separado. Porque al igual que ruby, se podría estar usando una versión de un GEM en un proyecto y otra versión en otro. RAILS por ejemplo es un GEM, entonces.. Se podría tener un proyecto con rails 3, otro con 4.1 otro con 4.2, etc. Y si cada proyecto tiene su GEMET, ninguno va a tener problemas con el otro.
+
+BUNDLER también es un GEM que permite manejar las dependencias de un proyecto. Hay un archivo que se llama GEMFILE que contiene las dependencias del proyecto. BUNDLER usa ese archivo para saber qué tiene que instalar. Se podría instalar los GEM uno por uno a mano, pero BUNDLER te lo simplifica.
+
+RAKE es una herramienta para correr tareas. RAILS genera algunas tareas para administrar la base de datos.
+
+
+
+1. Instar rvm
+	sudo apt-get install rvm
+2. Hacer clone del proyecto
+	https://github.com/maurimiranda/forestapp/
+3. Instalar Ruby 2.1.2
+	rvm install 2.1.2
+4. Crear Gemset
+	rvm gemset create forestal
+5. Pararse en dentro del directorio del repo (para que instale todas las gemas necesarias);
+	bundle install
+6. Tuve que instalar primero para seguir;
+	sudo apt-get install freetds-dev
+	gem install tiny_tds -v '0.6.2'
+	//bundle update
+	//sudo apt-get install nodejs
+	gem install uglifier -v '2.5.3'
+6. Creo la base de datos;
+	rake db:create
+7. Le meto todas las tablas a esa base de datos;
+	rake db:migrate
+8. Ahora importo el dump que realicé.
+	psql -h localhost -U martin -f elarchivitodedump.dump.sql -d forestal
+
+
+
+### ANEXOS ###
+Problemas con los cálculos geoespaciales? Problemas? A los problemas digale NO ME IMPORTA;
+#Seguramente tendrán algún problema con la instalación de RGEO, bueno primero vemos en la consola de RAILS
+(Nos paramos en el proyecto y tiramos "rails c" o "rails console")
+Y una vez dentro de la consola, consultamos: RGeo::Geos.supported? , si les da False, esta puede ser una solución:
+#Eliminamos la instalación previa de RGEO
+gem uninstall rgeo
+
+#Instalamos los GEOS paquetes
+sudo apt-get install libgeos-dev
+sudo apt-get install libgeos-3.3.8
+
+#Esto ya tendrían que tener instalado, es muy probable que no tengan que instalarlo.
+sudo apt-get install proj
+
+#Creamos un link simbólico llamado libgeos.so
+cd /usr/lib
+ln -s libgeos-3.3.8.so libgeos.so
+
+#Y luego reinstalar los bundles que faltan
+bundle install
